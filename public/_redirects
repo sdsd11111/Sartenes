@@ -5,4 +5,5 @@
 /api/*    /api/:splat    200
 
 # Admin
-/admin/*  /admin/:splat  200
+/admin    /admin/index.html  200
+/admin/*  /admin/:splat      200
