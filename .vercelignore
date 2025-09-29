@@ -1,7 +1,5 @@
-# Dependencias
+# Solo excluir node_modules y archivos de entorno
 node_modules/
-
-# Archivos de entorno
 .env
 .env.*
 !.env.example
@@ -10,7 +8,17 @@ node_modules/
 .vscode/
 .idea/
 *.log
+*.log.*
 
 # Archivos del sistema operativo
 .DS_Store
 Thumbs.db
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos de respaldo
+*.bak
+*.backup
+*~
