@@ -5,5 +5,9 @@
 /api/*    /api/:splat    200
 
 # Admin
+/admin/*  /admin/:splat  200
 /admin    /admin/index.html  200
-/admin/*  /admin/:splat      200
+
+# Manejo de errores
+/404     /404.html   404
+/*       /index.html   200

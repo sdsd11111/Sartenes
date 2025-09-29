@@ -12,14 +12,6 @@
     {
       "src": "*.{html,css,js}",
       "use": "@vercel/static"
-    },
-    {
-      "src": "components/**/*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "images/**/*",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
