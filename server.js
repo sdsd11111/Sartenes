@@ -138,13 +138,6 @@ app.get('/api/platos', async (req, res) => {
   }
 });
 
-// Ruta para manejar todas las demás peticiones y servir el index.html
-app.get('*', (req, res) => {
-  // En producción, Vercel manejará los archivos estáticos
-  // Solo necesitamos asegurarnos de que todas las rutas no-API sirvan index.html
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 // Manejador de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -153,21 +146,23 @@ app.use((err, req, res, next) => {
 
 // Iniciar el servidor solo si no estamos en un entorno serverless (como Vercel)
 if (process.env.VERCEL !== '1') {
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
     console.log(`Visita http://localhost:${PORT}`);
-    process.exit(1);
+  });
+
+  // Manejo de cierre de la aplicación
+  process.on('SIGTERM', () => {
+    console.log('\n🔴 Recibida señal de terminación. Cerrando servidor...');
+    server.close(() => {
+      console.log('✅ Servidor cerrado correctamente');
+      process.exit(0);
+    });
   });
 }
 
-// Manejo de cierre de la aplicación
-process.on('SIGTERM', () => {
-  console.log('\n🔴 Recibida señal de terminación. Cerrando servidor...');
-  server.close(() => {
-    console.log('✅ Servidor cerrado correctamente');
-    process.exit(0);
-  });
-});
+// Exportar la aplicación para Vercel
+module.exports = app;
 
 process.on('unhandledRejection', (err) => {
   console.error('\n❌ Error no manejado en una promesa:', err);
