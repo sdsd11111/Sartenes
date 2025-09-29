@@ -178,8 +178,11 @@ function startServer() {
   });
 }
 
-// Iniciar el servidor solo si no estamos en modo de prueba
-if (require.main === module) {
+// Export the Express API for Vercel
+module.exports = app;
+
+// Iniciar el servidor solo si no estamos en modo de prueba o en Vercel
+if (process.env.VERCEL !== '1' && require.main === module) {
   startServer().catch(err => {
     console.error('No se pudo iniciar el servidor:', err);
     process.exit(1);
