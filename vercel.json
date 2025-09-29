@@ -11,11 +11,8 @@
     }
   ],
   "routes": [
-    { "handle": "filesystem" },
     { "src": "/api/(.*)", "dest": "/server.js" },
-    { "src": "/(.*)", "dest": "/public/index.html" }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/public/index.html" }
+    { "src": "/(.*)", "dest": "/public/$1" },
+    { "src": "/(.*)", "dest": "/public/index.html", "status": 200 }
   ]
 }

@@ -8,6 +8,11 @@
 *.sqlite
 *.sqlite3
 
+# Environment
+.env
+.env.*
+!.env.example
+
 # Environment variables
 .env
 .env.local

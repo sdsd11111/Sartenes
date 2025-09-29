@@ -55,11 +55,13 @@ app.use(express.static(rootPath, {
   extensions: ['html', 'htm', 'css', 'js', 'json', 'png', 'jpg', 'jpeg', 'gif', 'ico', 'svg']
 }));
 
+// Servir imágenes desde la carpeta images
 const imagesPath = path.join(rootPath, 'images');
 if (fs.existsSync(imagesPath)) {
   app.use('/images', express.static(imagesPath));
   console.log('✅ Imágenes habilitadas en /images');
 }
+
 // Manejo de rutas del lado del cliente para SPA
 app.get('*', (req, res) => {
   // Si es una petición de API, devolver 404
