@@ -49,17 +49,34 @@ if (fs.existsSync(publicPath)) {
   console.log('✅ Archivos estáticos públicos habilitados en /public');
 }
 
-// Servir archivos estáticos de la raíz (solo archivos específicos)
-app.use(express.static(rootPath, {
-  index: false, // No servir automáticamente index.html
-  extensions: ['html', 'htm', 'css', 'js', 'json', 'png', 'jpg', 'jpeg', 'gif', 'ico', 'svg']
-}));
+// Servir archivos estáticos de la raíz
+app.use(express.static(rootPath));
 
-// Servir imágenes desde la carpeta images
+// Servir archivos estáticos de la carpeta public
+if (fs.existsSync(publicPath)) {
+  app.use(express.static(publicPath));
+  console.log('✅ Archivos estáticos públicos habilitados en /public');
+}
+
+// Servir archivos estáticos de la carpeta components
+const componentsPath = path.join(rootPath, 'components');
+if (fs.existsSync(componentsPath)) {
+  app.use('/components', express.static(componentsPath));
+  console.log('✅ Componentes habilitados en /components');
+}
+
+// Servir archivos estáticos de la carpeta images
 const imagesPath = path.join(rootPath, 'images');
 if (fs.existsSync(imagesPath)) {
   app.use('/images', express.static(imagesPath));
   console.log('✅ Imágenes habilitadas en /images');
+}
+
+// Servir archivos estáticos de la carpeta admin
+const adminPath = path.join(rootPath, 'admin');
+if (fs.existsSync(adminPath)) {
+  app.use('/admin', express.static(adminPath));
+  console.log('✅ Admin habilitado en /admin');
 }
 
 // Manejo de rutas del lado del cliente para SPA
@@ -79,13 +96,8 @@ app.get('*', (req, res) => {
   });
 });
 
-// Configuración del panel de administración
-const adminPath = path.join(rootPath, 'admin');
+// Manejar rutas SPA para el panel de administración
 if (fs.existsSync(adminPath)) {
-  // Servir archivos estáticos del panel de administración
-  app.use('/admin', express.static(adminPath));
-  
-  // Manejar rutas SPA para el panel de administración
   app.get('/admin*', (req, res) => {
     res.sendFile(path.join(adminPath, 'index.html'), {
       headers: {
