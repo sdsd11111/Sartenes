@@ -1,0 +1,35 @@
+{
+  "name": "los-sartenes",
+  "version": "1.0.0",
+  "description": "Sistema de gestión de menú para Los Sartenes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "migrate": "mysql -u root -p < database/migrations/001_create_platos_del_dia.sql",
+    "setup": "npm install && npm run migrate"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": [
+    "restaurant",
+    "menu",
+    "management",
+    "nodejs",
+    "express",
+    "mysql"
+  ],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Descubre nuestros Festivales de Mariscos y la Bandeja Parrillera. La mejor opción de parrilladas en Loja para compartir en familia o con amigos.">
+    <title>Bandejas y Festivales de Parrilladas en Loja | Comida para Compartir | Los Sartenes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .menu-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .menu-card .content {
+            position: relative;
+            z-index: 2;
+            background: white;
+            margin-top: 220px;
+            border-radius: 1.5rem 1.5rem 0 0;
+            padding-top: 2rem;
+            margin-top: -2rem;
+        }
+        .menu-card .image-container {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        .menu-card .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .menu-card:hover .image-container img {
+            transform: scale(1.05);
+        }
+        .wave-divider {
+            margin-top: -1px;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .wave-divider svg {
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+        .wave-divider .shape-fill {
+            fill: #1A531A;
+        }
+        .grill-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF8C42' fill-opacity='0.1'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .serves-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #FF8C42;
+            color: white;
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-white font-['Open_Sans'] pt-16">
+    <!-- Componente Header -->
+    <div id="header-component">
+        <!-- El contenido del header se cargará aquí mediante JavaScript -->
+    </div>
+
+    <!-- Hero Section -->
+    <section class="h-screen w-full bg-cover bg-center relative" style="background-image: url('../img/menu/parrilladas-bg.jpg');">
+        <div class="absolute inset-0 bg-[#1A531A] opacity-70"></div>
+        <div class="h-full flex items-center justify-center relative z-10">
+            <div class="text-center text-white px-4">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-['Playfair_Display']">Festival y Parrilladas de Lujo</h1>
+                <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Celebra en grande con nuestras especialidades para compartir. Experiencias culinarias inolvidables para los momentos más especiales.</p>
+                <a href="#menu" class="bg-[#FF8C42] hover:bg-[#e67e38] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 inline-block">Ver Especialidades</a>
+            </div>
+        </div>
+        
+        <!-- Wave divider -->
+        <div class="wave-divider absolute bottom-0 left-0 w-full">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,86c57.52-8.15,108.87-41.9,128.38-97.05,1.56-4.48,3.04-9.01,4.42-13.57C1015.31,10.9,1010.93,3.31,1008.66,0H0Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Contenido principal -->
+    <main class="bg-gray-50 py-8 md:py-16 relative overflow-hidden">
+        <!-- Patrón decorativo sutil -->
+        <div class="absolute inset-0 grill-pattern opacity-20"></div>
+        
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#1A531A] mb-4 font-['Playfair_Display']">Especialidades para Compartir</h2>
+                <div class="w-24 h-1 bg-[#FF8C42] mx-auto mb-6"></div>
+                <p class="text-gray-600 text-lg">Celebra los momentos especiales con nuestras creaciones culinarias diseñadas para compartir en compañía de tus seres queridos.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 max-w-6xl mx-auto">
+                        </div>
+                    </div>
+                    <div class="content p-8">
+                        <h3 class="text-2xl md:text-3xl font-bold text-[#1A531A] mb-4">Festival de Mariscos</h3>
+                        <p class="text-gray-600 mb-6 text-lg">Una exquisita selección de los más frescos mariscos: langostino, pescado, calamar y camarón, cocinados en una deliciosa salsa a la mantequilla. Acompañado de arroz y papas doradas al horno.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-3xl font-bold text-[#FF8C42]">$18.00</span>
+                            <span class="text-sm text-gray-500">*Precio por bandeja familiar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plato 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg menu-card">
+                    <div class="image-container">
+                        <img src="../img/menu/bandeja-parrillera.jpg" alt="Bandeja Parrillera">
+                        <div class="serves-badge">
+                            <i class="fas fa-users mr-1"></i> 4-6 personas
+                        </div>
+                    </div>
+                    <div class="content p-8">
+                        <h3 class="text-2xl md:text-3xl font-bold text-[#1A531A] mb-4">Bandeja Parrillera</h3>
+                        <p class="text-gray-600 mb-6 text-lg">Una experiencia completa de sabores: lomo fino, pechuga de pollo, chuleta ahumada y salchicha, acompañados de huevos, arroz, papas fritas crujientes, vegetales frescos al vapor y nuestra exclusiva salsa chimichurri casera.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-3xl font-bold text-[#FF8C42]">$20.00</span>
+                            <span class="text-sm text-gray-500">*Precio por bandeja familiar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de promoción -->
+            <div class="mt-20 bg-gradient-to-r from-[#1A531A] to-[#2E7D32] rounded-xl p-8 text-white text-center max-w-4xl mx-auto relative overflow-hidden">
+                <!-- Elemento decorativo -->
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-[#FF8C42] rounded-full opacity-10"></div>
+                <div class="absolute -left-10 -top-10 w-32 h-32 bg-[#FF8C42] rounded-full opacity-10"></div>
+                
+                <h3 class="text-2xl md:text-3xl font-bold mb-4 font-['Playfair_Display'] relative z-10">¿Planeas una celebración especial?</h3>
+                <p class="text-lg mb-6 relative z-10">Reserva con anticipación para grupos grandes y disfruta de una experiencia gastronómica inolvidable con tus seres queridos.</p>
+                <a href="https://wa.me/59372587432?text=Hola%20Los%20Sartenes,%20quisiera%20reservar%20una%20mesa%20para%20un%20grupo%20y%20consultar%20por%20las%20bandejas%20familiares" 
+                   class="bg-[#FF8C42] hover:bg-[#e67e38] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 inline-block relative z-10"
+                   target="_blank">
+                    <i class="fas fa-calendar-alt mr-2"></i> Reservar Ahora
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/59372587432?text=Hola%20Los%20Sartenes,%20quisiera%20reservar%20una%20mesa%20y%20consultar%20por%20las%20bandejas%20familiares" 
+       class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg z-40 transition-all duration-300 transform hover:scale-110 flex items-center"
+       target="_blank"
+       aria-label="Reservar por WhatsApp">
+        <i class="fab fa-whatsapp text-2xl"></i>
+        <span class="ml-2 font-semibold hidden md:inline">¡Reserva Ahora!</span>
+    </a>
+
+    <!-- Componente Footer -->
+    <div id="footer-component">
+        <!-- El contenido del footer se cargará aquí mediante JavaScript -->
+    </div>
+    
+    <!-- Scripts -->
+    <script src="../js/components.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
