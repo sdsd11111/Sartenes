@@ -1,1 +1,8 @@
-/* /index.html 200
+# Redirecciones para SPA
+/*    /index.html   200
+
+# API
+/api/*    /api/:splat    200
+
+# Admin
+/admin/*  /admin/:splat  200
