@@ -1,5 +1,16 @@
-# Only exclude node_modules and environment files
+# Dependencias
 node_modules/
+
+# Archivos de entorno
 .env
 .env.*
 !.env.example
+
+# Archivos de desarrollo
+.vscode/
+.idea/
+*.log
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db

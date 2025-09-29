@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "build": "",
-    "vercel-build": "echo 'No build step required'",
+    "build": "echo 'Build step completed'",
+    "vercel-build": "npm install && npm run build",
     "migrate": "mysql -u root -p < database/migrations/001_create_platos_del_dia.sql",
     "setup": "npm install && npm run migrate"
   },
