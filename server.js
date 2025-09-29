@@ -55,15 +55,20 @@ app.use(express.static(rootPath, {
   extensions: ['html', 'htm', 'css', 'js', 'json', 'png', 'jpg', 'jpeg', 'gif', 'ico', 'svg']
 }));
 
-// Servir imágenes desde la carpeta images
 const imagesPath = path.join(rootPath, 'images');
 if (fs.existsSync(imagesPath)) {
   app.use('/images', express.static(imagesPath));
   console.log('✅ Imágenes habilitadas en /images');
 }
-// Ruta para el index.html principal
-app.get('/', (req, res) => {
-  res.sendFile(path.join(rootPath, 'index.html'), {
+// Manejo de rutas del lado del cliente para SPA
+app.get('*', (req, res) => {
+  // Si es una petición de API, devolver 404
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ error: 'Endpoint no encontrado' });
+  }
+  
+  // Para cualquier otra ruta, servir index.html
+  res.sendFile(path.join(publicPath, 'index.html'), {
     headers: {
       'Cache-Control': 'no-cache, no-store, must-revalidate',
       'Pragma': 'no-cache',
