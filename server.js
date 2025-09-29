@@ -1,202 +1,161 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const fs = require('fs');
+const mysql = require('mysql2/promise');
+require('dotenv').config();
 
-// =============================================
-// 1. CONFIGURACIÓN BÁSICA DEL SERVIDOR
-// =============================================
 const app = express();
-const PORT = process.env.PORT || 8001;
+const PORT = process.env.PORT || 3000;
 
-// Configuración de middlewares básicos
+// Configuración de la base de datos
+const dbConfig = {
+  host: process.env.DB_HOST || 'localhost', 
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'sartenes_db',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+};
+
+// Crear pool de conexiones
+const pool = mysql.createPool(dbConfig);
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// =============================================
-// 2. CONFIGURACIÓN DE RUTAS DE LA API
-// =============================================
-
-// Importar rutas de la API
-const platosRouter = require('./routes/api/platos');
-
-// Ruta de estado de la API
-app.get('/api/status', (req, res) => {
-  res.json({ 
-    status: 'API funcionando correctamente', 
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development',
-    version: '1.0.0'
-  });
+// Ruta de prueba
+app.get('/api/test', (req, res) => {
+  res.json({ message: '¡La API está funcionando correctamente!' });
 });
 
-// Registrar rutas de la API
-app.use('/api', platosRouter);
-console.log('✅ Rutas de la API registradas en /api');
+// Ruta para obtener los platos activos
+app.get('/api/platos-activos', async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      'SELECT * FROM platos_del_dia WHERE activo = 1 ORDER BY orden ASC'
+    );
+    res.json(rows);
+  } catch (error) {
+    console.error('Error al obtener platos activos:', error);
+    res.status(500).json({ error: 'Error al obtener los platos activos' });
+  }
+});
 
-// =============================================
-// 3. CONFIGURACIÓN DE ARCHIVOS ESTÁTICOS
-// =============================================
+// Ruta para actualizar el estado de un plato
+app.put('/api/platos/:id/estado', async (req, res) => {
+  const { id } = req.params;
+  const { activo } = req.body;
+  
+  try {
+    await pool.query(
+      'UPDATE platos_del_dia SET activo = ? WHERE id = ?',
+      [activo ? 1 : 0, id]
+    );
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error al actualizar estado del plato:', error);
+    res.status(500).json({ error: 'Error al actualizar el estado del plato' });
+  }
+});
 
-// Configuración de rutas
-const rootPath = __dirname; // Ruta raíz del proyecto
-const publicPath = path.join(rootPath, 'public');
+// Ruta para actualizar un plato
+app.put('/api/platos/:id', async (req, res) => {
+  const { id } = req.params;
+  const { nombre, descripcion, precio } = req.body;
+  
+  try {
+    await pool.query(
+      'UPDATE platos_del_dia SET nombre = ?, descripcion = ?, precio = ? WHERE id = ?',
+      [nombre, descripcion, precio, id]
+    );
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error al actualizar el plato:', error);
+    res.status(500).json({ error: 'Error al actualizar el plato' });
+  }
+});
 
-// Servir archivos estáticos de la carpeta public si existe
-if (fs.existsSync(publicPath)) {
-  app.use(express.static(publicPath));
-  console.log('✅ Archivos estáticos públicos habilitados en /public');
-}
+// Ruta para eliminar un plato
+app.delete('/api/platos/:id', async (req, res) => {
+  const { id } = req.params;
+  
+  try {
+    await pool.query('DELETE FROM platos_del_dia WHERE id = ?', [id]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error al eliminar el plato:', error);
+    res.status(500).json({ error: 'Error al eliminar el plato' });
+  }
+});
 
-// Servir archivos estáticos de la raíz
-app.use(express.static(rootPath));
+// Ruta para crear un nuevo plato
+app.post('/api/platos', async (req, res) => {
+  const { nombre, descripcion, precio } = req.body;
+  
+  try {
+    const [result] = await pool.query(
+      'INSERT INTO platos_del_dia (nombre, descripcion, precio, activo, orden) VALUES (?, ?, ?, 1, 0)',
+      [nombre, descripcion, precio]
+    );
+    
+    // Obtener el plato recién creado
+    const [plato] = await pool.query('SELECT * FROM platos_del_dia WHERE id = ?', [result.insertId]);
+    res.status(201).json(plato[0]);
+  } catch (error) {
+    console.error('Error al crear el plato:', error);
+    res.status(500).json({ error: 'Error al crear el plato' });
+  }
+});
 
-// Servir archivos estáticos de la carpeta public
-if (fs.existsSync(publicPath)) {
-  app.use(express.static(publicPath));
-  console.log('✅ Archivos estáticos públicos habilitados en /public');
-}
+// Ruta para actualizar el orden de los platos
+app.put('/api/platos/orden', async (req, res) => {
+  const { platos } = req.body;
+  
+  try {
+    const promises = platos.map((plato, index) => 
+      pool.query('UPDATE platos_del_dia SET orden = ? WHERE id = ?', [index, plato.id])
+    );
+    
+    await Promise.all(promises);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error al actualizar el orden de los platos:', error);
+    res.status(500).json({ error: 'Error al actualizar el orden de los platos' });
+  }
+});
 
-// Servir archivos estáticos de la carpeta components
-const componentsPath = path.join(rootPath, 'components');
-if (fs.existsSync(componentsPath)) {
-  app.use('/components', express.static(componentsPath));
-  console.log('✅ Componentes habilitados en /components');
-}
+// Ruta para obtener todos los platos (incluyendo inactivos)
+app.get('/api/platos', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM platos_del_dia ORDER BY orden ASC');
+    res.json(rows);
+  } catch (error) {
+    console.error('Error al obtener todos los platos:', error);
+    res.status(500).json({ error: 'Error al obtener los platos' });
+  }
+});
 
-// Servir archivos estáticos de la carpeta images
-const imagesPath = path.join(rootPath, 'images');
-if (fs.existsSync(imagesPath)) {
-  app.use('/images', express.static(imagesPath));
-  console.log('✅ Imágenes habilitadas en /images');
-}
-
-// Servir archivos estáticos de la carpeta admin
-const adminPath = path.join(rootPath, 'admin');
-if (fs.existsSync(adminPath)) {
-  app.use('/admin', express.static(adminPath));
-  console.log('✅ Admin habilitado en /admin');
-}
-
-// Manejo de rutas del lado del cliente para SPA
+// Ruta para manejar todas las demás peticiones y servir el index.html
 app.get('*', (req, res) => {
-  // Si es una petición de API, devolver 404
-  if (req.path.startsWith('/api/')) {
-    return res.status(404).json({ error: 'Endpoint no encontrado' });
-  }
-  
-  // Para cualquier otra ruta, servir index.html
-  res.sendFile(path.join(publicPath, 'index.html'), {
-    headers: {
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    }
-  });
+  // En producción, Vercel manejará los archivos estáticos
+  // Solo necesitamos asegurarnos de que todas las rutas no-API sirvan index.html
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Manejar rutas SPA para el panel de administración
-if (fs.existsSync(adminPath)) {
-  app.get('/admin*', (req, res) => {
-    res.sendFile(path.join(adminPath, 'index.html'), {
-      headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0'
-      }
-    });
-  });
-  
-  console.log(`✅ Panel de administración habilitado en /admin`);
-} else {
-  console.warn('⚠️ No se encontró la carpeta del panel de administración');
-}
-
-console.log(`✅ Página principal: ${path.join(rootPath, 'index.html')}`);
-
-// =============================================
-// 5. MANEJO DE ERRORES
-// =============================================
-
-// Manejar rutas no encontradas (404)
-app.use((req, res, next) => {
-  if (req.accepts('html')) {
-    // Si el cliente acepta HTML, sirve la página 404 personalizada
-    const notFoundPath = path.join(publicPath, '404.html');
-    if (fs.existsSync(notFoundPath)) {
-      return res.status(404).sendFile(notFoundPath);
-    }
-  }
-  
-  // Si no, devuelve un JSON con el error
-  res.status(404).json({ 
-    success: false,
-    error: 'Ruta no encontrada',
-    path: req.path,
-    method: req.method,
-    timestamp: new Date().toISOString()
-  });
-});
-
-// Manejador de errores global
+// Manejador de errores
 app.use((err, req, res, next) => {
-  console.error('❌ Error global:', err);
-  
-  // Determinar el código de estado (predeterminado: 500)
-  const statusCode = err.statusCode || 500;
-  
-  // Construir la respuesta de error
-  const errorResponse = {
-    success: false,
-    error: err.message || 'Error interno del servidor',
-    timestamp: new Date().toISOString()
-  };
-  
-  // Solo incluir detalles del error en desarrollo
-  if (process.env.NODE_ENV === 'development') {
-    errorResponse.stack = err.stack;
-  }
-  
-  res.status(statusCode).json(errorResponse);
+  console.error(err.stack);
+  res.status(500).send('¡Algo salió mal!');
 });
 
-// =============================================
-// 6. INICIO DEL SERVIDOR
-// =============================================
-
-// Función para iniciar el servidor
-function startServer() {
-  return new Promise((resolve, reject) => {
-    const server = app.listen(PORT, '0.0.0.0', () => {
-      console.log(`\n✅ Servidor ejecutándose en http://localhost:${PORT}`);
-      console.log(`🔧 Modo: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`📊 Panel de administración: http://localhost:${PORT}/admin`);
-      console.log(`🌐 API Base URL: http://localhost:${PORT}/api`);
-      console.log(`🏠 Página de inicio: http://localhost:${PORT}`);
-      console.log('\nPresiona Ctrl+C para detener el servidor\n');
-      
-      resolve(server);
-    }).on('error', (err) => {
-      if (err.code === 'EADDRINUSE') {
-        console.error(`\n❌ Error: El puerto ${PORT} ya está en uso.`);
-        console.log('Por favor, cierra cualquier otra instancia del servidor o usa un puerto diferente.');
-        console.log('Puedes cambiar el puerto modificando la variable de entorno PORT o en el archivo .env\n');
-      } else {
-        console.error('\n❌ Error al iniciar el servidor:', err);
-      }
-      reject(err);
-    });
-  });
-}
-
-// Export the Express API for Vercel
-module.exports = app;
-
-// Iniciar el servidor solo si no estamos en Vercel
+// Iniciar el servidor solo si no estamos en un entorno serverless (como Vercel)
 if (process.env.VERCEL !== '1') {
-  startServer().catch(err => {
-    console.error('No se pudo iniciar el servidor:', err);
+  app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
+    console.log(`Visita http://localhost:${PORT}`);
     process.exit(1);
   });
 }
