@@ -140,6 +140,11 @@
     </div>
 
     <script>
+        // Configuración de la API
+        const API_BASE_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:9000/api' 
+            : 'https://sartenes.vercel.app/api';
+            
         // Variables globales
         let platos = [];
         
@@ -177,7 +182,7 @@
         async function cargarPlatos() {
             try {
                 console.log('Cargando lista de platos...');
-                const response = await fetch('/api/platos');
+                const response = await fetch(`${API_BASE_URL}/platos`);
                 if (!response.ok) {
                     const error = await response.json().catch(() => ({}));
                     throw new Error(error.error || 'Error al cargar los platos');
@@ -308,7 +313,7 @@
                 
                 console.log('Enviando datos:', Object.fromEntries(formData));
                 
-                const response = await fetch('/api/platos', {
+                const response = await fetch(`${API_BASE_URL}/platos`, {
                     method: 'POST',
                     body: formData
                 });
@@ -375,7 +380,7 @@
             }
             
             try {
-                const response = await fetch(`/api/platos/${id}`, {
+                const response = await fetch(`${API_BASE_URL}/platos/${id}`, {
                     method: 'DELETE'
                 });
                 

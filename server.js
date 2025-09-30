@@ -7,7 +7,7 @@ const multer = require('multer');
 require('dotenv').config();
 
 const app = express();
-const PORT = 9000;
+const PORT = process.env.PORT || 9000;
 
 // Configuración de Supabase
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -15,7 +15,19 @@ const supabaseKey = process.env.SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['https://sartenes.vercel.app', 'http://localhost:3000', 'http://localhost:9000'],
+  credentials: true
+}));
+
+// Servir archivos estáticos
+app.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -2,8 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const heroSection = document.getElementById('hero-plato-del-dia');
     const platosContainer = document.getElementById('platos-dinamicos-container');
     
-    // Usar URL relativa para la API
-    const API_URL = '/api/platos-activos';
+    // URL base para la API
+    const API_URL = window.location.hostname === 'localhost' 
+        ? 'http://localhost:9000/api/platos-activos'
+        : 'https://sartenes.vercel.app/api/platos-activos';
     let platosData = [];
     let currentPlatoIndex = 0;
     let slideInterval;
