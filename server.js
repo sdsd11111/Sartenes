@@ -1,102 +1,174 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const cors = require('cors');
-const mysql = require('mysql2/promise');
+const { createClient } = require('@supabase/supabase-js');
+const multer = require('multer');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 9000;
 
-// Configuración de la base de datos
-const dbConfig = {
-  host: process.env.DB_HOST || 'localhost', 
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'sartenes_db',
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-};
-
-// Crear pool de conexiones
-const pool = mysql.createPool(dbConfig);
+// Configuración de Supabase
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Ruta de prueba
-app.get('/api/test', (req, res) => {
-  res.json({ message: '¡La API está funcionando correctamente!' });
+// Configuración de multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const dir = path.join(__dirname, 'public', 'images', 'platos');
+    if (!fs.existsSync(dir)) { 
+      fs.mkdirSync(dir, { recursive: true }); 
+    }
+    cb(null, dir);
+  },
+  filename: function (req, file, cb) {
+    const titulo = (req.body.titulo || 'plato').toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+    cb(null, titulo + path.extname(file.originalname).toLowerCase());
+  }
 });
 
-// Ruta para obtener los platos activos (mantener compatibilidad con versiones anteriores)
+const upload = multer({ storage: storage });
+
+// Rutas de la API
+app.get('/api/test', (req, res) => {
+  res.json({ message: '¡API funcionando correctamente con Supabase!' });
+});
+
+// Crear o actualizar plato
+app.post('/api/platos', upload.single('imagen'), async (req, res) => {
+  try {
+    console.log('Body recibido:', req.body);
+    console.log('Archivo recibido:', req.file);
+    
+    const { titulo, descripcion, valor, activo, id } = req.body;
+    const platoId = id; // Para actualización
+    
+    // Manejo de la imagen
+    let imagen_url = req.body.imagen_url || '';
+    if (req.file) {
+      imagen_url = '/images/platos/' + req.file.filename;
+    }
+    
+    const platoData = { 
+      titulo, 
+      descripcion, 
+      precio: parseFloat(valor),
+      activo: activo === 'on' || activo === true || activo === 'true',
+      imagen_url
+    };
+    
+    console.log('Datos del plato a guardar:', platoData);
+    
+    // Si hay un ID, actualizamos el plato existente
+    if (platoId && platoId !== 'undefined') {
+      console.log('Actualizando plato existente con ID:', platoId);
+      const { data, error } = await supabase
+        .from('platos')
+        .update(platoData)
+        .eq('id', platoId)
+        .select()
+        .single();
+        
+      if (error) throw error;
+      console.log('Plato actualizado:', data);
+      return res.json(data);
+    } 
+    // Si no hay ID, creamos un nuevo plato
+    else {
+      console.log('Creando nuevo plato');
+      const { data, error } = await supabase
+        .from('platos')
+        .insert([platoData])
+        .select()
+        .single();
+        
+      if (error) throw error;
+      console.log('Nuevo plato creado:', data);
+      return res.status(201).json(data);
+    }
+  } catch (error) {
+    console.error('❌ Error al guardar el plato:', error);
+    res.status(500).json({ 
+      error: 'Error al guardar el plato',
+      details: error.message 
+    });
+  }
+});
+
+// Obtener todos los platos para el panel de administración
+app.get('/api/platos', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('platos')
+      .select('*')
+      .order('id', { ascending: true });
+
+    if (error) throw error;
+    
+    // Mapear los campos para el frontend
+    const platos = data.map(item => ({
+      id: item.id,
+      titulo: item.titulo,
+      descripcion: item.descripcion,
+      valor: item.precio,
+      activo: item.activo || false,
+      imagen_url: item.imagen_url || ''
+    }));
+    
+    res.json(platos);
+  } catch (error) {
+    console.error('Error al cargar platos:', error);
+    res.status(500).json({ error: 'Error al cargar los platos' });
+  }
+});
+
+// Obtener platos activos para la vista pública
 app.get('/api/platos-activos', async (req, res) => {
   try {
-    const [rows] = await pool.query(
-      'SELECT * FROM platos_del_dia WHERE activo = 1 ORDER BY orden ASC'
-    );
-    res.json(rows);
+    const { data, error } = await supabase
+      .from('platos')
+      .select('*')
+      .eq('activo', true);
+
+    if (error) throw error;
+    
+    // Mapear los campos para la vista pública
+    const platos = data.map(item => ({
+      id: item.id,
+      titulo: item.titulo,
+      descripcion: item.descripcion,
+      precio: item.precio,
+      imagen_url: item.imagen_url || ''
+    }));
+    
+    res.json(platos);
   } catch (error) {
-    console.error('Error al obtener platos activos:', error);
-    res.status(500).json({ error: 'Error al obtener los platos activos' });
+    console.error('Error al cargar platos activos:', error);
+    res.status(500).json({ error: 'Error al cargar los platos' });
   }
 });
 
-// Ruta para obtener los platos activos (nueva ruta con plural)
-app.get('/api/platos/activos', async (req, res) => {
-  try {
-    const [rows] = await pool.query(
-      'SELECT * FROM platos_del_dia WHERE activo = 1 ORDER BY orden ASC'
-    );
-    res.json(rows);
-  } catch (error) {
-    console.error('Error al obtener platos activos:', error);
-    res.status(500).json({ error: 'Error al obtener los platos activos' });
-  }
-});
-
-// Ruta para actualizar el estado de un plato
-app.put('/api/platos/:id/estado', async (req, res) => {
-  const { id } = req.params;
-  const { activo } = req.body;
-  
-  try {
-    await pool.query(
-      'UPDATE platos_del_dia SET activo = ? WHERE id = ?',
-      [activo ? 1 : 0, id]
-    );
-    res.json({ success: true });
-  } catch (error) {
-    console.error('Error al actualizar estado del plato:', error);
-    res.status(500).json({ error: 'Error al actualizar el estado del plato' });
-  }
-});
-
-// Ruta para actualizar un plato
-app.put('/api/platos/:id', async (req, res) => {
-  const { id } = req.params;
-  const { nombre, descripcion, precio } = req.body;
-  
-  try {
-    await pool.query(
-      'UPDATE platos_del_dia SET nombre = ?, descripcion = ?, precio = ? WHERE id = ?',
-      [nombre, descripcion, precio, id]
-    );
-    res.json({ success: true });
-  } catch (error) {
-    console.error('Error al actualizar el plato:', error);
-    res.status(500).json({ error: 'Error al actualizar el plato' });
-  }
-});
-
-// Ruta para eliminar un plato
+// Eliminar un plato
 app.delete('/api/platos/:id', async (req, res) => {
-  const { id } = req.params;
-  
   try {
-    await pool.query('DELETE FROM platos_del_dia WHERE id = ?', [id]);
+    const { id } = req.params;
+    const { error } = await supabase
+      .from('platos')
+      .delete()
+      .eq('id', id);
+      
+    if (error) throw error;
     res.json({ success: true });
   } catch (error) {
     console.error('Error al eliminar el plato:', error);
@@ -104,85 +176,21 @@ app.delete('/api/platos/:id', async (req, res) => {
   }
 });
 
-// Ruta para crear un nuevo plato
-app.post('/api/platos', async (req, res) => {
-  const { nombre, descripcion, precio } = req.body;
-  
-  try {
-    const [result] = await pool.query(
-      'INSERT INTO platos_del_dia (nombre, descripcion, precio, activo, orden) VALUES (?, ?, ?, 1, 0)',
-      [nombre, descripcion, precio]
-    );
-    
-    // Obtener el plato recién creado
-    const [plato] = await pool.query('SELECT * FROM platos_del_dia WHERE id = ?', [result.insertId]);
-    res.status(201).json(plato[0]);
-  } catch (error) {
-    console.error('Error al crear el plato:', error);
-    res.status(500).json({ error: 'Error al crear el plato' });
-  }
+// Archivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/admin', express.static(path.join(__dirname, 'admin')));
+
+// Rutas de la aplicación
+app.get('/admin*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin', 'index.html'));
 });
 
-// Ruta para actualizar el orden de los platos
-app.put('/api/platos/orden', async (req, res) => {
-  const { platos } = req.body;
-  
-  try {
-    const promises = platos.map((plato, index) => 
-      pool.query('UPDATE platos_del_dia SET orden = ? WHERE id = ?', [index, plato.id])
-    );
-    
-    await Promise.all(promises);
-    res.json({ success: true });
-  } catch (error) {
-    console.error('Error al actualizar el orden de los platos:', error);
-    res.status(500).json({ error: 'Error al actualizar el orden de los platos' });
-  }
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Iniciar el servidor solo si no estamos en un entorno serverless (como Vercel)
-if (process.env.VERCEL !== '1') {
-  const server = app.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
-    console.log(`Visita http://localhost:${PORT}`);
-  });
-
-  // Manejo de cierre de la aplicación
-  process.on('SIGTERM', () => {
-    console.log('\n🔴 Recibida señal de terminación. Cerrando servidor...');
-    server.close(() => {
-      console.log('✅ Servidor cerrado correctamente');
-      process.exit(0);
-    });
-  });
-}
-
-// Manejador de errores no controlados en promesas
-process.on('unhandledRejection', (err) => {
-  console.error('\n❌ Error no manejado en una promesa:', err);
-  if (process.env.VERCEL !== '1' && server) {
-    server.close(() => process.exit(1));
-  } else {
-    process.exit(1);
-  }
+// Iniciar servidor
+const server = app.listen(PORT, () => {
+  console.log('✅ Servidor escuchando en puerto ' + PORT);
+  console.log('🌐 http://localhost:' + PORT);
 });
-
-// Iniciar el servidor solo si no estamos en un entorno serverless (como Vercel)
-if (process.env.VERCEL !== '1') {
-  const server = app.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
-    console.log(`Visita http://localhost:${PORT}`);
-  });
-
-  // Manejo de cierre de la aplicación
-  process.on('SIGTERM', () => {
-    console.log('\n🔴 Recibida señal de terminación. Cerrando servidor...');
-    server.close(() => {
-      console.log('✅ Servidor cerrado correctamente');
-      process.exit(0);
-    });
-  });
-}
-
-// Exportar la aplicación para Vercel (solo la instancia de Express)
-module.exports = app;

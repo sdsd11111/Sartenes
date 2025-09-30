@@ -4,418 +4,398 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración - Los Sartenes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background-color: #f8f9fa;
         }
         .sidebar {
             min-height: 100vh;
-            background-color: #343a40;
+            background-color: #1a531a;
             color: white;
         }
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 5px;
+        .sidebar a {
+            color: #e2e8f0;
+            transition: all 0.3s;
         }
-        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+        .sidebar a:hover, .sidebar a.active {
             color: white;
             background-color: rgba(255, 255, 255, 0.1);
         }
-        .main-content {
-            padding: 20px;
-        }
-        .card {
-            margin-bottom: 20px;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-        }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        input:checked + .slider {
-            background-color: #0d6efd;
-        }
-        input:checked + .slider:before {
-            transform: translateX(26px);
+        .content {
+            background-color: #f8f9fa;
         }
     </style>
 </head>
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 px-0 sidebar">
-                <div class="d-flex flex-column p-3">
-                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                        <span class="fs-4">Los Sartenes</span>
-                    </a>
-                    <hr>
-                    <ul class="nav nav-pills flex-column mb-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active" id="platos-tab" data-bs-toggle="tab" data-bs-target="#platos-content">
-                                <i class="bi bi-egg-fried me-2"></i>
-                                Platos del Día
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+<body class="font-sans">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="sidebar w-64 p-4">
+            <div class="text-2xl font-bold mb-8 text-center">
+                Los Sartenes
+                <div class="text-sm font-normal">Panel de Administración</div>
+            </div>
+            <nav class="space-y-2">
+                <a href="#" class="block p-3 rounded-lg active">
+                    <i class="fas fa-utensils mr-2"></i> Platos del Día
+                </a>
+                <a href="#" class="block p-3 rounded-lg">
+                    <i class="fas fa-cog mr-2"></i> Configuración
+                </a>
+                <a href="/" class="block p-3 rounded-lg mt-8 text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> Volver al sitio
+                </a>
+            </nav>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="content flex-1 overflow-y-auto p-8">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-800">Gestión de Platos del Día</h1>
+                <button id="btnNuevoPlato" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-plus mr-2"></i> Nuevo Plato
+                </button>
             </div>
 
-            <!-- Main Content -->
-            <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Panel de Administración</h1>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#platoModal" onclick="nuevoPlato()">
-                        <i class="bi bi-plus-lg"></i> Nuevo Plato
-                    </button>
-                </div>
-
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="platos-content">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Imagen</th>
-                                        <th>Plato</th>
-                                        <th>Descripción</th>
-                                        <th>Precio</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="platos-table-body">
-                                    <!-- Los platos se cargarán aquí dinámicamente -->
-                                </tbody>
-                            </table>
-                        </div>
+            <!-- Lista de platos -->
+            <div id="listaPlatos" class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="p-4 border-b border-gray-200">
+                    <div class="grid grid-cols-12 gap-4 font-medium text-gray-600">
+                        <div class="col-span-1">#</div>
+                        <div class="col-span-3">Imagen</div>
+                        <div class="col-span-3">Título</div>
+                        <div class="col-span-2">Precio</div>
+                        <div class="col-span-2">Estado</div>
+                        <div class="col-span-1">Acciones</div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Plato Modal -->
-    <div class="modal fade" id="platoModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="platoModalLabel">Nuevo Plato</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="platoForm">
-                        <input type="hidden" id="platoId">
-                        <div class="mb-3">
-                            <label for="titulo" class="form-label">Título del Plato</label>
-                            <input type="text" class="form-control" id="titulo" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="descripcion" rows="3" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="valor" class="form-label">Precio</label>
-                            <input type="number" step="0.01" class="form-control" id="valor" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="imagen_url" class="form-label">URL de la Imagen</label>
-                            <input type="url" class="form-control" id="imagen_url">
-                            <div class="form-text">Ingrese la URL completa de la imagen (ej: https://ejemplo.com/imagen.jpg)</div>
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="activo">
-                            <label class="form-check-label" for="activo">Activar este plato</label>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarPlato()">Guardar</button>
+                <div id="platosContainer" class="divide-y divide-gray-200">
+                    <!-- Los platos se cargarán aquí dinámicamente -->
+                    <div class="p-4 text-center text-gray-500">Cargando platos...</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Modal para agregar/editar plato -->
+    <div id="modalPlato" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg w-full max-w-2xl">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold" id="modalTitulo">Nuevo Plato</h2>
+                    <button id="btnCerrarModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="formPlato" class="space-y-4">
+                    <input type="hidden" id="platoId">
+                    
+                    <div>
+                        <label for="titulo" class="block text-sm font-medium text-gray-700">Título</label>
+                        <input type="text" id="titulo" name="titulo" required 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                    </div>
+                    
+                    <div>
+                        <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" rows="3"
+                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"></textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="valor" class="block text-sm font-medium text-gray-700">Precio ($)</label>
+                        <input type="number" id="valor" name="valor" step="0.01" min="0" required
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                    </div>
+                    
+                    <div>
+                        <label for="imagen" class="block text-sm font-medium text-gray-700">Imagen</label>
+                        <input type="file" id="imagen" name="imagen" accept="image/*" class="mt-1 block w-full">
+                        <p class="mt-1 text-sm text-gray-500">Sube una imagen para este plato (formato JPG, PNG)</p>
+                        <div id="vistaPreviaImagen" class="mt-2 hidden">
+                            <img id="imagenPrevia" src="#" alt="Vista previa" class="h-32 object-cover rounded">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input id="activo" name="activo" type="checkbox" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                        <label for="activo" class="ml-2 block text-sm text-gray-700">Activo (visible en el sitio)</label>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <button type="button" id="btnCancelar" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            Guardar Plato
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Variables globales
         let platos = [];
-        const API_BASE_URL = 'http://localhost:8001/api'; // Point to our backend server
-
-        // Cargar los platos al iniciar
+        
+        // Elementos del DOM
+        const platosContainer = document.getElementById('platosContainer');
+        const modalPlato = document.getElementById('modalPlato');
+        const formPlato = document.getElementById('formPlato');
+        const btnNuevoPlato = document.getElementById('btnNuevoPlato');
+        const btnCerrarModal = document.getElementById('btnCerrarModal');
+        const btnCancelar = document.getElementById('btnCancelar');
+        const modalTitulo = document.getElementById('modalTitulo');
+        const imagenInput = document.getElementById('imagen');
+        const imagenPrevia = document.getElementById('imagenPrevia');
+        const vistaPreviaImagen = document.getElementById('vistaPreviaImagen');
+        
+        // Event Listeners
         document.addEventListener('DOMContentLoaded', cargarPlatos);
-
-        // Cargar la lista de platos
+        btnNuevoPlato.addEventListener('click', mostrarFormularioNuevo);
+        btnCerrarModal.addEventListener('click', cerrarModal);
+        btnCancelar.addEventListener('click', cerrarModal);
+        formPlato.addEventListener('submit', guardarPlato);
+        imagenInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagenPrevia.src = e.target.result;
+                    vistaPreviaImagen.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Funciones
         async function cargarPlatos() {
             try {
-                console.log('Cargando platos desde:', `${API_BASE_URL}/platos`);
-                const response = await fetch(`${API_BASE_URL}/platos`);
+                console.log('Cargando lista de platos...');
+                const response = await fetch('/api/platos');
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({}));
+                    throw new Error(error.error || 'Error al cargar los platos');
+                }
+                platos = await response.json();
+                console.log('Platos cargados:', platos);
+                mostrarPlatos();
+            } catch (error) {
+                console.error('Error al cargar platos:', error);
+                platosContainer.innerHTML = `
+                    <div class="p-4 text-center text-red-500">
+                        Error al cargar los platos: ${error.message}. Por favor, recarga la página.
+                    </div>
+                `;
+            }
+        }
+        
+        function mostrarPlatos() {
+            if (platos.length === 0) {
+                platosContainer.innerHTML = `
+                    <div class="p-4 text-center text-gray-500">
+                        No hay platos registrados. Haz clic en "Nuevo Plato" para agregar uno.
+                    </div>
+                `;
+                return;
+            }
+            
+            platosContainer.innerHTML = '';
+            
+            platos.forEach((plato, index) => {
+                const platoElement = document.createElement('div');
+                platoElement.className = 'p-4 hover:bg-gray-50';
+                platoElement.innerHTML = `
+                    <div class="grid grid-cols-12 gap-4 items-center">
+                        <div class="col-span-1">${index + 1}</div>
+                        <div class="col-span-3">
+                            <img src="${plato.imagen_url ? plato.imagen_url : '/images/platos/placeholder.jpg'}" 
+                                 alt="${plato.titulo}" 
+                                 class="h-16 w-16 object-cover rounded">
+                        </div>
+                        <div class="col-span-3 font-medium">${plato.titulo}</div>
+                        <div class="col-span-2">$${parseFloat(plato.valor).toFixed(2)}</div>
+                        <div class="col-span-2">
+                            <span class="px-2 py-1 text-xs rounded-full ${plato.activo ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                                ${plato.activo ? 'Activo' : 'Inactivo'}
+                            </span>
+                        </div>
+                        <div class="col-span-1 flex space-x-2">
+                            <button onclick="editarPlato(${plato.id})" class="text-blue-500 hover:text-blue-700">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="eliminarPlato(${plato.id})" class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                platosContainer.appendChild(platoElement);
+            });
+        }
+        
+        function mostrarFormularioNuevo() {
+            formPlato.reset();
+            document.getElementById('platoId').value = '';
+            modalTitulo.textContent = 'Nuevo Plato';
+            vistaPreviaImagen.classList.add('hidden');
+            imagenInput.required = true;
+            modalPlato.classList.remove('hidden');
+            modalPlato.classList.add('flex');
+        }
+        
+        function cerrarModal() {
+            modalPlato.classList.add('hidden');
+            modalPlato.classList.remove('flex');
+        }
+        
+        async function guardarPlato(e) {
+            e.preventDefault();
+            
+            const platoId = document.getElementById('platoId').value;
+            const esNuevo = !platoId;
+            
+            try {
+                // Crear objeto con los datos del formulario
+                const formData = new FormData();
+                const titulo = document.getElementById('titulo').value;
+                const descripcion = document.getElementById('descripcion').value;
+                const valor = document.getElementById('valor').value;
+                const activo = document.getElementById('activo').checked;
+                
+                // Agregar campos directamente al formData
+                formData.append('titulo', titulo);
+                formData.append('descripcion', descripcion);
+                formData.append('valor', valor);
+                formData.append('activo', activo);
+                
+                console.log('Datos del formulario:', {
+                    titulo,
+                    descripcion,
+                    valor,
+                    activo,
+                    platoId,
+                    esNuevo
+                });
+                
+                // Agregar la imagen solo si se seleccionó una
+                const imagenInput = document.getElementById('imagen');
+                if (imagenInput.files[0]) {
+                    console.log('Se adjuntó una nueva imagen:', imagenInput.files[0].name);
+                    formData.append('imagen', imagenInput.files[0]);
+                } else if (!esNuevo) {
+                    // Si es una actualización y no se seleccionó nueva imagen, mantener la existente
+                    const imagenActual = document.querySelector('#vistaPreviaImagen img');
+                    if (imagenActual && imagenActual.src) {
+                        // Usar la URL completa de la imagen existente
+                        formData.append('imagen_url', imagenActual.src);
+                        console.log('Manteniendo imagen existente:', imagenActual.src);
+                    }
+                }
+                
+                // Agregar el ID si es una actualización
+                if (!esNuevo) {
+                    formData.append('id', platoId);
+                    console.log('Actualizando plato existente con ID:', platoId);
+                } else {
+                    console.log('Creando nuevo plato');
+                }
+                
+                console.log('Enviando datos:', Object.fromEntries(formData));
+                
+                const response = await fetch('/api/platos', {
+                    method: 'POST',
+                    body: formData
+                });
                 
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.error || `Error al cargar los platos: ${response.statusText}`);
+                    throw new Error(errorData.error || 'Error al guardar el plato');
                 }
                 
                 const data = await response.json();
-                console.log('Datos recibidos:', data);
+                console.log('Respuesta del servidor:', data);
                 
-                if (data && data.success && Array.isArray(data.data)) {
-                    platos = data.data;
-                    renderizarPlatos();
-                } else {
-                    throw new Error('Formato de respuesta inesperado de la API');
-                }
-            } catch (error) {
-                console.error('Error al cargar los platos:', error);
-                alert(`Error al cargar los platos: ${error.message}`);
-            }
-        }
-
-        // Renderizar la tabla de platos
-        function renderizarPlatos() {
-            const tbody = document.getElementById('platos-table-body');
-            tbody.innerHTML = '';
-
-            platos.forEach(plato => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>
-                        ${plato.imagen_url ? 
-                            `<img src="${plato.imagen_url.startsWith('http') ? plato.imagen_url : plato.imagen_url}" 
-                                  alt="${plato.titulo}" 
-                                  style="width: 50px; height: 50px; object-fit: cover;">` : 
-                            '<div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;"><i class="bi bi-image"></i></div>'
-                        }
-                    </td>
-                    <td>${plato.titulo}</td>
-                    <td>${plato.descripcion}</td>
-                    <td>$${plato.valor.toFixed(2)}</td>
-                    <td>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" 
-                                id="toggle-${plato.id_plato}" 
-                                ${plato.activo ? 'checked' : ''}
-                                onchange="cambiarEstado(${plato.id_plato}, this.checked)">
-                            <label class="form-check-label" for="toggle-${plato.id_plato}">
-                                ${plato.activo ? 'Activo' : 'Inactivo'}
-                            </label>
-                        </div>
-                    </td>
-                    <td>
-                        <button class="btn btn-sm btn-warning me-1" onclick="editarPlato(${plato.id_plato})">
-                            <i class="bi bi-pencil"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" onclick="eliminarPlato(${plato.id_plato})">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        // Preparar el formulario para un nuevo plato
-        function nuevoPlato() {
-            document.getElementById('platoModalLabel').textContent = 'Nuevo Plato';
-            document.getElementById('platoForm').reset();
-            document.getElementById('platoId').value = '';
-        }
-
-        // Editar un plato existente
-        async function editarPlato(id) {
-            const plato = platos.find(p => p.id_plato === id);
-            if (!plato) return;
-
-            document.getElementById('platoModalLabel').textContent = 'Editar Plato';
-            document.getElementById('platoId').value = plato.id_plato;
-            document.getElementById('titulo').value = plato.titulo;
-            document.getElementById('descripcion').value = plato.descripcion;
-            document.getElementById('valor').value = plato.valor;
-            document.getElementById('imagen_url').value = plato.imagen_url || '';
-            document.getElementById('activo').checked = plato.activo === 1;
-
-            const modal = new bootstrap.Modal(document.getElementById('platoModal'));
-            modal.show();
-        }
-
-        // Guardar un plato (crear o actualizar)
-        async function guardarPlato() {
-            const id = document.getElementById('platoId').value;
-            const titulo = document.getElementById('titulo').value.trim();
-            const descripcion = document.getElementById('descripcion').value.trim();
-            const valor = parseFloat(document.getElementById('valor').value);
-            let imagen_url = document.getElementById('imagen_url').value.trim();
-            const activo = document.getElementById('activo').checked;
-            
-            // Validate required fields
-            if (!titulo || !descripcion || isNaN(valor)) {
-                alert('Por favor complete todos los campos requeridos');
-                return;
-            }
-
-            const plato = {
-                titulo,
-                descripcion,
-                valor,
-                imagen_url: imagen_url || null,
-                activo
-            };
-
-            try {
-                const url = id ? `${API_BASE_URL}/platos/${id}` : `${API_BASE_URL}/platos`;
-                const method = id ? 'PUT' : 'POST';
-
-                console.log(`Enviando solicitud ${method} a:`, url, plato);
-                const response = await fetch(url, {
-                    method,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(plato)
-                });
-
-                const responseData = await response.json();
-                console.log('Respuesta del servidor:', responseData);
-
-                if (!response.ok) {
-                    throw new Error(responseData.error || `Error al ${id ? 'actualizar' : 'crear'} el plato`);
-                }
-
-                if (!responseData.success) {
-                    throw new Error(responseData.message || 'La operación no se completó correctamente');
-                }
-
-                // Cerrar el modal
-                const modal = bootstrap.Modal.getInstance(document.getElementById('platoModal'));
-                if (modal) modal.hide();
-                
-                // Recargar la lista de platos
                 await cargarPlatos();
+                cerrarModal();
+                alert(`Plato ${esNuevo ? 'creado' : 'actualizado'} correctamente`);
                 
-                // Mostrar mensaje de éxito
-                alert(`✅ Plato ${id ? 'actualizado' : 'creado'} exitosamente`);
-            } catch (error) {
-                console.error('Error al guardar el plato:', error);
-                alert(`❌ Error al guardar el plato: ${error.message}`);
-            }
-        }
-
-        // Cambiar el estado activo/inactivo de un plato
-        async function cambiarEstado(id, activo) {
-            try {
-                // Mostrar indicador de carga
-                const button = document.querySelector(`button[onclick*="cambiarEstado(${id}, ${activo})"]`);
-                const originalText = button ? button.innerHTML : '';
-                if (button) {
-                    button.disabled = true;
-                    button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
-                }
-
-                const response = await fetch(`${API_BASE_URL}/platos/${id}/toggle`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error || 'Error al cambiar el estado');
-                }
-                
-                const result = await response.json();
-                
-                // Mostrar mensaje de éxito
-                const toastEl = document.getElementById('toast');
-                if (toastEl) {
-                    const toast = new bootstrap.Toast(toastEl);
-                    const toastMessage = document.getElementById('toast-message');
-                    if (toastMessage) {
-                        toastMessage.textContent = result.message || 'Estado actualizado correctamente';
-                    }
-                    toast.show();
-                } else {
-                    console.log('Éxito:', result.message || 'Estado actualizado correctamente');
-                }
-                
-                // Actualizar la interfaz sin recargar toda la página
-                const platoIndex = platos.findIndex(p => p.id_plato === id);
-                if (platoIndex !== -1) {
-                    platos[platoIndex].activo = !platos[platoIndex].activo;
-                    renderizarPlatos();
-                }
             } catch (error) {
                 console.error('Error:', error);
-                alert(`Error al cambiar el estado: ${error.message}`);
-                await cargarPlatos(); // Reload to restore previous state
+                alert(`Error al ${esNuevo ? 'crear' : 'actualizar'} el plato: ${error.message}`);
             }
         }
-
-        // Eliminar un plato
-        async function eliminarPlato(id) {
-            if (!confirm('¿Está seguro de eliminar este plato? Esta acción no se puede deshacer.')) {
-                return;
-            }
-
+        
+        async function editarPlato(id) {
             try {
-                const response = await fetch(`${API_BASE_URL}/platos/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
+                const plato = platos.find(p => p.id === id);
+                if (!plato) throw new Error('Plato no encontrado');
+                
+                document.getElementById('platoId').value = plato.id;
+                document.getElementById('titulo').value = plato.titulo || '';
+                document.getElementById('descripcion').value = plato.descripcion || '';
+                document.getElementById('valor').value = plato.valor || '';
+                document.getElementById('activo').checked = plato.activo || false;
+                
+                // Mostrar imagen actual si existe
+                const vistaPrevia = document.getElementById('vistaPreviaImagen');
+                const imagenPrevia = document.getElementById('imagenPrevia');
+                if (plato.imagen_url) {
+                    // Si es una URL completa o relativa
+                    if (plato.imagen_url.startsWith('http') || plato.imagen_url.startsWith('/')) {
+                        imagenPrevia.src = plato.imagen_url;
+                    } else {
+                        // Si es solo un nombre de archivo, asumir que está en /images/platos/
+                        imagenPrevia.src = '/images/platos/' + plato.imagen_url;
                     }
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error || 'Error al eliminar el plato');
+                    vistaPrevia.classList.remove('hidden');
+                } else {
+                    vistaPrevia.classList.add('hidden');
                 }
                 
-                // Show success message
-                const toastEl = document.getElementById('toast');
-                const toast = new bootstrap.Toast(toastEl);
-                document.getElementById('toast-message').textContent = 'Plato eliminado correctamente';
-                toast.show();
+                modalTitulo.textContent = 'Editar Plato';
+                imagenInput.required = false;
+                modalPlato.classList.remove('hidden');
+                modalPlato.classList.add('flex');
                 
-                // Remove from local array and re-render
-                platos = platos.filter(plato => plato.id_plato !== id);
-                renderizarPlatos();
+            } catch (error) {
+                console.error('Error al cargar el plato:', error);
+                alert('Error al cargar el plato para editar: ' + error.message);
+            }
+        }
+        
+        async function eliminarPlato(id) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este plato?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/platos/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Error al eliminar el plato');
+                }
+                
+                await cargarPlatos();
+                alert('Plato eliminado correctamente');
+                
             } catch (error) {
                 console.error('Error:', error);
                 alert(`Error al eliminar el plato: ${error.message}`);
             }
         }
+        
+        // Hacer las funciones accesibles globalmente
+        window.editarPlato = editarPlato;
+        window.eliminarPlato = eliminarPlato;
     </script>
 </body>
 </html>

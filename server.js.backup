@@ -1,0 +1,462 @@
+const express = require('express');
+const path = require('path');
+const fs = require('fs');
+const cors = require('cors');
+const { createClient } = require('@supabase/supabase-js');
+const multer = require('multer');
+require('dotenv').config();
+
+const app = express();
+const PORT = process.env.PORT || 9000;  // Puerto 9000 como predeterminado
+
+// Configuración de Supabase
+const supabaseUrl = process.env.SUPABASE_URL || 'https://hmljlcwfmxflxilhgmha.supabase.co';
+const supabaseKey = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Configuración de archivos estáticos para la carpeta admin
+app.use('/admin', express.static(path.join(__dirname, 'admin'), {
+  index: false,
+  extensions: ['html', 'js', 'css', 'png', 'jpg', 'jpeg', 'gif', 'ico', 'svg']
+}));
+
+// Configuración de archivos estáticos para la carpeta public
+app.use(express.static(path.join(__dirname, 'public'), {
+  index: false,
+  extensions: ['html', 'js', 'css', 'png', 'jpg', 'jpeg', 'gif', 'ico', 'svg']
+}));
+
+// Ruta para el panel de administración
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin', 'index.html'));
+});
+
+// Ruta para manejar la ruta raíz
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Ruta comodín para la SPA (debe ir al final)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Ruta de prueba
+app.get('/api/test', (req, res) => {
+  res.json({ message: '¡La API está funcionando correctamente!' });
+});
+
+// Ruta para obtener los platos activos
+app.get('/api/platos-activos', async (req, res) => {
+  try {
+    console.log('🔍 Obteniendo platos activos desde Supabase...');
+    
+    const { data: platos, error } = await supabase
+      .from('platos_del_dia')
+      .select('*')
+      .eq('activo', true)
+      .order('orden', { ascending: true });
+
+    if (error) throw error;
+    
+    console.log(`✅ Se encontraron ${platos.length} platos activos`);
+    res.json(platos);
+  } catch (error) {
+    console.error('❌ Error al obtener platos activos:', error.message);
+    res.status(500).json({ 
+      error: 'Error al obtener los platos activos',
+      details: error.message
+    });
+  }
+});
+
+// Configuración de multer para la carga de imágenes
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const dir = path.join(__dirname, 'public', 'images', 'platos');
+    // Crear el directorio si no existe
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    cb(null, dir);
+  },
+  filename: function (req, file, cb) {
+    // Generar un nombre de archivo único basado en el título del plato
+    const titulo = req.body.titulo || 'plato';
+    const nombreArchivo = titulo
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Eliminar acentos
+      .replace(/[^a-z0-9]+/g, '-') // Reemplazar espacios y caracteres especiales con guiones
+      .replace(/-+/g, '-') // Reemplazar múltiples guiones por uno solo
+      .replace(/^-|-$/g, '') + path.extname(file.originalname).toLowerCase();
+    
+    cb(null, nombreArchivo);
+  }
+});
+
+const upload = multer({ 
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // Límite de 5MB
+  fileFilter: function (req, file, cb) {
+    // Aceptar solo imágenes
+    if (!file.mimetype.startsWith('image/')) {
+      return cb(new Error('Solo se permiten archivos de imagen'), false);
+    }
+    cb(null, true);
+  }
+});
+
+// Ruta para obtener un plato por ID
+app.get('/api/platos/:id', async (req, res) => {
+  try {
+    const { data: plato, error } = await supabase
+      .from('platos_del_dia')
+      .select('*')
+      .eq('id', req.params.id)
+      .single();
+    
+    if (error) throw error;
+    if (!plato) {
+      return res.status(404).json({ error: 'Plato no encontrado' });
+    }
+    
+    res.json(plato);
+  } catch (error) {
+    console.error('❌ Error al obtener el plato:', error.message);
+    res.status(500).json({ 
+      error: 'Error al obtener el plato',
+      details: error.message
+    });
+  }
+});
+
+// Ruta para crear un nuevo plato
+app.post('/api/platos', upload.single('imagen'), async (req, res) => {
+  try {
+    const { titulo, descripcion, valor, orden, activo } = req.body;
+    
+    // Construir la ruta de la imagen si se subió un archivo
+    let imagen_url = '';
+    if (req.file) {
+      imagen_url = `/images/platos/${req.file.filename}`;
+    }
+    
+    // Insertar el nuevo plato en Supabase
+    const { data: plato, error } = await supabase
+      .from('platos_del_dia')
+      .insert([
+        { 
+          titulo, 
+          descripcion, 
+          valor: parseFloat(valor), 
+          imagen_url, 
+          orden: parseInt(orden) || 0, 
+          activo: activo === '1' || activo === true 
+        }
+      ])
+      .select()
+      .single();
+    
+    if (error) throw error;
+    
+    res.status(201).json(plato);
+  } catch (error) {
+    console.error('❌ Error al crear el plato:', error.message);
+    res.status(500).json({ 
+      error: 'Error al crear el plato',
+      details: error.message
+    });
+  }
+});
+
+// Ruta para actualizar un plato existente
+app.put('/api/platos/:id', upload.single('imagen'), async (req, res) => {
+  try {
+    const { titulo, descripcion, valor, orden, activo } = req.body;
+    const platoId = req.params.id;
+    
+    // Obtener el plato actual para ver si tiene una imagen
+    const [platoActual] = await pool.query('SELECT imagen_url FROM platos_del_dia WHERE id = ?', [platoId]);
+    
+    if (platoActual.length === 0) {
+      return res.status(404).json({ error: 'Plato no encontrado' });
+    }
+    
+    let imagenUrl = platoActual[0].imagen_url;
+    
+    // Si se subió una nueva imagen, actualizar la ruta
+    if (req.file) {
+      // Eliminar la imagen anterior si existe
+      if (imagenUrl) {
+        const rutaImagenAnterior = path.join(__dirname, 'public', imagenUrl);
+        if (fs.existsSync(rutaImagenAnterior)) {
+          fs.unlinkSync(rutaImagenAnterior);
+        }
+      }
+      
+      imagenUrl = `/images/platos/${req.file.filename}`;
+    }
+    
+    // Actualizar el plato en la base de datos
+    await pool.query(
+      'UPDATE platos_del_dia SET titulo = ?, descripcion = ?, valor = ?, imagen_url = ?, orden = ?, activo = ? WHERE id = ?',
+      [titulo, descripcion, valor, imagenUrl, orden, activo || 0, platoId]
+    );
+    
+    // Obtener el plato actualizado
+    const [plato] = await pool.query('SELECT * FROM platos_del_dia WHERE id = ?', [platoId]);
+    
+    res.json(plato[0]);
+  } catch (error) {
+    console.error('Error al actualizar el plato:', error);
+    res.status(500).json({ 
+      error: 'Error al actualizar el plato',
+      details: error.message
+    });
+  }
+});
+
+// Ruta para eliminar un plato
+app.delete('/api/platos/:id', async (req, res) => {
+  try {
+    const platoId = req.params.id;
+    
+    // Obtener el plato para eliminar su imagen
+    const [plato] = await pool.query('SELECT imagen_url FROM platos_del_dia WHERE id = ?', [platoId]);
+    
+    if (plato.length === 0) {
+      return res.status(404).json({ error: 'Plato no encontrado' });
+    }
+    
+    // Eliminar la imagen asociada si existe
+    if (plato[0].imagen_url) {
+      const rutaImagen = path.join(__dirname, 'public', plato[0].imagen_url);
+      if (fs.existsSync(rutaImagen)) {
+        fs.unlinkSync(rutaImagen);
+      }
+    }
+    
+    // Eliminar el plato de la base de datos
+    await pool.query('DELETE FROM platos_del_dia WHERE id = ?', [platoId]);
+    
+    res.json({ message: 'Plato eliminado correctamente' });
+  } catch (error) {
+    console.error('Error al eliminar el plato:', error);
+    res.status(500).json({ 
+      error: 'Error al eliminar el plato',
+      details: error.message
+    });
+  }
+});
+
+// Ruta de depuración para verificar la conexión a la base de datos
+app.get('/api/debug/db', async (req, res) => {
+  try {
+    // Verificar la conexión a la base de datos
+    const [result] = await pool.query('SELECT 1 + 1 AS solution');
+    
+    // Verificar si la tabla existe
+    const [tables] = await pool.query(
+      "SHOW TABLES LIKE 'platos_del_dia'"
+    );
+    
+    // Obtener el conteo de registros
+    const [[count]] = await pool.query(
+      'SELECT COUNT(*) AS count FROM platos_del_dia'
+    );
+    
+    // Obtener algunos registros de ejemplo
+    const [platos] = await pool.query(
+      'SELECT * FROM platos_del_dia LIMIT 5'
+    );
+    
+    res.json({
+      status: 'success',
+      dbConnection: 'OK',
+      tableExists: tables.length > 0,
+      recordCount: count.count,
+      sampleRecords: platos,
+      serverTime: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error en la ruta de depuración:', error);
+    res.status(500).json({
+      status: 'error',
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
+  }
+});
+
+// Ruta para obtener los platos activos (nueva ruta con plural)
+app.get('/api/platos/activos', async (req, res) => {
+  try {
+    const { data: platos, error } = await supabase
+      .from('platos_del_dia')
+      .select('*')
+      .eq('activo', true)
+      .order('orden', { ascending: true });
+
+    if (error) throw error;
+    
+    res.json(platos);
+  } catch (error) {
+    console.error('❌ Error al obtener platos activos:', error.message);
+    res.status(500).json({ 
+      error: 'Error al obtener los platos activos',
+      details: error.message
+    });
+  }
+});
+
+// Ruta para actualizar el estado de un plato
+app.put('/api/platos/:id/estado', async (req, res) => {
+  const { id } = req.params;
+  const { activo } = req.body;
+  
+  try {
+    const { error } = await supabase
+      .from('platos_del_dia')
+      .update({ 
+        activo: activo === '1' || activo === true,
+        actualizado_en: new Date().toISOString()
+      })
+      .eq('id', id);
+    
+    if (error) throw error;
+    
+    res.json({ message: 'Estado del plato actualizado correctamente.' });
+  } catch (error) {
+    console.error('❌ Error al actualizar el estado del plato:', error.message);
+    res.status(500).json({ 
+      error: 'Error al actualizar el estado del plato',
+      details: error.message
+    });
+  }
+});
+
+// Ruta para actualizar un plato
+app.put('/api/platos/:id', async (req, res) => {
+  const { id } = req.params;
+  const { titulo, descripcion, valor, imagen_url, orden, activo } = req.body;
+  
+  try {
+    const { error } = await supabase
+      .from('platos_del_dia')
+      .update({ 
+        titulo, 
+        descripcion, 
+        valor: parseFloat(valor), 
+        imagen_url, 
+        orden: parseInt(orden) || 0, 
+        activo: activo === '1' || activo === true,
+        actualizado_en: new Date().toISOString()
+      })
+      .eq('id', id);
+    
+    if (error) throw error;
+    
+    res.json({ message: 'Plato actualizado correctamente.' });
+  } catch (error) {
+    console.error('❌ Error al actualizar el plato:', error.message);
+    res.status(500).json({ 
+      error: 'Error al actualizar el plato',
+      details: error.message
+    });
+  }
+});
+
+// Ruta para actualizar el orden de los platos
+app.put('/api/platos/orden', async (req, res) => {
+  const { platos } = req.body;
+  
+  try {
+    // Actualizar el orden de cada plato
+    const updates = platos.map(plato => 
+      supabase
+        .from('platos_del_dia')
+        .update({ 
+          orden: plato.orden,
+          actualizado_en: new Date().toISOString()
+        })
+        .eq('id', plato.id)
+    );
+    
+    // Ejecutar todas las actualizaciones en paralelo
+    const results = await Promise.all(updates);
+    
+    // Verificar si hubo algún error en las actualizaciones
+    const errores = results.filter(result => result.error);
+    if (errores.length > 0) {
+      throw new Error(`Error al actualizar el orden: ${errores[0].error.message}`);
+    }
+    
+    res.json({ message: 'Orden de los platos actualizado correctamente' });
+  } catch (error) {
+    console.error('❌ Error al actualizar el orden de los platos:', error.message);
+    res.status(500).json({ 
+      error: 'Error al actualizar el orden de los platos',
+      details: error.message
+    });
+  }
+});
+
+  // Manejo de cierre de la aplicación
+  process.on('SIGTERM', () => {
+    console.log('\n🔴 Recibida señal de terminación. Cerrando servidor...');
+    server.close(() => {
+      console.log('✅ Servidor cerrado correctamente');
+      process.exit(0);
+    });
+  });
+}
+
+// Manejador de errores no controlados en promesas
+process.on('unhandledRejection', (err) => {
+  console.error('\n❌ Error no manejado en una promesa:', err);
+  if (process.env.VERCEL !== '1' && server) {
+    server.close(() => process.exit(1));
+  } else {
+    process.exit(1);
+  }
+});
+
+// Variable global para el servidor
+let server;
+
+// Función para iniciar el servidor en un puerto específico
+function startServer(port) {
+  server = app.listen(port, () => {
+    console.log(`✅ Servidor escuchando en el puerto ${port}`);
+    console.log(`🌐 Visita http://localhost:${port}`);
+  }).on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`⚠️  El puerto ${port} está en uso, intentando con el puerto ${port + 1}...`);
+      startServer(port + 1);
+    } else {
+      console.error('❌ Error al iniciar el servidor:', err);
+    }
+  });
+
+  // Manejo de cierre de la aplicación
+  process.on('SIGTERM', () => {
+    console.log('\n🔴 Recibida señal de terminación. Cerrando servidor...');
+    server.close(() => {
+      console.log('✅ Servidor cerrado correctamente');
+      process.exit(0);
+    });
+  });
+}
+
+// Iniciar el servidor solo si no estamos en un entorno serverless (como Vercel)
+if (process.env.VERCEL !== '1') {
+  startServer(PORT);
+}
+
+// Exportar la aplicación para Vercel (solo la instancia de Express)
+module.exports = app;

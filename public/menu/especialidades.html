@@ -2,7 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#1A531A">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="description" content="Descubre el Salmón Glaseado y el Picadillo de Los Sartenes. Platos exclusivos que definen el sabor auténtico y único en Loja.">
     <title>Especialidades de la Casa | Platos Únicos en Restaurante Loja</title>
     <!-- Tailwind CSS -->
@@ -14,20 +18,103 @@
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="../css/styles.css">
     <style>
+        /* Base styles */
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        
+        /* Card styles */
         .menu-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            margin-bottom: 1rem;
+            opacity: 0.98;
+            transform: translateZ(0);
+            will-change: transform;
         }
-        .menu-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        
+        .menu-card:active {
+            transform: scale(0.98);
         }
+        
+        @media (min-width: 768px) {
+            .menu-card {
+                margin-bottom: 0;
+            }
+            .menu-card:hover {
+                transform: translateY(-5px) translateZ(0);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                opacity: 1;
+            }
+        }
+        
         .dish-icon {
             background-color: #f3f4f6;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+        
+        .menu-card:active .dish-icon,
+        .menu-card:focus .dish-icon,
         .menu-card:hover .dish-icon {
             background-color: #FF8C42;
             color: white;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 767px) {
+            html {
+                font-size: 15px;
+            }
+            
+            /* Improved touch targets */
+            button, a[role="button"], .btn, .menu-card {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            /* Optimize typography for mobile */
+            h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+            
+            /* Optimize hero section for mobile */
+            section.min-h-\[90vh\] {
+                min-height: 85vh !important;
+                padding-top: 80px;
+            }
+            
+            /* Improve card layouts */
+            .menu-card {
+                margin-bottom: 1rem;
+                border-radius: 12px;
+                overflow: hidden;
+            }
+            
+            /* Better spacing for mobile */
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            /* Optimize images */
+            img {
+                max-width: 100%;
+                height: auto;
+            }
         }
     </style>
 </head>
@@ -38,29 +125,29 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center w-full bg-cover bg-center bg-fixed relative" style="background-image: url('../img/menu/especialidades-bg.jpg');">
+    <section class="min-h-[90vh] sm:min-h-screen flex items-center justify-center w-full bg-cover bg-center bg-fixed relative bg-no-repeat" style="background-image: url('../img/menu/especialidades-bg.jpg');" role="banner" aria-label="Especialidades de la Casa">
         <div class="absolute inset-0 bg-[#1A531A] opacity-80"></div>
-        <div class="container mx-auto px-4 relative z-10 py-32">
-            <div class="max-w-4xl mx-auto text-center text-white">
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 font-['Playfair_Display'] leading-tight">Especialidades de la Casa</h1>
-                <div class="w-24 h-1 bg-[#FF8C42] mx-auto mb-8"></div>
-                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">Nuestra selección de Especialidades de la Casa representa la cúspide de la experiencia Los Sartenes. Estos son los platos diseñados por nuestros chefs para sorprenderte y son presentados en nuestras vajillas de barro tradicionales.</p>
-                <a href="#menu" class="inline-block bg-[#FF8C42] hover:bg-[#E67E37] text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
+        <div class="container mx-auto px-4 sm:px-6 relative z-10 py-16 sm:py-24 md:py-32">
+            <div class="max-w-4xl mx-auto text-center text-white px-2 sm:px-4">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 font-['Playfair_Display'] leading-tight">Especialidades de la Casa</h1>
+                <div class="w-24 h-1 bg-[#FF8C42] mx-auto mb-6 sm:mb-8"></div>
+                <p class="text-lg sm:text-xl md:text-xl mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed">Nuestra selección de Especialidades de la Casa representa la cúspide de la experiencia Los Sartenes. Estos son los platos diseñados por nuestros chefs para sorprenderte y son presentados en nuestras vajillas de barro tradicionales.</p>
+                <a href="#menu" class="inline-flex items-center justify-center bg-[#FF8C42] hover:bg-[#E67E37] text-white font-bold py-3 px-8 sm:py-4 sm:px-10 rounded-full text-lg sm:text-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF8C42] min-h-[50px] min-w-[180px]" aria-label="Ver el menú de especialidades">
                     Ver Menú
                 </a>
             </div>
         </div>
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-            <a href="#menu" class="text-white animate-bounce">
-                <i class="fas fa-chevron-down text-3xl"></i>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+            <a href="#menu" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white bg-opacity-20 text-white animate-bounce focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white" aria-label="Desplazarse al menú">
+                <i class="fas fa-chevron-down text-xl"></i>
             </a>
         </div>
     </section>
 
     <!-- Contenido principal -->
-    <main id="menu" class="bg-gray-50 py-12 md:py-16">
+    <main id="menu" class="bg-gray-50 py-8 sm:py-12 md:py-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
                 <!-- Plato 1 -->
                 <div class="bg-white rounded-lg overflow-hidden shadow-md menu-card">
                     <div class="p-6">
@@ -178,17 +265,18 @@
 
     <!-- Botón flotante de WhatsApp -->
     <a href="https://wa.me/59372587432?text=Hola%20Los%20Sartenes,%20quisiera%20hacer%20una%20reserva%20o%20pedido" 
-       class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg z-40 transition-all duration-300 transform hover:scale-110"
+       class="fixed bottom-6 right-4 sm:right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg z-40 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 flex items-center justify-center"
+       style="width: 56px; height: 56px;"
        target="_blank"
-       aria-label="Hacer pedido por WhatsApp">
+       rel="noopener noreferrer nofollow"
+       aria-label="Contactar por WhatsApp">
         <i class="fab fa-whatsapp text-2xl"></i>
-        <span class="ml-2 font-semibold hidden md:inline">¡Haz tu Pedido!</span>
+        <span class="sr-only">Contactar por WhatsApp</span>
     </a>
 
     <!-- Componente Footer -->
     <div id="footer-component">
         <!-- El contenido del footer se cargará aquí mediante JavaScript -->
-    </div>
     
     <!-- Scripts -->
     <script src="../js/components.js"></script>

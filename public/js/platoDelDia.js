@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const platosContainer = document.getElementById('platos-dinamicos-container');
     
     // Usar URL relativa para la API
-    const API_URL = '/api/platos/activos';
+    const API_URL = '/api/platos-activos';
     let platosData = [];
     let currentPlatoIndex = 0;
     let slideInterval;
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateHeroBackground(plato.imagen_url);
         
         // Formatear el valor a 2 decimales
-        const valorFormateado = plato.valor ? parseFloat(plato.valor).toFixed(2) : '0.00';
+        const valorFormateado = plato.precio ? parseFloat(plato.precio).toFixed(2) : '0.00';
         
         // Actualizar el contenido del plato
         platosContainer.innerHTML = `
@@ -98,8 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para ir a un plato específico
     window.irAPlato = function(index) {
-        showPlato(index);
-        resetAutoSlide();
+        if (index >= 0 && index < platosData.length) {
+            showPlato(index);
+            resetAutoSlide();
+        }
     };
 
     // Función para iniciar el carrusel automático
@@ -107,8 +109,9 @@ document.addEventListener('DOMContentLoaded', function() {
         stopAutoSlide();
         if (platosData.length > 1) {
             slideInterval = setInterval(() => {
-                navegarPlato(1);
-            }, 8000); // Cambiar de plato cada 8 segundos
+                const nextIndex = (currentPlatoIndex + 1) % platosData.length;
+                showPlato(nextIndex);
+            }, 5000); // Cambiar de plato cada 5 segundos
         }
     }
 
@@ -116,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function stopAutoSlide() {
         if (slideInterval) {
             clearInterval(slideInterval);
+            slideInterval = null;
         }
     }
 
@@ -127,24 +131,74 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Función para obtener los platos de la API
+    async function fetchPlatos() {
+        try {
+            console.log('🔍 Obteniendo platos de:', API_URL);
+            const response = await fetch(API_URL);
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || 'Error al cargar los platos del día');
+            }
+            
+            const platos = await response.json();
+            console.log('📦 Platos recibidos:', platos);
+            
+            // Verificar si hay datos en la respuesta
+            if (!Array.isArray(platos)) {
+                console.warn('⚠️ La respuesta no es un arreglo:', platos);
+                renderPlatos([]);
+                return;
+            }
+            
+            console.log(`✅ Se encontraron ${platos.length} platos activos`);
+            renderPlatos(platos);
+            
+        } catch (error) {
+            console.error('Error al cargar los platos:', error);
+            
+            // Mostrar un mensaje de error en la interfaz
+            if (platosContainer) {
+                platosContainer.innerHTML = `
+                    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg max-w-2xl mx-auto" role="alert">
+                        <div class="flex">
+                            <div class="py-1">
+                                <svg class="fill-current h-6 w-6 text-red-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-bold">Error al cargar el menú del día</p>
+                                <p class="text-sm">${error.message || 'Por favor, intente recargar la página.'}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    }
+
     // Función para renderizar los platos
     function renderPlatos(platos) {
         platosData = platos;
         
         if (!platos || platos.length === 0) {
             // No hay platos activos disponibles
-            platosContainer.innerHTML = `
-                <div class="bg-black bg-opacity-70 p-8 rounded-lg shadow-lg max-w-2xl mx-auto text-center">
-                    <h2 class="text-2xl font-bold text-white mb-4">¡Bienvenido a Los Sartenes!</h2>
-                    <p class="text-lg text-gray-200 mb-4">
-                        Hoy te invitamos a explorar nuestras especialidades de siempre. 
-                        ¡El mejor sabor de Loja te espera!
-                    </p>
-                    <a href="/menu" class="inline-block bg-[#FF8C42] hover:bg-[#E67E22] text-white font-bold py-2 px-6 rounded-full transition duration-300">
-                        Ver Menú Completo
-                    </a>
-                </div>
-            `;
+            if (platosContainer) {
+                platosContainer.innerHTML = `
+                    <div class="bg-black bg-opacity-70 p-8 rounded-lg shadow-lg max-w-2xl mx-auto text-center">
+                        <h2 class="text-2xl font-bold text-white mb-4">¡Bienvenido a Los Sartenes!</h2>
+                        <p class="text-lg text-gray-200 mb-4">
+                            Hoy te invitamos a explorar nuestras especialidades de siempre. 
+                            ¡El mejor sabor de Loja te espera!
+                        </p>
+                        <a href="/menu" class="inline-block bg-[#FF8C42] hover:bg-[#E67E22] text-white font-bold py-2 px-6 rounded-full transition duration-300">
+                            Ver Menú Completo
+                        </a>
+                    </div>
+                `;
+            }
             return;
         }
 
@@ -157,76 +211,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Función para obtener los platos de la API
-    async function fetchPlatos() {
-        try {
-            console.log('🔍 Solicitando platos activos a:', API_URL);
-            const response = await fetch(API_URL);
-            
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || 'Error al cargar los platos del día');
-            }
-            
-            const result = await response.json();
-            console.log('📦 Respuesta de la API:', result);
-            
-            // Verificar si la respuesta tiene el formato esperado
-            if (!result.success) {
-                throw new Error(result.message || 'Error en la respuesta del servidor');
-            }
-            
-            // Verificar si hay datos en la respuesta
-            if (!result.data || !Array.isArray(result.data)) {
-                console.warn('⚠️ No se encontraron platos activos');
-                renderPlatos([]);
-                return;
-            }
-            
-            console.log(`✅ Se encontraron ${result.data.length} platos activos`);
-            renderPlatos(result.data);
-            
-        } catch (error) {
-            console.error('Error al cargar los platos:', error);
-            
-            // Mostrar mensaje de error en el contenedor
-            if (platosContainer) {
-                platosContainer.innerHTML = `
-                    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg max-w-2xl mx-auto" role="alert">
-                        <div class="flex">
-                            <div class="py-1">
-                                <svg class="fill-current h-6 w-6 text-red-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-bold">¡Ups! Algo salió mal</p>
-                                <p class="text-sm">No pudimos cargar los platos del día. Por favor, intenta de nuevo más tarde.</p>
-                                <p class="text-xs mt-1 text-red-600">${error.message}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-    }
-
     // Inicializar solo si el contenedor existe
     if (platosContainer) {
         fetchPlatos();
         
-        // Actualizar los platos cada 5 minutos (opcional)
-        setInterval(fetchPlatos, 5 * 60 * 1000);
-        
-        // Limpiar el intervalo cuando la pestaña no está activa
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                stopAutoSlide();
-            } else if (platosData.length > 1) {
+        // Pausar el carrusel cuando el mouse está sobre él
+        platosContainer.addEventListener('mouseenter', stopAutoSlide);
+        platosContainer.addEventListener('mouseleave', () => {
+            if (platosData.length > 1) {
                 startAutoSlide();
             }
         });
-    } else {
-        console.error('No se encontró el contenedor de platos');
+        
+        // Soporte para navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                navegarPlato(-1);
+            } else if (e.key === 'ArrowRight') {
+                navegarPlato(1);
+            }
+        });
     }
 });

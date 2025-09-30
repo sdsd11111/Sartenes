@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Sartenes - Restaurante</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/favicon.ico">
+</head>
+<body class="bg-gray-50">
+    <!-- Componente Header -->
+    <div id="header-component">
+        <!-- El contenido del header se cargará aquí mediante JavaScript -->
+    </div>
+
+    <!-- Hero Section with Dynamic Plato del Día -->
+    <section id="hero-plato-del-dia" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-cover bg-center">
+        <!-- Contenido del Hero -->
+        <div class="relative z-10 w-full py-8 md:py-16 flex flex-col items-center justify-center text-center px-4">
+            <div class="mb-4 md:mb-6">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-playfair text-white mb-1 sm:mb-2 uppercase leading-tight">
+                    Los Sartenes
+                </h1>
+                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-white border-b-2 border-[#FF8C42] pb-1 sm:pb-2 inline-block">
+                    Plato del Día
+                </h2>
+            </div>
+
+            <!-- Dynamic Content Container -->
+            <div id="platos-dinamicos-container" class="space-y-4 sm:space-y-6 max-w-3xl w-full mx-auto px-2 sm:px-4 flex-1 flex flex-col justify-center">
+                <div class="animate-pulse">
+                    <p class="text-white text-lg sm:text-xl">Cargando ofertas del día...</p>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="mt-6 sm:mt-8 md:mt-10 w-full max-w-xs mx-auto">
+                <a 
+                    href="https://wa.me/59372587432?text=¡Hola!%20Me%20gustaría%20pedir%20el%20plato%20del%20día%20en%20Los%20Sartenes" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center w-full px-6 sm:px-8 py-3 bg-[#FF8C42] hover:bg-orange-600 text-white text-base sm:text-lg font-bold uppercase rounded-lg shadow-xl transition-all duration-300 transform hover:scale-105"
+                >
+                    <i class="fab fa-whatsapp text-xl sm:text-2xl mr-2"></i>
+                    <span class="whitespace-nowrap">Pide el plato del día</span>
+                </a>
+            </div>
+        
+        <!-- Flecha de desplazamiento -->
+        <div class="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+            <a href="#quienes-somos" class="text-white hover:text-[#FF8C42] transition-colors block p-2">
+                <i class="fas fa-chevron-down text-2xl sm:text-3xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Quiénes Somos -->
+    <section id="quienes-somos" class="bg-stone-50 py-12 md:py-24 lg:py-32">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-playfair font-bold text-[#1A531A] mb-8 text-center md:text-left">
+                Descubre la Esencia de <span class="block">Los Sartenes</span>
+            </h2>
+            
+            <!-- Mobile Cards View -->
+            <div class="lg:hidden space-y-6 mb-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-[#1A531A] mb-3">Nuestra Historia</h3>
+                    <p class="text-gray-700">En el corazón de Loja, <span class="text-[#FF8C42] font-medium">Los Sartenes</span> nace como un homenaje a la rica tradición culinaria ecuatoriana, fusionando sabores ancestrales con un toque contemporáneo.</p>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-[#1A531A] mb-3">Nuestras Vajillas</h3>
+                    <p class="text-gray-700">Reconocidas por sus auténticas <span class="text-[#FF8C42] font-medium">vajillas de barro</span>, elaboradas por maestros alfareros locales, que conservan el calor y los sabores tradicionales.</p>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-[#1A531A] mb-3">Lo que nos distingue</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-[#FF8C42] mr-2">•</span>
+                            <span>Ingredientes <span class="text-[#FF8C42] font-medium">frescos y locales</span> seleccionados diariamente</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#FF8C42] mr-2">•</span>
+                            <span>Recetas tradicionales transmitidas por <span class="text-[#FF8C42] font-medium">generaciones</span></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#FF8C42] mr-2">•</span>
+                            <span>Ambiente familiar con <span class="text-[#FF8C42] font-medium">calidez lojana</span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Desktop View -->
+            <div class="hidden lg:flex flex-col lg:flex-row items-center">
+                <!-- Columna 1: Texto -->
+                <div class="lg:w-1/2 lg:pr-12 mb-12 lg:mb-0">
+                    <div class="space-y-4 text-gray-700">
+                        <p>En el corazón de Loja, <span class="text-[#FF8C42] font-medium">Los Sartenes</span> nace como un homenaje a la rica tradición culinaria ecuatoriana, fusionando sabores ancestrales con un toque contemporáneo.</p>
+                        
+                        <p>Nuestro restaurante es reconocido por sus auténticas <span class="text-[#FF8C42] font-medium">vajillas de barro</span>, elaboradas artesanalmente por maestros alfareros locales, que no solo realzan la presentación de nuestros platos sino que también conservan el calor y los sabores tradicionales.</p>
+                        
+                        <p>Lo que nos distingue:</p>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>Ingredientes <span class="text-[#FF8C42] font-medium">frescos y locales</span> seleccionados diariamente</li>
+                            <li>Recetas tradicionales transmitidas por <span class="text-[#FF8C42] font-medium">generaciones</span></li>
+                            <li>Un ambiente familiar que refleja la <span class="text-[#FF8C42] font-medium">calidez lojana</span></li>
+                            <li>Compromiso con la <span class="text-[#FF8C42] font-medium">autenticidad</span> en cada platillo</li>
+                        </ul>
+                        
+                        <p class="pt-4">En <span class="text-[#FF8C42] font-medium">Los Sartenes</span>, cada comida es una experiencia que honra nuestras raíces y celebra la riqueza de la gastronomía ecuatoriana.</p>
+                    </div>
+                </div>
+                
+                <!-- Columna 2: Imagen y Galería -->
+                <div class="lg:w-1/2 relative">
+                    <!-- Imagen principal -->
+                    <div class="relative rounded-lg overflow-hidden shadow-xl transform hover:scale-[1.02] transition-transform duration-500">
+                        <img 
+                            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                            alt="Ambiente del restaurante Los Sartenes" 
+                            class="w-full h-auto rounded-lg"
+                            loading="lazy"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-playfair font-bold mb-2">Nuestro Espacio</h3>
+                            <p class="text-stone-100">Donde la tradición y el sabor se encuentran</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Galería de imágenes con slider en móvil -->
+                    <div class="relative mt-6">
+                        <!-- Contenedor del slider -->
+                        <div class="gallery-slider-container overflow-hidden rounded-lg lg:grid lg:grid-cols-2 lg:gap-4">
+                            <div class="gallery-track flex transition-transform duration-500 ease-in-out lg:flex lg:flex-wrap lg:gap-4">
+                                <!-- Imagen 1 -->
+                                <div class="gallery-slide min-w-full lg:min-w-0 lg:w-[calc(50%-0.5rem)]">
+                                    <img 
+                                        src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                                        alt="Vajillas de barro artesanales" 
+                                        class="w-full h-48 object-cover rounded-lg shadow-md lg:hover:scale-105 lg:transition-transform lg:duration-300"
+                                        loading="lazy"
+                                    >
+                                </div>
+                                <!-- Imagen 2 -->
+                                <div class="gallery-slide min-w-full lg:min-w-0 lg:w-[calc(50%-0.5rem)]">
+                                    <img 
+                                        src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" 
+                                        alt="Ambiente del restaurante" 
+                                        class="w-full h-48 object-cover rounded-lg shadow-md lg:hover:scale-105 lg:transition-transform lg:duration-300"
+                                        loading="lazy"
+                                    >
+                                </div>
+                                <!-- Imagen 3 -->
+                                <div class="gallery-slide min-w-full lg:min-w-0 lg:w-[calc(50%-0.5rem)]">
+                                    <img 
+                                        src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                                        alt="Nuestro restaurante" 
+                                        class="w-full h-48 object-cover rounded-lg shadow-md lg:hover:scale-105 lg:transition-transform lg:duration-300"
+                                        loading="lazy"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Indicadores del slider (solo móvil) -->
+                        <div class="flex justify-center mt-4 space-x-2 lg:hidden">
+                            <button class="gallery-dot w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-index="0"></button>
+                            <button class="gallery-dot w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-index="1"></button>
+                            <button class="gallery-dot w-3 h-3 rounded-full bg-gray-300 focus:outline-none" data-index="2"></button>
+                        </div>
+                        
+                        <!-- Botones de navegación (solo móvil) -->
+                        <button class="gallery-prev absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 text-[#1A531A] w-10 h-10 rounded-full flex items-center justify-center shadow-lg lg:hidden">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="gallery-next absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 text-[#1A531A] w-10 h-10 rounded-full flex items-center justify-center shadow-lg lg:hidden">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Video - Tradición y Vanguardia -->
+    <section class="py-16 md:py-28 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <!-- Encabezado -->
+            <div class="text-center max-w-4xl mx-auto mb-10 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-playfair font-bold text-[#1A531A] mb-4">
+                    Nuestra Historia en Video
+                </h2>
+                <div class="w-20 h-1 bg-[#FF8C42] mx-auto mb-6"></div>
+                <p class="text-gray-600 text-lg md:text-xl">
+                    Conoce más sobre nuestra pasión por la gastronomía tradicional
+                </p>
+            </div>
+            </div>
+            
+            <!-- Contenedor del Video -->
+            <div class="max-w-6xl mx-auto rounded-2xl overflow-hidden shadow-2xl relative group">
+                <!-- Thumbnail con botón de play -->
+                <div id="videoThumbnail" class="relative cursor-pointer bg-gray-900 overflow-hidden" style="padding-bottom: 56.25%;">
+                    <img 
+                        src="https://images.unsplash.com/photo-1608889825103-eb0b8ce3e2c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                        alt="Proceso de elaboración artesanal en Los Sartenes" 
+                        class="absolute inset-0 w-full h-full object-cover"
+                        loading="lazy"
+                    >
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center transition-all duration-500 group-hover:bg-black/40">
+                        <!-- Botón de Play Dorado -->
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-[#FFD700] rounded-full opacity-70 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-110"></div>
+                            <div class="relative w-20 h-20 md:w-24 md:h-24 bg-[#FFD700] rounded-full flex items-center justify-center shadow-lg transform transition-transform duration-300 group-hover:scale-110">
+                                <div class="w-0 h-0 border-t-12 md:border-t-14 border-b-12 md:border-b-14 border-l-20 md:border-l-24 border-t-transparent border-b-transparent border-l-white ml-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Overlay de información -->
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 md:p-8 text-white">
+                    <h3 class="text-xl md:text-2xl font-bold mb-2">El Arte de la Cocina Tradicional</h3>
+                    <p class="text-gray-200 text-sm md:text-base">Conozca a nuestros maestros cocineros en acción</p>
+                </div>
+            </div>
+            
+            <!-- CTA Secundario -->
+            <div class="text-center mt-12">
+                <a href="galeria.html" class="inline-flex items-center justify-center bg-[#C0C0C0] hover:bg-gray-400 text-gray-800 font-semibold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
+                    <span>Ver Nuestro Portafolio Completo</span>
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Nuestro Menú - Explorador de Categorías -->
+    <section id="nuestro-menu" class="py-20 bg-green-50">
+        <div class="container mx-auto px-4">
+            <!-- Encabezado -->
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-5xl font-playfair font-bold text-[#1A531A] mb-6">
+                    Explora Nuestros Sabores: <span class="block">Un Viaje Culinario por 9 Categorías</span>
+                </h2>
+                <p class="text-gray-600 text-lg md:text-xl leading-relaxed">
+                    Nuestro menú es una celebración de la gastronomía. Desde nuestras aclamadas Especialidades de la Casa y las auténticas Parrilladas, hasta innovadoras Opciones Vegetarianas y exquisitos Cocteles. Haz clic y descubre cada sección.
+                </p>
+            </div>
+
+            <!-- Grid de Categorías -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <!-- Categoría 1: Especialidades de la Casa -->
+                <a href="menu/especialidades.html" class="group relative h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A531A]/90 via-[#1A531A]/70 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" 
+                         alt="Especialidades de la Casa" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         loading="lazy">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                        <div class="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-3 transform transition-transform group-hover:scale-110">
+                            <i class="fas fa-home text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Especialidades de la Casa</h3>
+                        <span class="inline-block bg-[#FF8C42] text-white text-sm font-semibold px-4 py-1 rounded-full">Ver Sección</span>
+                    </div>
+                </a>
+
+                <!-- Categoría 2: Pescados y Mariscos -->
+                <a href="menu/pescados-mariscos.html" class="group relative h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A531A]/90 via-[#1A531A]/70 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1567620838300-0f5e9a8f9ff2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                         alt="Pescados y Mariscos" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         loading="lazy">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                        <div class="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-3 transform transition-transform group-hover:scale-110">
+                            <i class="fas fa-fish text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Pescados y Mariscos</h3>
+                        <span class="inline-block bg-[#FF8C42] text-white text-sm font-semibold px-4 py-1 rounded-full">Ver Sección</span>
+                    </div>
+                </a>
+
+                <!-- Categoría 3: Pastas -->
+                <a href="menu/pastas.html" class="group relative h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A531A]/90 via-[#1A531A]/70 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1603871165928-0f71b3f6196b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                         alt="Pastas" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         loading="lazy">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                        <div class="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-3 transform transition-transform group-hover:scale-110">
+                            <i class="fas fa-utensils text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Pastas</h3>
+                        <span class="inline-block bg-[#FF8C42] text-white text-sm font-semibold px-4 py-1 rounded-full">Ver Sección</span>
+                    </div>
+                </a>
+
+                <!-- Categoría 4: Res, Cerdo y Aves -->
+                <a href="menu/carnes.html" class="group relative h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A531A]/90 via-[#1A531A]/70 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" 
+                         alt="Res, Cerdo y Aves" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         loading="lazy">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                        <div class="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-3 transform transition-transform group-hover:scale-110">
+                            <i class="fas fa-drumstick-bite text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Res, Cerdo y Aves</h3>
+                        <span class="inline-block bg-[#FF8C42] text-white text-sm font-semibold px-4 py-1 rounded-full">Ver Sección</span>
+                    </div>
+                </a>
+
+                <!-- Categoría 5: Opciones Vegetarianas -->
+                <a href="menu/vegetariano.html" class="group relative h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A531A]/90 via-[#1A531A]/70 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1543352634-a1c51d9f1fa7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                         alt="Opciones Vegetarianas" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         loading="lazy">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                        <div class="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-3 transform transition-transform group-hover:scale-110">
+                            <i class="fas fa-leaf text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Opciones Vegetarianas</h3>
+                        <span class="inline-block bg-[#FF8C42] text-white text-sm font-semibold px-4 py-1 rounded-full">Ver Sección</span>
+                    </div>
+                </a>
+
+                <!-- Categoría 6: Festival y Parrilladas -->
+                <a href="menu/parrilladas.html" class="group relative h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A531A]/90 via-[#1A531A]/70 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1555396273-aa67854ba88d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1227&q=80" 
+                         alt="Festival y Parrilladas" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         loading="lazy">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                        <div class="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-3 transform transition-transform group-hover:scale-110">
+                            <i class="fas fa-fire text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Festival y Parrilladas</h3>
+                        <span class="inline-block bg-[#FF8C42] text-white text-sm font-semibold px-4 py-1 rounded-full">Ver Sección</span>
+                    </div>
+                </a>
+
+                <!-- Categoría 7: Ensaladas y Sopas -->
+                <a href="menu/ensaladas-sopas.html" class="group relative h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A531A]/90 via-[#1A531A]/70 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                         alt="Ensaladas y Sopas" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         loading="lazy">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                        <div class="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-3 transform transition-transform group-hover:scale-110">
+                            <i class="fas fa-carrot text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Ensaladas y Sopas</h3>
+                        <span class="inline-block bg-[#FF8C42] text-white text-sm font-semibold px-4 py-1 rounded-full">Ver Sección</span>
+                    </div>
+                </a>
+                
+                <!-- Categoría 8: Bebidas -->
+                <a href="menu/bebidas.html" class="group relative h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A531A]/90 via-[#1A531A]/70 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1551024601-bec78aea704c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1164&q=80" 
+                         alt="Bebidas y Cócteles" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         loading="lazy">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                        <div class="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-3 transform transition-transform group-hover:scale-110">
+                            <i class="fas fa-cocktail text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Bebidas y Cócteles</h3>
+                        <span class="inline-block bg-[#FF8C42] text-white text-sm font-semibold px-4 py-1 rounded-full">Ver Sección</span>
+                    </div>
+                </a>
+                
+                <!-- Categoría 9: Postres -->
+                <a href="menu/postres.html" class="group relative h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A531A]/90 via-[#1A531A]/70 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1551024601-bec78aea704c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1164&q=80" 
+                         alt="Postres Caseros" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         loading="lazy">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                        <div class="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-3 transform transition-transform group-hover:scale-110">
+                            <i class="fas fa-ice-cream text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Postres Caseros</h3>
+                        <span class="inline-block bg-[#FF8C42] text-white text-sm font-semibold px-4 py-1 rounded-full">Ver Sección</span>
+                    </div>
+                </a>
+
+                <!-- Categoría 8: Postres e Infantil -->
+                <a href="menu/postres.html" class="group relative h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A531A]/90 via-[#1A531A]/70 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                         alt="Postres e Infantil" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         loading="lazy">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                        <div class="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-3 transform transition-transform group-hover:scale-110">
+                            <i class="fas fa-ice-cream text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Postres e Infantil</h3>
+                        <span class="inline-block bg-[#FF8C42] text-white text-sm font-semibold px-4 py-1 rounded-full">Ver Sección</span>
+                    </div>
+                </a>
+
+                <!-- Categoría 9: Bebidas y Cocteles -->
+                <a href="menu/bebidas.html" class="group relative h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A531A]/90 via-[#1A531A]/70 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1551024709-8f23b3a0a524?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                         alt="Bebidas y Cocteles" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                         loading="lazy">
+                    <div class="absolute bottom-0 left-0 p-6 z-20 text-white">
+                        <div class="w-12 h-12 bg-[#FF8C42] rounded-full flex items-center justify-center mb-3 transform transition-transform group-hover:scale-110">
+                            <i class="fas fa-cocktail text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Bebidas y Cocteles</h3>
+                        <span class="inline-block bg-[#FF8C42] text-white text-sm font-semibold px-4 py-1 rounded-full">Ver Sección</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Testimonios -->
+    <section id="testimonios" class="py-20 bg-stone-50">
+        <div class="container mx-auto px-4">
+            <!-- Encabezado -->
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-5xl font-playfair font-bold text-[#1A531A] mb-4">
+                    Historias Reales: La Experiencia Los Sartenes
+                </h2>
+                <p class="text-gray-600 text-lg md:text-xl leading-relaxed">
+                    Con una calificación general de <span class="font-bold">4.4 sobre 5</span> basada en cientos de valoraciones, 
+                    la satisfacción de nuestros clientes es nuestro mejor plato. Escucha lo que dicen sobre nuestro 
+                    ambiente único y la calidad de nuestra gastronomía.
+                </p>
+            </div>
+
+            <!-- Contenedor del Carrusel -->
+            <div class="relative max-w-4xl mx-auto">
+                <!-- Botones de Navegación -->
+                <button id="testimonial-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 md:-ml-8 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-md flex items-center justify-center text-[#FF8C42] hover:bg-[#FF8C42] hover:text-white transition-all duration-300 transform hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                
+                <button id="testimonial-next" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 md:-mr-8 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-md flex items-center justify-center text-[#FF8C42] hover:bg-[#FF8C42] hover:text-white transition-all duration-300 transform hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+
+                <!-- Puntos de Navegación -->
+                <div class="flex justify-center mt-8 space-x-2">
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300" data-index="0"></button>
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300" data-index="1"></button>
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300" data-index="2"></button>
+                </div>
+
+                <!-- Contenedor del Carrusel -->
+                <div class="testimonial-container overflow-hidden">
+                    <div class="testimonial-track flex transition-transform duration-500 ease-in-out">
+                        <!-- Testimonio 1 -->
+                        <div class="testimonial-slide min-w-full px-4">
+                            <div class="bg-white p-8 md:p-10 rounded-xl shadow-lg">
+                                <div class="text-amber-400 text-2xl mb-4">
+                                    ★★★★★
+                                    <span class="text-gray-400">★★★★★</span>
+                                    <span class="text-gray-500 text-sm ml-2">8.5/10</span>
+                                </div>
+                                <blockquote class="text-gray-700 italic text-lg md:text-xl leading-relaxed mb-6">
+                                    "Un lugar agradable con un interior encantador... la comida es muy buena y el personal atento. Definitivamente volveremos."
+                                </blockquote>
+                                <div class="text-right">
+                                    <p class="font-semibold text-gray-900">María G.</p>
+                                    <p class="text-sm text-gray-500">Enfoque en Ambiente/Servicio</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonio 2 -->
+                        <div class="testimonial-slide min-w-full px-4">
+                            <div class="bg-white p-8 md:p-10 rounded-xl shadow-lg">
+                                <div class="text-amber-400 text-2xl mb-4">
+                                    ★★★★★
+                                    <span class="text-gray-400">★★★★★</span>
+                                    <span class="text-gray-500 text-sm ml-2">7.5/10</span>
+                                </div>
+                                <blockquote class="text-gray-700 italic text-lg md:text-xl leading-relaxed mb-6">
+                                    "El menú es muy diverso y tienen platos sabrosos. El risotto con mariscos es excelente."
+                                </blockquote>
+                                <div class="text-right">
+                                    <p class="font-semibold text-gray-900">Carlos M.</p>
+                                    <p class="text-sm text-gray-500">Enfoque en Calidad de Platos</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonio 3 -->
+                        <div class="testimonial-slide min-w-full px-4">
+                            <div class="bg-white p-8 md:p-10 rounded-xl shadow-lg">
+                                <div class="text-amber-400 text-2xl mb-4">
+                                    ★★★★★
+                                    <span class="text-gray-400">★★★★★</span>
+                                    <span class="text-gray-500 text-sm ml-2">9.0/10</span>
+                                </div>
+                                <blockquote class="text-gray-700 italic text-lg md:text-xl leading-relaxed mb-6">
+                                    "Un ambiente cálido y acogedor con música de jazz de fondo, perfecto para disfrutar una comida lojana auténtica."
+                                </blockquote>
+                                <div class="text-right">
+                                    <p class="font-semibold text-gray-900">Ana L.</p>
+                                    <p class="text-sm text-gray-500">Enfoque en la Experiencia</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Preguntas Frecuentes -->
+    <section id="faq" class="py-20 bg-white">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <!-- Encabezado -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-playfair font-bold text-[#1A531A] mb-4">
+                    Preguntas Frecuentes
+                </h2>
+                <p class="text-gray-600 text-lg md:text-xl">
+                    Todo lo que necesitas saber sobre tu experiencia en Los Sartenes
+                </p>
+            </div>
+
+            <!-- Acordeón de Preguntas -->
+            <div class="faq-accordion space-y-4">
+                <!-- Pregunta 1 -->
+                <div class="faq-item border-b border-gray-200 pb-4">
+                    <button class="faq-question w-full flex justify-between items-center py-4 text-left focus:outline-none group">
+                        <span class="text-lg md:text-xl font-medium text-[#1A531A] group-hover:text-[#FF8C42] transition-colors">
+                            ¿Cómo garantizan la calidad y el servicio?
+                        </span>
+                        <span class="faq-icon text-[#FF8C42] text-2xl transition-transform duration-300">+</span>
+                    </button>
+                    <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300">
+                        <div class="pb-4 text-gray-600">
+                            <p>Estamos comprometidos con la mejora continua. Hemos implementado un programa de aseguramiento de la calidad y optimización de procesos para garantizar platos uniformes y un servicio eficiente en todo momento.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="faq-item border-b border-gray-200 pb-4">
+                    <button class="faq-question w-full flex justify-between items-center py-4 text-left focus:outline-none group">
+                        <span class="text-lg md:text-xl font-medium text-[#1A531A] group-hover:text-[#FF8C42] transition-colors">
+                            ¿Tienen opciones vegetarianas?
+                        </span>
+                        <span class="faq-icon text-[#FF8C42] text-2xl transition-transform duration-300">+</span>
+                    </button>
+                    <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300">
+                        <div class="pb-4 text-gray-600">
+                            <p>Sí, nuestro menú es diverso. Ofrecemos platos como Ceviche de Champiñón, Risotto al Funghi y Espagueti al Pesto, preparados con ingredientes frescos y de la más alta calidad.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="faq-item border-b border-gray-200 pb-4">
+                    <button class="faq-question w-full flex justify-between items-center py-4 text-left focus:outline-none group">
+                        <span class="text-lg md:text-xl font-medium text-[#1A531A] group-hover:text-[#FF8C42] transition-colors">
+                            ¿Cuál es el horario de atención?
+                        </span>
+                        <span class="faq-icon text-[#FF8C42] text-2xl transition-transform duration-300">+</span>
+                    </button>
+                    <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300">
+                        <div class="pb-4 text-gray-600">
+                            <p>Nuestro horario de atención es:</p>
+                            <ul class="list-disc pl-5 mt-2 space-y-1">
+                                <li>Lunes a Sábado: 11:00 AM - 4:00 PM y 6:00 PM - 11:00 PM</li>
+                                <li>Domingos: 10:00 AM a 5:00 PM</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="faq-item border-b border-gray-200 pb-4">
+                    <button class="faq-question w-full flex justify-between items-center py-4 text-left focus:outline-none group">
+                        <span class="text-lg md:text-xl font-medium text-[#1A531A] group-hover:text-[#FF8C42] transition-colors">
+                            ¿Puedo hacer una reserva en línea?
+                        </span>
+                        <span class="faq-icon text-[#FF8C42] text-2xl transition-transform duration-300">+</span>
+                    </button>
+                    <div class="faq-answer overflow-hidden max-h-0 transition-all duration-300">
+                        <div class="pb-4 text-gray-600">
+                            <p>Sí, para reservas o consultas directas, contáctenos al <a href="tel:+59372587432" class="text-[#FF8C42] hover:underline">+593 7-258-7432</a> (vía llamada o WhatsApp). También puede enviarnos un mensaje a través de nuestro perfil de WhatsApp haciendo clic en el ícono flotante.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script para el Acordeón de Preguntas Frecuentes -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                const icon = item.querySelector('.faq-icon');
+                
+                question.addEventListener('click', () => {
+                    // Cerrar otros ítems abiertos
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            const otherAnswer = otherItem.querySelector('.faq-answer');
+                            const otherIcon = otherItem.querySelector('.faq-icon');
+                            otherAnswer.style.maxHeight = '0';
+                            otherIcon.textContent = '+';
+                            otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                    
+                    // Alternar el ítem actual
+                    const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+                    
+                    if (isOpen) {
+                        answer.style.maxHeight = '0';
+                        icon.textContent = '+';
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        icon.textContent = '−';
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                });
+                
+                // Asegurar que el contenido se ajuste si la ventana cambia de tamaño
+                window.addEventListener('resize', () => {
+                    if (answer.style.maxHeight && answer.style.maxHeight !== '0px') {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    }
+                });
+            });
+            
+            // Abrir la primera pregunta por defecto
+            const firstQuestion = document.querySelector('.faq-question');
+            if (firstQuestion) firstQuestion.click();
+        });
+    </script>
+
+    <!-- Script para el Slider de la Galería Móvil -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar todos los sliders de galería en la página
+            document.querySelectorAll('.gallery-slider-container').forEach((container, containerIndex) => {
+                const galleryTrack = container.querySelector('.gallery-track');
+                const gallerySlides = container.querySelectorAll('.gallery-slide');
+                const galleryDots = container.parentElement.querySelectorAll('.gallery-dot');
+                const prevButton = container.parentElement.querySelector('.gallery-prev');
+                const nextButton = container.parentElement.querySelector('.gallery-next');
+                let currentIndex = 0;
+                const slideCount = gallerySlides.length;
+                let galleryInterval;
+                
+                // Solo inicializar el slider si hay elementos
+                if (gallerySlides.length > 0) {
+                    // Función para actualizar la posición del slider
+                    function updateGalleryPosition() {
+                        galleryTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+                        
+                        // Actualizar indicadores
+                        if (galleryDots.length > 0) {
+                            galleryDots.forEach((dot, index) => {
+                                if (index === currentIndex) {
+                                    dot.classList.add('bg-[#1A531A]');
+                                    dot.classList.remove('bg-gray-300');
+                                } else {
+                                    dot.classList.remove('bg-[#1A531A]');
+                                    dot.classList.add('bg-gray-300');
+                                }
+                            });
+                        }
+                    }
+                    
+                    // Iniciar navegación automática solo en móvil
+                    function startAutoSlide() {
+                        if (window.innerWidth < 1024) {
+                            galleryInterval = setInterval(() => {
+                                currentIndex = (currentIndex + 1) % slideCount;
+                                updateGalleryPosition();
+                            }, 5000);
+                        }
+                    }
+                    
+                    // Event listeners para los botones de navegación
+                    if (prevButton) {
+                        prevButton.addEventListener('click', () => {
+                            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                            updateGalleryPosition();
+                            resetGalleryInterval();
+                        });
+                    }
+                    
+                    if (nextButton) {
+                        nextButton.addEventListener('click', () => {
+                            currentIndex = (currentIndex + 1) % slideCount;
+                            updateGalleryPosition();
+                            resetGalleryInterval();
+                        });
+                    }
+                    
+                    // Event listeners para los dots de navegación
+                    if (galleryDots.length > 0) {
+                        galleryDots.forEach(dot => {
+                            dot.addEventListener('click', () => {
+                                currentIndex = parseInt(dot.getAttribute('data-index'));
+                                updateGalleryPosition();
+                                resetGalleryInterval();
+                            });
+                        });
+                    }
+                    
+                    // Reiniciar el intervalo cuando el usuario interactúa
+                    function resetGalleryInterval() {
+                        if (galleryInterval) {
+                            clearInterval(galleryInterval);
+                        }
+                        startAutoSlide();
+                    }
+                    
+                    // Inicializar posición y slider automático
+                    updateGalleryPosition();
+                    startAutoSlide();
+                    
+                    // Manejar el cambio de tamaño de la ventana
+                    let resizeTimer;
+                    window.addEventListener('resize', () => {
+                        clearTimeout(resizeTimer);
+                        resizeTimer = setTimeout(() => {
+                            if (galleryInterval) {
+                                clearInterval(galleryInterval);
+                            }
+                            if (window.innerWidth < 1024) {
+                                startAutoSlide();
+                            }
+                            updateGalleryPosition();
+                        }, 250);
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <!-- Script para el Carrusel de Testimonios -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.querySelector('.testimonial-track');
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.testimonial-dot');
+            const prevButton = document.getElementById('testimonial-prev');
+            const nextButton = document.getElementById('testimonial-next');
+            let currentIndex = 0;
+            let autoSlideInterval;
+            const slideCount = slides.length;
+            
+            // Configuración del carrusel
+            function updateCarousel() {
+                const slideWidth = 100; // Porcentaje del ancho del contenedor
+                track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                
+                // Actualizar puntos de navegación
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('bg-[#FF8C42]', index === currentIndex);
+                    dot.classList.toggle('bg-gray-300', index !== currentIndex);
+                });
+                
+                // Reiniciar el temporizador de auto-desplazamiento
+                resetAutoSlide();
+            }
+            
+            // Navegación automática
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % slideCount;
+                    updateCarousel();
+                }, 6000); // Cambia cada 6 segundos
+            }
+            
+            function resetAutoSlide() {
+                clearInterval(autoSlideInterval);
+                startAutoSlide();
+            }
+            
+            // Event Listeners
+            prevButton.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                updateCarousel();
+            });
+            
+            nextButton.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % slideCount;
+                updateCarousel();
+            });
+            
+            // Navegación por puntos
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentIndex = index;
+                    updateCarousel();
+                });
+            });
+            
+            // Iniciar el carrusel
+            updateCarousel();
+            startAutoSlide();
+            
+            // Pausar el carrusel al pasar el ratón
+            const carouselContainer = document.querySelector('.testimonial-container');
+            carouselContainer.addEventListener('mouseenter', () => {
+                clearInterval(autoSlideInterval);
+            });
+            
+            carouselContainer.addEventListener('mouseleave', () => {
+                resetAutoSlide();
+            });
+            
+            // Manejo de eventos táctiles para dispositivos móviles
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            track.addEventListener('touchstart', e => {
+                touchStartX = e.touches[0].clientX;
+                clearInterval(autoSlideInterval);
+            }, { passive: true });
+            
+            track.addEventListener('touchmove', e => {
+                touchEndX = e.touches[0].clientX;
+            }, { passive: true });
+            
+            track.addEventListener('touchend', () => {
+                handleSwipe();
+                resetAutoSlide();
+            }, { passive: true });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50; // Mínimo de píxeles para considerar un deslizamiento
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        // Deslizamiento hacia la izquierda (siguiente)
+                        currentIndex = (currentIndex + 1) % slideCount;
+                    } else {
+                        // Deslizamiento hacia la derecha (anterior)
+                        currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                    }
+                    updateCarousel();
+                }
+            }
+        });
+    </script>
+    
+    <!-- Componente Footer -->
+    <div id="footer-component">
+        <!-- El contenido del footer se cargará aquí mediante JavaScript -->
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+    // Contenido de platoDelDia.js
+    document.addEventListener('DOMContentLoaded', function() {
+        const heroSection = document.getElementById('hero-plato-del-dia');
+        const platosContainer = document.getElementById('platos-dinamicos-container');
+        
+        // Usar URL relativa para la API
+        const API_URL = '/api/platos-activos';
+        let platosData = [];
+        let currentPlatoIndex = 0;
+        let slideInterval;
+        
+        // Imagen por defecto si no hay imagen del plato
+        const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80';
+
+        // Función para formatear la URL de la imagen basada en el título del plato
+        function formatImageUrl(titulo) {
+            if (!titulo) return DEFAULT_IMAGE;
+            
+            // Convertir el título a un nombre de archivo válido
+            const nombreArchivo = titulo
+                .toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Eliminar acentos
+                .replace(/[^a-z0-9]+/g, '-') // Reemplazar espacios y caracteres especiales con guiones
+                .replace(/-+/g, '-') // Reemplazar múltiples guiones por uno solo
+                .replace(/^-|-$/g, '') + '.jpg'; // Eliminar guiones al inicio/fin y agregar extensión
+            
+            // Construir la ruta a la imagen local
+            const rutaImagen = `/images/platos/${nombreArchivo}`;
+            console.log('Buscando imagen en:', rutaImagen);
+            
+            // Devolver la ruta de la imagen local
+            return rutaImagen;
+        }
+        
+        // Función para actualizar el fondo del hero
+        function updateHeroBackground(tituloPlato) {
+            const url = formatImageUrl(tituloPlato);
+            console.log('Actualizando fondo del hero con URL:', url);
+            // Añadir overlay oscuro (negro al 70% de opacidad)
+            heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.75)), url('${url}')`;
+            heroSection.style.backgroundSize = 'cover';
+            heroSection.style.backgroundPosition = 'center';
+            heroSection.style.backgroundRepeat = 'no-repeat';
+            heroSection.style.transition = 'background-image 0.8s ease-in-out';
+            
+            // Asegurar que el texto sea legible
+            const textElements = heroSection.querySelectorAll('h1, h2, p, .text-white');
+            textElements.forEach(el => {
+                el.style.textShadow = '0 2px 4px rgba(0,0,0,0.5)';
+            });
+        }
+
+        // Función para mostrar un plato específico
+        function showPlato(index) {
+            if (platosData.length === 0) return;
+            
+            // Asegurarse de que el índice esté dentro de los límites
+            currentPlatoIndex = (index + platosData.length) % platosData.length;
+            
+            const plato = platosData[currentPlatoIndex];
+            if (!plato) return;
+
+            // Actualizar el fondo con la imagen del plato usando el título
+            updateHeroBackground(plato.titulo);
+            
+            // Formatear el valor a 2 decimales
+            const valorFormateado = plato.valor ? parseFloat(plato.valor).toFixed(2) : '0.00';
+            
+            // Actualizar el contenido del plato
+            platosContainer.innerHTML = `
+                <div class="plato-content text-center max-w-3xl mx-auto px-4 transform transition-all duration-500 ease-in-out">
+                    <h3 class="text-3xl md:text-5xl font-bold font-playfair text-white mb-4">
+                        ${plato.titulo || 'Plato del Día'}
+                    </h3>
+                    <p class="text-lg md:text-xl text-gray-200 mb-6">
+                        ${plato.descripcion || 'Deliciosa especialidad del chef preparada con los mejores ingredientes.'}
+                    </p>
+                    <p class="text-4xl font-bold text-[#FF8C42] mb-8 animate-pulse">
+                        $${valorFormateado}
+                    </p>
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="navegarPlato(-1)" class="nav-button bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button onclick="navegarPlato(1)" class="nav-button bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex justify-center mt-6 space-x-2">
+                        ${platosData.map((_, i) => `
+                            <button onclick="irAPlato(${i})" 
+                                    class="w-3 h-3 rounded-full ${i === currentPlatoIndex ? 'bg-[#FF8C42] w-6' : 'bg-white bg-opacity-50'}
+                                           transition-all duration-300">
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Función para navegar entre platos
+        window.navegarPlato = function(direction) {
+            const newIndex = (currentPlatoIndex + direction + platosData.length) % platosData.length;
+            showPlato(newIndex);
+            resetAutoSlide();
+        };
+
+        // Función para ir a un plato específico
+        window.irAPlato = function(index) {
+            if (index >= 0 && index < platosData.length) {
+                showPlato(index);
+                resetAutoSlide();
+            }
+        };
+
+        // Función para iniciar el carrusel automático
+        function startAutoSlide() {
+            stopAutoSlide();
+            slideInterval = setInterval(() => {
+                const nextIndex = (currentPlatoIndex + 1) % platosData.length;
+                showPlato(nextIndex);
+            }, 5000); // Cambiar de plato cada 5 segundos
+        }
+
+        // Función para detener el carrusel automático
+        function stopAutoSlide() {
+            if (slideInterval) {
+                clearInterval(slideInterval);
+                slideInterval = null;
+            }
+        }
+
+        // Función para reiniciar el temporizador de cambio automático
+        function resetAutoSlide() {
+            stopAutoSlide();
+            if (platosData.length > 1) {
+                startAutoSlide();
+            }
+        }
+
+        // Función para mostrar mensaje de error
+        function mostrarMensajeError() {
+            platosContainer.innerHTML = `
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold text-white mb-2">¡Ups! Algo salió mal</h3>
+                    <p class="text-gray-200 mb-4">No pudimos cargar el menú del día. Por favor, intenta de nuevo más tarde.</p>
+                    <button onclick="window.location.reload()" class="px-4 py-2 bg-[#FF8C42] text-white rounded hover:bg-[#e67e22] transition-colors">
+                        Reintentar
+                    </button>
+                </div>
+            `;
+        }
+
+        // Función para mostrar mensaje cuando no hay platos
+        function mostrarMensajePorDefecto() {
+            platosContainer.innerHTML = `
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold text-white mb-2">¡Bienvenido a Los Sartenes!</h3>
+                    <p class="text-gray-200">Próximamente nuestras especialidades del día</p>
+                </div>
+            `;
+        }
+
+        // Función para obtener los platos de la API
+        async function fetchPlatos() {
+            try {
+                console.log('🔍 Solicitando datos de la API...');
+                const response = await fetch(API_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('✅ Datos recibidos de la API:', data);
+                
+                if (Array.isArray(data) && data.length > 0) {
+                    platosData = data;
+                    showPlato(0);
+                    resetAutoSlide();
+                } else {
+                    console.warn('No se encontraron platos activos');
+                    mostrarMensajePorDefecto();
+                }
+            } catch (error) {
+                console.error('Error al cargar los platos:', error);
+                mostrarMensajeError();
+            }
+        }
+
+        // Inicializar solo si el contenedor existe
+        if (platosContainer) {
+            fetchPlatos();
+            
+            // Pausar el carrusel cuando el mouse está sobre él
+            platosContainer.addEventListener('mouseenter', stopAutoSlide);
+            platosContainer.addEventListener('mouseleave', () => {
+                if (platosData.length > 1) {
+                    startAutoSlide();
+                }
+            });
+            
+            // Soporte para navegación con teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    navegarPlato(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navegarPlato(1);
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>
