@@ -225,3 +225,5 @@ Thumbs.db
 # Debug logs
 logs
 *.log
+
+.vercel
