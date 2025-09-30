@@ -127,23 +127,6 @@ app.put('/api/platos/orden', async (req, res) => {
   }
 });
 
-// Ruta para obtener todos los platos (incluyendo inactivos)
-app.get('/api/platos', async (req, res) => {
-  try {
-    const [rows] = await pool.query('SELECT * FROM platos_del_dia ORDER BY orden ASC');
-    res.json(rows);
-  } catch (error) {
-    console.error('Error al obtener todos los platos:', error);
-    res.status(500).json({ error: 'Error al obtener los platos' });
-  }
-});
-
-// Manejador de errores
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('¡Algo salió mal!');
-});
-
 // Iniciar el servidor solo si no estamos en un entorno serverless (como Vercel)
 if (process.env.VERCEL !== '1') {
   const server = app.listen(PORT, () => {
