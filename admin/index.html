@@ -10,6 +10,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <base href="/">
     <style>
+        /* Estilos personalizados */
+        body { background-color: #f8f9fa; }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #1a531a;
+            color: white;
+        }
+        .sidebar a {
+            color: #e2e8f0;
+            transition: all 0.3s;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+    <style>
         body {
             background-color: #f8f9fa;
         }
@@ -143,6 +160,18 @@
     <script>
         // Configuración de la API
         const API_BASE_URL = '/api';
+        
+        // Configurar fetch para incluir credenciales
+        const fetchWithAuth = (url, options = {}) => {
+            return fetch(url, {
+                ...options,
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                }
+            });
+        };
             
         // Variables globales
         let platos = [];
@@ -181,7 +210,7 @@
         async function cargarPlatos() {
             try {
                 console.log('Cargando lista de platos...');
-                const response = await fetch(`${API_BASE_URL}/platos`);
+                const response = await fetchWithAuth(`${API_BASE_URL}/platos`);
                 if (!response.ok) {
                     const error = await response.json().catch(() => ({}));
                     throw new Error(error.error || 'Error al cargar los platos');
@@ -312,7 +341,7 @@
                 
                 console.log('Enviando datos:', Object.fromEntries(formData));
                 
-                const response = await fetch(`${API_BASE_URL}/platos`, {
+                const response = await fetchWithAuth(`${API_BASE_URL}/platos`, {
                     method: 'POST',
                     body: formData
                 });
@@ -379,7 +408,7 @@
             }
             
             try {
-                const response = await fetch(`${API_BASE_URL}/platos/${id}`, {
+                const response = await fetchWithAuth(`${API_BASE_URL}/platos/${id}`, {
                     method: 'DELETE'
                 });
                 

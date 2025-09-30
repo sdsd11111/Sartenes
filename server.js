@@ -14,29 +14,38 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Middleware
 app.use(cors({
   origin: ['https://sartenes.vercel.app', 'http://localhost:3000', 'http://localhost:9000'],
   credentials: true
 }));
 
-// Configuración de CORS para producción
-const allowedOrigins = ['https://sartenes.vercel.app', 'http://localhost:3000', 'http://localhost:9000'];
+// Configuración de CORS
+const allowedOrigins = [
+  'https://sartenes.vercel.app',
+  'https://sartenes-*.vercel.app',
+  'http://localhost:3000',
+  'http://localhost:9000'
+];
+
 app.use(cors({
   origin: function(origin, callback) {
-    // Permitir peticiones sin origen (como aplicaciones móviles o curl)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'El origen de la petición no está permitido';
-      return callback(new Error(msg), false);
+    if (!origin || allowedOrigins.some(allowed => 
+      origin === allowed || 
+      origin.match(new RegExp(`^https?://${allowed.replace('*', '.*')}$`))
+    )) {
+      callback(null, true);
+    } else {
+      console.log('Origen no permitido:', origin);
+      callback(new Error('Not allowed by CORS'));
     }
-    return callback(null, true);
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Configuración de CORS - ya definida anteriormente
+// Manejar preflight requests
+app.options('*', cors());
 
 // Servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public'), {
@@ -203,14 +212,12 @@ app.get('/api/platos-activos', async (req, res) => {
   }
 });
 
-// Archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Rutas de la aplicación
+// Ruta para el panel de administración
 app.get('/admin*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
 });
 
+// Ruta para la página principal
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
