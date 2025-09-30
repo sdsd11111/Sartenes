@@ -31,8 +31,21 @@ app.get('/api/test', (req, res) => {
   res.json({ message: '¡La API está funcionando correctamente!' });
 });
 
-// Ruta para obtener los platos activos
+// Ruta para obtener los platos activos (mantener compatibilidad con versiones anteriores)
 app.get('/api/platos-activos', async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      'SELECT * FROM platos_del_dia WHERE activo = 1 ORDER BY orden ASC'
+    );
+    res.json(rows);
+  } catch (error) {
+    console.error('Error al obtener platos activos:', error);
+    res.status(500).json({ error: 'Error al obtener los platos activos' });
+  }
+});
+
+// Ruta para obtener los platos activos (nueva ruta con plural)
+app.get('/api/platos/activos', async (req, res) => {
   try {
     const [rows] = await pool.query(
       'SELECT * FROM platos_del_dia WHERE activo = 1 ORDER BY orden ASC'
@@ -154,17 +167,22 @@ process.on('unhandledRejection', (err) => {
   }
 });
 
-// Exportar la aplicación para Vercel y pruebas
-const startServer = () => {
-  if (process.env.VERCEL !== '1') {
-    const server = app.listen(PORT, () => {
-      console.log(`Servidor escuchando en el puerto ${PORT}`);
-      console.log(`Visita http://localhost:${PORT}`);
-    });
-    return server;
-  }
-  return null;
-};
+// Iniciar el servidor solo si no estamos en un entorno serverless (como Vercel)
+if (process.env.VERCEL !== '1') {
+  const server = app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
+    console.log(`Visita http://localhost:${PORT}`);
+  });
 
-// Solo exportar startServer si no estamos en producción de Vercel
-module.exports = process.env.VERCEL === '1' ? app : { app, startServer };
+  // Manejo de cierre de la aplicación
+  process.on('SIGTERM', () => {
+    console.log('\n🔴 Recibida señal de terminación. Cerrando servidor...');
+    server.close(() => {
+      console.log('✅ Servidor cerrado correctamente');
+      process.exit(0);
+    });
+  });
+}
+
+// Exportar la aplicación para Vercel
+module.exports = app;
