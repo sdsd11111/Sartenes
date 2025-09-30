@@ -20,14 +20,39 @@ app.use(cors({
   credentials: true
 }));
 
+// Configuración de CORS para producción
+const allowedOrigins = ['https://sartenes.vercel.app', 'http://localhost:3000', 'http://localhost:9000'];
+app.use(cors({
+  origin: function(origin, callback) {
+    // Permitir peticiones sin origen (como aplicaciones móviles o curl)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'El origen de la petición no está permitido';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
+
 // Servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public'), {
   setHeaders: (res, path) => {
     if (path.endsWith('.js')) {
       res.setHeader('Content-Type', 'application/javascript');
     }
+    // Configurar CORS para archivos estáticos
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET');
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
   }
 }));
+
+// Ruta para verificar que el servidor está funcionando
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', message: 'Servidor funcionando correctamente' });
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -202,7 +227,31 @@ app.get('*', (req, res) => {
 });
 
 // Iniciar servidor
-const server = app.listen(PORT, () => {
-  console.log('✅ Servidor escuchando en puerto ' + PORT);
-  console.log('🌐 http://localhost:' + PORT);
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Servidor corriendo en http://0.0.0.0:${PORT}`);
+  console.log(`Modo: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`Supabase URL: ${process.env.SUPABASE_URL ? 'Configurada' : 'No configurada'}`);
+});
+
+// Manejo de errores del servidor
+server.on('error', (error) => {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  const bind = typeof PORT === 'string' ? 'Pipe ' + PORT : 'Port ' + PORT;
+
+  // Mensajes de error amigables
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
 });
