@@ -161,17 +161,27 @@ if (process.env.VERCEL !== '1') {
   });
 }
 
-// Exportar la aplicación para Vercel
-module.exports = app;
-
+// Manejador de errores no controlados en promesas
 process.on('unhandledRejection', (err) => {
   console.error('\n❌ Error no manejado en una promesa:', err);
-  if (server) {
+  if (process.env.VERCEL !== '1' && server) {
     server.close(() => process.exit(1));
   } else {
     process.exit(1);
   }
 });
 
-// Exportar la aplicación para pruebas
-module.exports = { app, startServer };
+// Exportar la aplicación para Vercel y pruebas
+const startServer = () => {
+  if (process.env.VERCEL !== '1') {
+    const server = app.listen(PORT, () => {
+      console.log(`Servidor escuchando en el puerto ${PORT}`);
+      console.log(`Visita http://localhost:${PORT}`);
+    });
+    return server;
+  }
+  return null;
+};
+
+// Solo exportar startServer si no estamos en producción de Vercel
+module.exports = process.env.VERCEL === '1' ? app : { app, startServer };
