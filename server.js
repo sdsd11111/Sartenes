@@ -138,19 +138,6 @@ app.get('/api/platos', async (req, res) => {
   }
 });
 
-// Manejador de rutas que NO son API (incluye / y cualquier .html)
-// Este manejador solo se usará si la ruta no coincide con ningún archivo estático
-app.get('*', (req, res) => {
-  // Si la ruta comienza con /admin, servir el index.html del admin
-  if (req.path.startsWith('/admin')) {
-    return res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));
-  }
-  
-  // Para cualquier otra ruta, servir el index.html principal
-  // Esto permite el enrutamiento del lado del cliente para SPA
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 // Manejador de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
