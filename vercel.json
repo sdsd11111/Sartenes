@@ -16,24 +16,12 @@
       "dest": "/server.js"
     },
     {
-      "src": "/admin",
-      "dest": "/admin/index.html"
-    },
-    {
       "src": "/admin/(.*)",
       "dest": "/admin/$1"
     },
     {
-      "src": "/images/(.*)",
-      "dest": "/public/images/$1"
-    },
-    {
       "src": "/(.*)",
       "dest": "/public/$1"
-    },
-    {
-      "src": "/",
-      "dest": "/public/index.html"
     }
   ]
 }

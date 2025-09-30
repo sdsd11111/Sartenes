@@ -36,18 +36,25 @@ app.use(cors({
   credentials: true
 }));
 
+// Configuración de CORS - ya definida anteriormente
+
 // Servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public'), {
   setHeaders: (res, path) => {
     if (path.endsWith('.js')) {
       res.setHeader('Content-Type', 'application/javascript');
+    } else if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    } else if (path.match(/\.(jpg|jpeg|png|gif|webp|svg)$/)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000');
     }
-    // Configurar CORS para archivos estáticos
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET');
-    res.setHeader('Cache-Control', 'public, max-age=31536000');
   }
 }));
+
+// Ruta para verificar que el servidor está funcionando
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', message: 'Servidor funcionando correctamente' });
+});
 
 // Ruta para verificar que el servidor está funcionando
 app.get('/health', (req, res) => {
@@ -191,31 +198,13 @@ app.get('/api/platos-activos', async (req, res) => {
     
     res.json(platos);
   } catch (error) {
-    console.error('Error al cargar platos activos:', error);
-    res.status(500).json({ error: 'Error al cargar los platos' });
-  }
-});
-
-// Eliminar un plato
-app.delete('/api/platos/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { error } = await supabase
-      .from('platos')
-      .delete()
-      .eq('id', id);
-      
-    if (error) throw error;
-    res.json({ success: true });
-  } catch (error) {
-    console.error('Error al eliminar el plato:', error);
-    res.status(500).json({ error: 'Error al eliminar el plato' });
+    console.error('Error al obtener platos activos:', error);
+    res.status(500).json({ error: 'Error al obtener los platos' });
   }
 });
 
 // Archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/admin', express.static(path.join(__dirname, 'admin')));
 
 // Rutas de la aplicación
 app.get('/admin*', (req, res) => {

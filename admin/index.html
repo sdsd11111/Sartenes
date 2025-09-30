@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <base href="/">
     <style>
         body {
             background-color: #f8f9fa;
@@ -141,9 +142,7 @@
 
     <script>
         // Configuración de la API
-        const API_BASE_URL = window.location.hostname === 'localhost' 
-            ? 'http://localhost:9000/api' 
-            : 'https://sartenes.vercel.app/api';
+        const API_BASE_URL = '/api';
             
         // Variables globales
         let platos = [];
