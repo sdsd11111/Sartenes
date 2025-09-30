@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    // 1. TODAS las peticiones a /api/* van a server.js (Express)
+    { 
+        "src": "/api/(.*)", 
+        "dest": "/server.js" 
+    },
+    // 2. Todo lo demás va a la carpeta de archivos estáticos 'public'
+    { 
+        "src": "/(.*)", 
+        "dest": "/public/$1" 
+    }
+  ]
+}
