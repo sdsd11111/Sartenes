@@ -184,5 +184,5 @@ if (process.env.VERCEL !== '1') {
   });
 }
 
-// Exportar la aplicación para Vercel
+// Exportar la aplicación para Vercel (solo la instancia de Express)
 module.exports = app;
