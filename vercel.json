@@ -4,12 +4,83 @@
     {
       "src": "server.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/(.*)",
       "dest": "/server.js"
+    },
+    {
+      "src": "/admin",
+      "dest": "/public/admin/index.html"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "/public/admin/$1"
+    },
+    {
+      "src": "/(.*\\.(css|js|json|xml))",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/public/$1"
+    },
+    {
+      "src": "/(.*\\.(jpg|jpeg|png|gif|ico|svg|webp|avif|woff|woff2|ttf|eot))",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/public/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/index.html"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    },
+    "command": "npm run vercel-build"
+  },
+  "outputDirectory": "public",
+  "regions": ["gru1"],
+  "framework": null,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        }
+      ]
     }
   ]
 }

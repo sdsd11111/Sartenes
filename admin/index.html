@@ -162,15 +162,32 @@
         const API_BASE_URL = '/api';
         
         // Configurar fetch para incluir credenciales
-        const fetchWithAuth = (url, options = {}) => {
-            return fetch(url, {
+        const fetchWithAuth = async (url, options = {}) => {
+            const defaultHeaders = {};
+            
+            // No establecer Content-Type si es FormData, el navegador lo hará automáticamente con el boundary
+            if (!(options.body instanceof FormData)) {
+                defaultHeaders['Content-Type'] = 'application/json';
+            }
+            
+            const response = await fetch(url, {
                 ...options,
                 credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json',
+                    ...defaultHeaders,
                     ...options.headers
                 }
             });
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                const error = new Error(errorData.message || 'Error en la solicitud');
+                error.status = response.status;
+                error.data = errorData;
+                throw error;
+            }
+            
+            return response;
         };
             
         // Variables globales
@@ -209,30 +226,75 @@
         // Funciones
         async function cargarPlatos() {
             try {
-                console.log('Cargando lista de platos...');
+                console.log('Solicitando lista de platos a:', `${API_BASE_URL}/platos`);
                 const response = await fetchWithAuth(`${API_BASE_URL}/platos`);
+                
                 if (!response.ok) {
-                    const error = await response.json().catch(() => ({}));
-                    throw new Error(error.error || 'Error al cargar los platos');
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || 'Error en la respuesta del servidor');
                 }
+                
                 platos = await response.json();
-                console.log('Platos cargados:', platos);
+                console.log('Platos cargados exitosamente:', platos);
+                
+                // Verificar que los platos tengan la estructura esperada
+                if (!Array.isArray(platos)) {
+                    console.warn('La respuesta no es un arreglo:', platos);
+                    platos = [];
+                }
+                
                 mostrarPlatos();
+                return platos;
+                
             } catch (error) {
-                console.error('Error al cargar platos:', error);
+                console.error('❌ Error al cargar platos:', error);
+                
+                // Mostrar mensaje de error en la interfaz
+                const errorMessage = error.status === 401 
+                    ? 'No autorizado. Por favor, inicia sesión.' 
+                    : `Error: ${error.message || 'No se pudieron cargar los platos'}`;
+                
                 platosContainer.innerHTML = `
-                    <div class="p-4 text-center text-red-500">
-                        Error al cargar los platos: ${error.message}. Por favor, recarga la página.
+                    <div class="p-4 text-center">
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded" role="alert">
+                            <p class="font-bold">Error al cargar los platos</p>
+                            <p>${errorMessage}</p>
+                            ${error.status === 401 ? '<p class="mt-2">Redirigiendo a la página de inicio de sesión...</p>' : ''}
+                        </div>
                     </div>
                 `;
+                
+                // Si no está autorizado, redirigir al login después de 2 segundos
+                if (error.status === 401) {
+                    setTimeout(() => {
+                        window.location.href = '/login';
+                    }, 2000);
+                }
+                
+                // Retornar un arreglo vacío para evitar errores
+                platos = [];
+                return [];
             }
         }
         
         function mostrarPlatos() {
-            if (platos.length === 0) {
+            if (!platos || platos.length === 0) {
                 platosContainer.innerHTML = `
-                    <div class="p-4 text-center text-gray-500">
-                        No hay platos registrados. Haz clic en "Nuevo Plato" para agregar uno.
+                    <div class="p-4 text-center">
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-yellow-700">
+                                        No hay platos registrados. Haz clic en "Nuevo Plato" para agregar uno.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 `;
                 return;
@@ -292,137 +354,314 @@
             
             const platoId = document.getElementById('platoId').value;
             const esNuevo = !platoId;
+            const submitBtn = formPlato.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
             
             try {
-                // Crear objeto con los datos del formulario
-                const formData = new FormData();
-                const titulo = document.getElementById('titulo').value;
-                const descripcion = document.getElementById('descripcion').value;
+                // Mostrar indicador de carga
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Guardando...';
+                
+                // Obtener los valores del formulario
+                const titulo = document.getElementById('titulo').value.trim();
+                const descripcion = document.getElementById('descripcion').value.trim();
                 const valor = document.getElementById('valor').value;
                 const activo = document.getElementById('activo').checked;
+                const imagenInput = document.getElementById('imagen');
                 
-                // Agregar campos directamente al formData
+                // Validaciones básicas
+                if (!titulo) throw new Error('El título es requerido');
+                if (!valor) throw new Error('El precio es requerido');
+                if (isNaN(parseFloat(valor))) throw new Error('El precio debe ser un número válido');
+                
+                // Determinar si estamos subiendo una nueva imagen
+                const tieneNuevaImagen = imagenInput.files && imagenInput.files[0];
+                
+                // Si es una actualización y no hay nueva imagen, mantener la existente
+                let imagen_url = '';
+                if (!esNuevo && !tieneNuevaImagen) {
+                    const imagenActual = document.querySelector('#vistaPreviaImagen img');
+                    if (imagenActual && imagenActual.src && !imagenActual.src.startsWith('data:')) {
+                        imagen_url = imagenActual.src;
+                        console.log('Manteniendo imagen existente:', imagen_url);
+                    }
+                }
+                
+                // Crear FormData para enviar los datos
+                const formData = new FormData();
                 formData.append('titulo', titulo);
                 formData.append('descripcion', descripcion);
-                formData.append('valor', valor);
+                formData.append('valor', parseFloat(valor).toFixed(2));
                 formData.append('activo', activo);
                 
-                console.log('Datos del formulario:', {
+                // Si hay una nueva imagen, agregarla al FormData
+                if (tieneNuevaImagen) {
+                    console.log('Subiendo nueva imagen:', imagenInput.files[0].name);
+                    formData.append('imagen', imagenInput.files[0]);
+                } else if (imagen_url) {
+                    // Si no hay nueva imagen pero hay una URL existente, enviarla
+                    formData.append('imagen_url', imagen_url);
+                }
+                
+                // Configurar la URL y el método según si es nuevo o edición
+                const url = esNuevo 
+                    ? `${API_BASE_URL}/platos` 
+                    : `${API_BASE_URL}/platos/${platoId}`;
+                
+                const method = esNuevo ? 'POST' : 'PUT';
+                
+                console.log(`Enviando ${method} a ${url}`, {
                     titulo,
                     descripcion,
                     valor,
                     activo,
-                    platoId,
-                    esNuevo
+                    tieneNuevaImagen,
+                    imagen_url: imagen_url || 'Ninguna'
                 });
                 
-                // Agregar la imagen solo si se seleccionó una
-                const imagenInput = document.getElementById('imagen');
-                if (imagenInput.files[0]) {
-                    console.log('Se adjuntó una nueva imagen:', imagenInput.files[0].name);
-                    formData.append('imagen', imagenInput.files[0]);
-                } else if (!esNuevo) {
-                    // Si es una actualización y no se seleccionó nueva imagen, mantener la existente
-                    const imagenActual = document.querySelector('#vistaPreviaImagen img');
-                    if (imagenActual && imagenActual.src) {
-                        // Usar la URL completa de la imagen existente
-                        formData.append('imagen_url', imagenActual.src);
-                        console.log('Manteniendo imagen existente:', imagenActual.src);
-                    }
-                }
-                
-                // Agregar el ID si es una actualización
-                if (!esNuevo) {
-                    formData.append('id', platoId);
-                    console.log('Actualizando plato existente con ID:', platoId);
-                } else {
-                    console.log('Creando nuevo plato');
-                }
-                
-                console.log('Enviando datos:', Object.fromEntries(formData));
-                
-                const response = await fetchWithAuth(`${API_BASE_URL}/platos`, {
-                    method: 'POST',
+                // Realizar la petición
+                const response = await fetchWithAuth(url, {
+                    method: method,
                     body: formData
+                    // No establecer Content-Type, el navegador lo hará con el boundary correcto
                 });
                 
                 if (!response.ok) {
                     const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.error || 'Error al guardar el plato');
+                    throw new Error(errorData.error || 'Error en la solicitud');
                 }
                 
                 const data = await response.json();
                 console.log('Respuesta del servidor:', data);
                 
+                // Recargar la lista de platos
                 await cargarPlatos();
+                
+                // Cerrar el modal y mostrar mensaje de éxito
                 cerrarModal();
-                alert(`Plato ${esNuevo ? 'creado' : 'actualizado'} correctamente`);
+                showNotification(
+                    `Plato ${esNuevo ? 'creado' : 'actualizado'} correctamente`,
+                    'success'
+                );
                 
             } catch (error) {
-                console.error('Error:', error);
-                alert(`Error al ${esNuevo ? 'crear' : 'actualizar'} el plato: ${error.message}`);
+                console.error('Error al guardar el plato:', error);
+                showNotification(
+                    `Error al ${esNuevo ? 'crear' : 'actualizar'} el plato: ${error.message || 'Intente nuevamente'}`,
+                    'error'
+                );
+            } finally {
+                // Restaurar el botón
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
             }
+        }
+        
+        // Función para mostrar notificaciones
+        function showNotification(message, type = 'info') {
+            // Eliminar notificaciones anteriores
+            const existingNotification = document.getElementById('global-notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            const colors = {
+                success: 'bg-green-100 border-green-500 text-green-700',
+                error: 'bg-red-100 border-red-500 text-red-700',
+                info: 'bg-blue-100 border-blue-500 text-blue-700'
+            };
+            
+            const notification = document.createElement('div');
+            notification.id = 'global-notification';
+            notification.className = `fixed top-4 right-4 border-l-4 p-4 rounded shadow-lg ${colors[type] || colors.info} z-50 max-w-sm`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        ${type === 'success' ? '<i class="fas fa-check-circle"></i>' : ''}
+                        ${type === 'error' ? '<i class="fas fa-exclamation-circle"></i>' : ''}
+                        ${type === 'info' ? '<i class="fas fa-info-circle"></i>' : ''}
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm">${message}</p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-xl">&times;</button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-ocultar después de 5 segundos
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.opacity = '0';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
         }
         
         async function editarPlato(id) {
             try {
-                const plato = platos.find(p => p.id === id);
-                if (!plato) throw new Error('Plato no encontrado');
+                console.log(`Buscando plato con ID: ${id}`);
                 
+                // Buscar el plato en la lista actual
+                let plato = platos.find(p => p.id == id);
+                
+                // Si no lo encontramos, intentar cargarlo directamente de la API
+                if (!plato) {
+                    console.log(`Plato no encontrado en caché, cargando desde la API...`);
+                    const response = await fetchWithAuth(`${API_BASE_URL}/platos/${id}`);
+                    if (!response.ok) {
+                        throw new Error('No se pudo cargar el plato');
+                    }
+                    plato = await response.json();
+                    console.log('Plato cargado desde la API:', plato);
+                }
+                
+                if (!plato) {
+                    throw new Error('Plato no encontrado');
+                }
+                
+                // Actualizar el formulario
+                document.getElementById('modalTitulo').textContent = 'Editar Plato';
                 document.getElementById('platoId').value = plato.id;
                 document.getElementById('titulo').value = plato.titulo || '';
                 document.getElementById('descripcion').value = plato.descripcion || '';
-                document.getElementById('valor').value = plato.valor || '';
-                document.getElementById('activo').checked = plato.activo || false;
+                document.getElementById('valor').value = plato.precio || '';
+                document.getElementById('activo').checked = plato.activo !== false; // Por defecto true si no está definido
                 
-                // Mostrar imagen actual si existe
-                const vistaPrevia = document.getElementById('vistaPreviaImagen');
+                // Manejar la imagen
+                const vistaPreviaImagen = document.getElementById('vistaPreviaImagen');
                 const imagenPrevia = document.getElementById('imagenPrevia');
-                if (plato.imagen_url) {
-                    // Si es una URL completa o relativa
-                    if (plato.imagen_url.startsWith('http') || plato.imagen_url.startsWith('/')) {
-                        imagenPrevia.src = plato.imagen_url;
+                const imagenInput = document.getElementById('imagen');
+                
+                // Función para establecer la imagen de vista previa
+                const setPreviewImage = (url) => {
+                    if (url) {
+                        imagenPrevia.src = url;
+                        vistaPreviaImagen.classList.remove('hidden');
+                        // Guardar la URL de la imagen actual para referencia
+                        imagenPrevia.dataset.currentImage = url;
                     } else {
-                        // Si es solo un nombre de archivo, asumir que está en /images/platos/
-                        imagenPrevia.src = '/images/platos/' + plato.imagen_url;
+                        vistaPreviaImagen.classList.add('hidden');
+                        imagenPrevia.src = '#';
+                        delete imagenPrevia.dataset.currentImage;
                     }
-                    vistaPrevia.classList.remove('hidden');
+                };
+                
+                // Manejar la imagen del plato
+                if (plato.imagen_url) {
+                    // Si la URL de la imagen es relativa, hacerla absoluta
+                    let imageUrl = plato.imagen_url;
+                    
+                    // Si no es una URL completa ni un data URL
+                    if (!imageUrl.startsWith('http') && !imageUrl.startsWith('data:')) {
+                        // Asegurarse de que comience con / si no lo hace
+                        if (!imageUrl.startsWith('/')) {
+                            imageUrl = '/' + imageUrl;
+                        }
+                        
+                        // Si no está en la carpeta de imágenes, asumir que está en /images/platos/
+                        if (!imageUrl.startsWith('/images/')) {
+                            const fileName = imageUrl.split('/').pop();
+                            imageUrl = `/images/platos/${fileName}`;
+                        }
+                    }
+                    
+                    console.log('Intentando cargar imagen:', imageUrl);
+                    
+                    // Verificar si la imagen existe antes de mostrarla
+                    const img = new Image();
+                    img.onload = function() {
+                        console.log('Imagen cargada correctamente:', imageUrl);
+                        setPreviewImage(imageUrl);
+                    };
+                    img.onerror = function() {
+                        console.warn('No se pudo cargar la imagen, usando placeholder:', imageUrl);
+                        // Si falla, intentar con la URL original
+                        if (imageUrl !== plato.imagen_url) {
+                            console.log('Intentando con la URL original:', plato.imagen_url);
+                            img.src = plato.imagen_url;
+                        } else {
+                            setPreviewImage('/images/placeholder.jpg');
+                        }
+                    };
+                    img.src = imageUrl;
                 } else {
-                    vistaPrevia.classList.add('hidden');
+                    console.log('No hay imagen para este plato');
+                    setPreviewImage(null);
                 }
                 
-                modalTitulo.textContent = 'Editar Plato';
-                imagenInput.required = false;
+                // Limpiar el input de archivo
+                if (imagenInput) {
+                    imagenInput.value = '';
+                }
+                
+                // Mostrar el modal
                 modalPlato.classList.remove('hidden');
-                modalPlato.classList.add('flex');
+                
+                // Hacer scroll al inicio del formulario
+                modalPlato.scrollTo(0, 0);
+                
                 
             } catch (error) {
-                console.error('Error al cargar el plato:', error);
-                alert('Error al cargar el plato para editar: ' + error.message);
+                console.error('❌ Error al cargar el plato para editar:', error);
+                showNotification(
+                    `Error al cargar el plato: ${error.message || 'Intente nuevamente'}`,
+                    'error'
+                );
             }
         }
         
+        // Función para eliminar un plato
         async function eliminarPlato(id) {
-            if (!confirm('¿Estás seguro de que deseas eliminar este plato?')) {
+            if (!id) {
+                console.error('ID de plato no proporcionado para eliminar');
+                showNotification('Error: ID de plato no proporcionado', 'error');
                 return;
             }
             
+            // Confirmar antes de eliminar
+            const confirmar = confirm('¿Estás seguro de que deseas eliminar este plato? Esta acción no se puede deshacer.');
+            if (!confirmar) return;
+            
+            const botonEliminar = document.querySelector(`button[onclick="eliminarPlato('${id}')"]`);
+            const textoOriginal = botonEliminar ? botonEliminar.innerHTML : '';
+            
             try {
+                // Mostrar indicador de carga
+                if (botonEliminar) {
+                    botonEliminar.disabled = true;
+                    botonEliminar.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Eliminando...';
+                }
+                
+                console.log(`Eliminando plato con ID: ${id}`);
                 const response = await fetchWithAuth(`${API_BASE_URL}/platos/${id}`, {
                     method: 'DELETE'
                 });
                 
                 if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Error al eliminar el plato');
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || 'Error al eliminar el plato');
                 }
                 
+                // Recargar la lista de platos
                 await cargarPlatos();
-                alert('Plato eliminado correctamente');
+                
+                // Mostrar notificación de éxito
+                showNotification('Plato eliminado correctamente', 'success');
                 
             } catch (error) {
-                console.error('Error:', error);
-                alert(`Error al eliminar el plato: ${error.message}`);
+                console.error('❌ Error al eliminar el plato:', error);
+                showNotification(
+                    `Error al eliminar el plato: ${error.message || 'Intente nuevamente'}`,
+                    'error'
+                );
+            } finally {
+                // Restaurar el botón
+                if (botonEliminar) {
+                    botonEliminar.disabled = false;
+                    botonEliminar.innerHTML = textoOriginal || 'Eliminar';
+                }
             }
         }
         
