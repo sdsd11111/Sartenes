@@ -1435,3 +1435,9 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('⚠️ Promesa rechazada no manejada:', reason);
   // Opcional: registrar el error o cerrar recursos
 });
+
+// === SOLO PARA VERCEL ===
+if (process.env.VERCEL) {
+  module.exports = app; // Exporta el servidor Express
+}
+// === FIN VERCEL ===

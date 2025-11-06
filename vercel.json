@@ -12,93 +12,61 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
+      "src": "/(.*)",
       "dest": "/server.js"
     },
     {
-      "src": "/admin/login.html",
-      "dest": "/public/admin/login.html"
+      "src": "^/admin/(.*)",
+      "dest": "/admin/$1"
     },
     {
-      "src": "/admin/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg))",
-      "dest": "/public/admin/$1"
+      "src": "^/sobre-nosotros/?$",
+      "dest": "/sobre-nosotros.html"
     },
     {
-      "src": "/admin/$",
-      "status": 302,
-      "headers": { "Location": "/admin/login.html" }
+      "src": "^/galeria/?$",
+      "dest": "/galeria.html"
     },
     {
-      "src": "/admin$",
-      "status": 301,
-      "headers": { "Location": "/admin/" }
+      "src": "^/contacto/?$",
+      "dest": "/contacto.html"
     },
     {
-      "src": "/admin/(.*)",
-      "dest": "/public/admin/index.html"
+      "src": "^/vegetarianos/?$",
+      "dest": "/vegetarianos.html"
     },
     {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|json|webmanifest|woff|woff2|ttf|eot|mp4|webp))",
-      "headers": { 
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "dest": "/public/$1"
+      "src": "^/festival-de-mariscos/?$",
+      "dest": "/festival_de_mariscos.html"
     },
     {
-      "src": "/menu/platos/([^/]+)\\.html$",
-      "dest": "/public/menu/platos/$1.html"
+      "src": "^/bebidas/?$",
+      "dest": "/bebidas_postres_picaditos.html"
     },
     {
-      "src": "^/sobre-nosotros\\.html$",
-      "dest": "/public/sobre-nosotros.html"
+      "src": "^/postres/?$",
+      "dest": "/bebidas_postres_picaditos.html"
     },
     {
-      "src": "^/galeria\\.html$",
-      "dest": "/public/galeria.html"
+      "src": "^/picaditos/?$",
+      "dest": "/bebidas_postres_picaditos.html"
     },
     {
-      "src": "^/contacto\\.html$",
-      "dest": "/public/contacto.html"
-    },
-    {
-      "src": "^/vegetarianos\\.html$",
-      "dest": "/public/vegetarianos.html"
-    },
-    {
-      "src": "^/festival-de-mariscos\\.html$",
-      "dest": "/public/festival-de-mariscos.html"
-    },
-    {
-      "src": "^/parrilladas\\.html$",
-      "dest": "/public/parrilladas.html"
-    },
-    {
-      "src": "^/menu-infantil\\.html$",
-      "dest": "/public/menu-infantil.html"
-    },
-    {
-      "src": "^/bebidas\\.html$",
-      "dest": "/public/bebidas.html"
-    },
-    {
-      "src": "^/postres\\.html$",
-      "dest": "/public/postres.html"
-    },
-    {
-      "src": "^/picaditos\\.html$",
-      "dest": "/public/picaditos.html"
+      "src": "^/menu-infantil/?$",
+      "dest": "/menu_infantil.html"
     },
     {
       "src": "^/index\\.html$",
-      "dest": "/public/index.html"
+      "dest": "/index.html"
     },
     {
       "src": "^/$",
-      "dest": "/public/index.html"
+      "dest": "/index.html"
     },
     {
-      "src": "/(.*)",
-      "dest": "/public/404.html"
+      "src": "^/(.*)",
+      "status": 200,
+      "dest": "/index.html"
     }
   ]
 }
