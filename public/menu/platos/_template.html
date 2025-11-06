@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Descubre nuestros deliciosos platos en Los Sartenes, el mejor restaurante en el centro de Loja.">
+    <meta name="author" content="Restaurante Los Sartenes">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tudominio.com/menu/platos/">
+    <meta property="og:title" content="Template | Los Sartenes - Restaurante en Loja">
+    <meta property="og:description" content="Disfruta de nuestros deliciosos platos en el mejor restaurante del centro de Loja.">
+    <meta property="og:image" content="https://tudominio.com/images/platos/sample.webp">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tudominio.com/menu/platos/">
+    <meta property="twitter:title" content="Template | Los Sartenes - Restaurante en Loja">
+    <meta property="twitter:description" content="Disfruta de nuestros deliciosos platos en el mejor restaurante del centro de Loja.">
+    <meta property="twitter:image" content="https://tudominio.com/images/platos/sample.webp">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2E8B57">
+    <meta name="msapplication-TileColor" content="#2E8B57">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    
+    <title>Template | Los Sartenes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body { font-family: 'Open Sans', sans-serif; padding-top: 0; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        main { min-height: calc(100vh - 16rem); padding: 2rem 0; }
+    </style>
+</head>
+<body class="bg-white flex flex-col min-h-screen">
+    <!-- Componente Header -->
+    <div id="header-component" class="fixed top-0 left-0 right-0 z-50 w-full bg-white shadow-md">
+        <!-- El contenido del header se cargará aquí mediante JavaScript -->
+    </div>
+    
+    <!-- Espaciador para el header fijo -->
+    <div class="h-16"></div>
+
+    <!-- Contenido principal -->
+    <main class="container mx-auto px-4 py-16">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+            <div id="plato-content">
+                <!-- Este contenido será reemplazado por el HTML específico de cada plato -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-component"></div>
+    
+    <!-- Scripts -->
+    <script src="/js/components.js" defer></script>
+    <script src="/js/scripts.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() { 
+            if (typeof loadComponents === "function") { 
+                loadComponents(); 
+            } 
+        });
+    </script>
+
+    <!-- Script para Google Translate y cambio de idioma -->
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+      if (document.getElementById('google_translate_element')) {  // Check si contenedor existe
+        new google.translate.TranslateElement({
+          pageLanguage: 'es',
+          includedLanguages: 'en,es',
+          autoDisplay: false
+        }, 'google_translate_element');
+        console.log('Google Translate initialized');  // Debug
+      } else {
+        console.error('google_translate_element no encontrado');
+      }
+    }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
+    <script>
+    function changeLanguage(lang) {
+      console.log('=== changeLanguage called with lang:', lang, ' (Clic número: ' + (++window.clickCount || (window.clickCount = 1)) + ') ===');
+      var select = document.querySelector('.goog-te-combo');
+      if (select) {
+        const currentValue = select.value;
+        console.log('Estado actual del selector:', currentValue, 'Intentando cambiar a:', lang);
+        if (currentValue === lang) {
+          console.log('Selector ya está en el idioma deseado, forzando cambio...');
+        }
+        select.value = lang;
+        setTimeout(() => {
+          select.dispatchEvent(new Event('change'));
+          console.log('Evento de cambio disparado para:', lang);
+          // Verificar si el cambio se aplicó después de un tiempo
+          setTimeout(() => {
+            const newValue = select.value;
+            console.log('Verificación post-cambio: Selector ahora en:', newValue);
+            if (newValue !== lang) {
+              console.warn('Cambio no se aplicó correctamente, intentando reset del widget...');
+              // Reset del widget si falla
+              if (typeof googleTranslateElementInit === 'function') {
+                googleTranslateElementInit();
+              }
+              // Fallback: Intentar de nuevo después de reset
+              setTimeout(() => {
+                const selectAfterReset = document.querySelector('.goog-te-combo');
+                if (selectAfterReset) {
+                  selectAfterReset.value = lang;
+                  selectAfterReset.dispatchEvent(new Event('change'));
+                  console.log('Fallback aplicado: Cambio intentado de nuevo después de reset.');
+                } else {
+                  console.error('Selector no encontrado después de reset, posible problema de inicialización.');
+                }
+              }, 500);
+            }
+          }, 500); // Verificación más tardía
+        }, 300); // Delay mayor para cambios rápidos
+      } else {
+        console.error('Google Translate combo not found! Widget may not have loaded.');
+        // Fallback si no hay selector inicial
+        setTimeout(() => {
+          const selectLater = document.querySelector('.goog-te-combo');
+          if (selectLater) {
+            selectLater.value = lang;
+            selectLater.dispatchEvent(new Event('change'));
+            console.log('Fallback inicial aplicado: Selector encontrado tarde, cambio intentado.');
+          }
+        }, 1000);
+      }
+      // Ocultar elementos de Google Translate para evitar banners
+      const googleElements = document.querySelectorAll('.goog-te-gadget, .goog-te-banner-frame, .skiptranslate');
+      googleElements.forEach(el => el.style.display = 'none');
+      // Toggle con checks para null
+      const btnEs = document.getElementById('lang-es');
+      const btnEn = document.getElementById('lang-en');
+      if (btnEs && btnEn) {
+        if (lang === 'es') {
+          btnEs.style.display = 'none';
+          btnEn.style.display = 'block';
+        } else {
+          btnEs.style.display = 'block';
+          btnEn.style.display = 'none';
+        }
+        console.log('Botones toggleados correctamente para:', lang);
+      } else {
+        console.error('Botones no encontrados! lang-es:', btnEs, 'lang-en:', btnEn);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOMContentLoaded fired');  // Debug: Verifica timing
+      const btnEs = document.getElementById('lang-es');
+      const btnEn = document.getElementById('lang-en');
+      if (btnEs) {
+        btnEs.addEventListener('click', () => changeLanguage('es'));
+      } else {
+        console.error('lang-es no encontrado en DOMContentLoaded');
+      }
+      if (btnEn) {
+        btnEn.addEventListener('click', () => changeLanguage('en'));
+      } else {
+        console.error('lang-en no encontrado en DOMContentLoaded');
+      }
+
+      var isEnglish = document.cookie.match(/googtrans=\/es\/en/);
+      if (isEnglish) {
+        changeLanguage('en');
+      } else {
+        changeLanguage('es');
+      }
+    });
+
+    // Agrega esto para esperar si header es dinámico
+    window.addEventListener('load', function() {
+      console.log('Window load fired - checking botones again');
+      // Si botones no estaban en DOMContentLoaded, re-intenta aquí
+      const btnEs = document.getElementById('lang-es');
+      const btnEn = document.getElementById('lang-en');
+      if (btnEs && !btnEs.hasAttribute('data-listener-added')) {
+        btnEs.addEventListener('click', () => changeLanguage('es'));
+        btnEs.setAttribute('data-listener-added', 'true');
+        console.log('Added listener to lang-es in window.load');
+      }
+      if (btnEn && !btnEn.hasAttribute('data-listener-added')) {
+        btnEn.addEventListener('click', () => changeLanguage('en'));
+        btnEn.setAttribute('data-listener-added', 'true');
+        console.log('Added listener to lang-en in window.load');
+      }
+    });
+    </script>
+</body>
+</html>

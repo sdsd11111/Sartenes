@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Sartenes - Restaurante</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/favicon.ico">
+</head>
+<body class="bg-gray-50" data-initialized="true">
+    <!-- Componente Header -->
+    <div id="header-component">
+        <!-- El contenido del header se cargará aquí mediante JavaScript -->
+    </div>
+
+    <!-- Hero Section with Dynamic Plato del Día -->
+    <section id="hero-plato-del-dia" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 bg-cover bg-center">
+        <!-- Contenido del Hero -->
+        <div class="relative z-10 w-full py-8 md:py-16 flex flex-col items-center justify-center text-center px-4">
+            <div class="mb-4 md:mb-6">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-playfair text-white mb-1 sm:mb-2 uppercase leading-tight" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
+                    Los Sartenes
+                </h1>
+                <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-black inline-block" style="text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;">
+                    Almuerzos de la 24
+                </h2>
+            </div>
+
+            <!-- Dynamic Content Container -->
+            <div id="platos-dinamicos-container" class="space-y-4 sm:space-y-6 max-w-3xl w-full mx-auto px-2 sm:px-4 flex-1 flex flex-col justify-center">
+                <div class="animate-pulse">
+                    <p class="text-white text-lg sm:text-xl">Cargando ofertas del día...</p>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="mt-6 sm:mt-8 md:mt-10 w-full max-w-xs mx-auto">
+                <a 
+                    href="https://wa.me/59372587432?text=¡Hola!%20Me%20gustaría%20pedir%20el%20plato%20del%20día%20en%20Los%20Sartenes" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center w-full px-6 sm:px-8 py-3 bg-[#FF8C42] hover:bg-orange-600 text-white text-base sm:text-lg font-bold uppercase rounded-lg shadow-xl transition-all duration-300 transform hover:scale-105"
+                >
+                    <i class="fab fa-whatsapp text-xl sm:text-2xl mr-2"></i>
+                    <span class="whitespace-nowrap">Pide el plato del día</span>
+                </a>
+            </div>
+        
+        <!-- Flecha de desplazamiento -->
+        <div class="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+            <a href="#nuestro-menu" class="text-white hover:text-[#FF8C42] transition-colors block p-2">
+                <i class="fas fa-chevron-down text-2xl sm:text-3xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Nuestra Identidad en Cada Detalle -->
+    <section class="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#f9f8f6] bg-opacity-95 relative overflow-hidden">
+        <!-- Textura sutil de fondo -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwuMDIpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')]"></div>
+        
+        <div class="container mx-auto px-4 sm:px-6 relative z-10">
+            <!-- Encabezado -->
+            <div class="text-center mb-8 sm:mb-10 md:mb-12 max-w-4xl mx-auto">
+                <span class="inline-block text-[#FF8C00] font-semibold text-base sm:text-lg mb-2 sm:mb-3">Nuestra Esencia</span>
+                <h2 class="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2E8B57] mb-3 sm:mb-4 font-playfair leading-tight">Nuestra Identidad en Cada Detalle</h2>
+                <p class="text-base sm:text-lg text-gray-700 mb-4 sm:mb-6 px-2 sm:px-0">Un restaurante lojano que le rinde homenaje a la tradición en cada plato, pero con la mente en el futuro.</p>
+                <div class="w-16 sm:w-20 h-1 bg-[#FF8C00] mx-auto"></div>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-6 md:gap-8 items-stretch">
+                <!-- Columna de texto -->
+                <div class="lg:w-1/2 space-y-6 md:space-y-8 order-2 lg:order-1 mt-6 lg:mt-0">
+                    <div class="bg-white p-5 sm:p-6 md:p-7 lg:p-8 rounded-xl shadow-lg border border-gray-100 h-full">
+                        <p class="text-lg sm:text-xl italic text-gray-800 font-light mb-4 sm:mb-6">"En Los Sartenes, no solo comemos, vivimos la cultura."</p>
+                        
+                        <!-- Puntos clave -->
+                        <div class="space-y-4 sm:space-y-6">
+                            <!-- Punto 1 -->
+                            <div class="flex items-start gap-3 sm:gap-4">
+                                <div class="flex-shrink-0 mt-1">
+                                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FF8C00] bg-opacity-10 flex items-center justify-center">
+                                        <i class="fas fa-utensils text-[#FF8C00] text-sm sm:text-base"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg sm:text-xl font-bold text-[#2E8B57] mb-1">Autenticidad Lojana</h3>
+                                    <p id="texto-autenticidad" class="text-sm sm:text-base text-gray-600 texto-expandible">Presentamos orgullosamente nuestros platos en vajillas de barro tradicionales, conectándote con la herencia de nuestra querida Loja en cada bocado.</p>
+                                    <button onclick="toggleTexto('texto-autenticidad')" id="btn-texto-autenticidad" class="text-[#FF8C00] font-semibold text-sm mt-2 md:hidden">
+                                        Leer más
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Punto 2 -->
+                            <div class="flex items-start gap-3 sm:gap-4">
+                                <div class="flex-shrink-0 mt-1">
+                                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FF8C00] bg-opacity-10 flex items-center justify-center">
+                                        <i class="fas fa-home text-[#FF8C00] text-sm sm:text-base"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg sm:text-xl font-bold text-[#2E8B57] mb-1">Ambiente de Primera</h3>
+                                    <p id="texto-ambiente" class="text-sm sm:text-base text-gray-600 texto-expandible">Hemos creado un espacio donde te sientes en casa. Nuestro diseño interior, con hermosos elementos de madera y ladrillo, y la sutil música de jazz de fondo, es nuestro secreto para que el ambiente sea el más valorado por nuestros clientes (4.4/5).</p>
+                                    <button onclick="toggleTexto('texto-ambiente')" id="btn-texto-ambiente" class="text-[#FF8C00] font-semibold text-sm mt-2 md:hidden">
+                                        Leer más
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Punto 3 -->
+                            <div class="flex items-start gap-3 sm:gap-4">
+                                <div class="flex-shrink-0 mt-1">
+                                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FF8C00] bg-opacity-10 flex items-center justify-center">
+                                        <i class="fas fa-tag text-[#FF8C00] text-sm sm:text-base"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg sm:text-xl font-bold text-[#2E8B57] mb-1">Valor Insuperable</h3>
+                                    <p id="texto-valor" class="text-sm sm:text-base text-gray-600 texto-expandible">Creemos que la gran comida no debe costar una fortuna. Nuestro Menú Diario es una propuesta de valor excepcional con precios asequibles de ~$3.75, siendo el punto de entrada perfecto para saborear la calidad de nuestros platos a la carta, que no superan los $10.00.</p>
+                                    <button onclick="toggleTexto('texto-valor')" id="btn-texto-valor" class="text-[#FF8C00] font-semibold text-sm mt-2 md:hidden">
+                                        Leer más
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna de imágenes -->
+                <div class="lg:w-1/2 relative h-64 sm:h-72 md:h-80 lg:h-[28rem] xl:h-[32rem] order-1 lg:order-2">
+                    <!-- Imagen principal (costillas) -->
+                    <div class="absolute top-0 right-0 w-full sm:w-5/6 h-3/4 sm:h-3/5 md:h-2/3 lg:h-3/5 rounded-xl overflow-hidden shadow-xl transform rotate-0 sm:rotate-1 z-10">
+                        <img src="/images/Inicio/Restaurante 2.webp" 
+                             alt="Plato estrella: Costillas" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                             loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                    </div>
+                    
+                    <!-- Imagen secundaria (risotto) -->
+                    <div class="absolute bottom-0 left-0 w-5/6 sm:w-1/2 h-1/2 sm:h-2/5 md:h-2/5 rounded-xl overflow-hidden shadow-xl transform -rotate-2 sm:-rotate-3 z-20">
+                        <img src="/images/Inicio/Restaurante.webp" 
+                             alt="Risotto cremoso" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                             loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    </div>
+                    
+                    <!-- Imagen terciaria (interior) -->
+                    <div class="absolute bottom-4 sm:bottom-6 right-2 sm:right-4 w-1/3 sm:w-2/5 h-1/3 sm:h-2/5 rounded-xl overflow-hidden shadow-xl transform rotate-2 sm:rotate-3 z-30">
+                        <img src="/images/Inicio/Restaurante 3.webp" 
+                             alt="Interior del restaurante" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                             loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    </div>
+                    
+                    <!-- Sello de calidad -->
+                    <div class="absolute -bottom-3 sm:-bottom-4 -right-3 sm:-right-4 bg-[#2E8B57] text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg shadow-lg transform rotate-2 sm:rotate-3 z-40">
+                        <div class="text-center">
+                            <div class="text-xl sm:text-2xl font-bold leading-none">4.4/5</div>
+                            <div class="text-[10px] xs:text-xs uppercase tracking-wider">Valoración Clientes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Vive la Experiencia Los Sartenes -->
+    <section class="py-16 md:py-24 bg-gray-900 bg-opacity-95 relative overflow-hidden">
+        <!-- Fondo texturizado sutil -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwuMDUpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')]"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <!-- Encabezado -->
+            <div class="text-center max-w-4xl mx-auto mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-playfair font-bold text-white mb-6">
+                    Vive la Experiencia Los Sartenes
+                </h2>
+                <div class="w-24 h-1 bg-[#FF8C42] mx-auto mb-6"></div>
+                <p class="text-gray-200 text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+                    Más que un plato: El ambiente que Loja adora. Te invitamos a un recorrido visual por nuestro espacio, el más elogiado de la ciudad con un 4.4/5 en atmósfera.
+                </p>
+                <p class="text-gray-300 text-base md:text-lg italic">
+                    Descubre la calidez de nuestro diseño en madera y ladrillo, el jazz de fondo y la magia de nuestra cocina. Mira el video y siente el sabor de Loja antes de visitarnos.
+                </p>
+            </div>
+
+            <!-- Contenedor del Video -->
+            <div class="max-w-4xl md:max-w-lg mx-auto rounded-xl overflow-hidden shadow-2xl relative group">
+                <!-- Video embebido -->
+                <div class="relative overflow-hidden bg-black" style="padding-bottom: 177.78%;">
+                    <video 
+                        class="absolute inset-0 w-full h-full object-cover"
+                        controls 
+                        playsinline 
+                        preload="metadata"
+                        poster="/images/Inicio/Restaurante 2.webp"
+                        aria-label="Video: Vive la Experiencia Los Sartenes">
+                        <source src="/images/Inicio/Video.mp4" type="video/mp4">
+                        Tu navegador no soporta el elemento de video. Puedes descargarlo <a href="/images/Inicio/Video.mp4">aquí</a>.
+                    </video>
+                    <!-- Overlay de información (visible sobre el video en dispositivos que no reproducen automáticamente) -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 md:p-8">
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Un Vistazo a Nuestro Ambiente</h3>
+                        <p class="text-gray-200 text-sm md:text-base">Usa los controles para reproducir o pausar el video</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Nuestra Carta -->
+    <section id="nuestra-carta" class="py-16 md:py-20 bg-white relative overflow-hidden">
+        <!-- Fondo texturizado sutil -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwuMDIpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')]"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <!-- Encabezado -->
+            <div class="text-center max-w-4xl mx-auto mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-playfair font-bold text-[#2E8B57] mb-4">
+                    Nuestra Carta: Sabores de Loja y el Mundo
+                </h2>
+                <div class="w-24 h-1 bg-[#FF8C42] mx-auto mb-6"></div>
+                <p class="text-gray-600 text-lg md:text-xl">
+                    Descubre nuestra selección de platos cuidadosamente preparados que combinan tradición y creatividad en cada bocado.
+                </p>
+            </div>
+
+            <!-- Grid de Categorías -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Card 1: Especiales de la Casa -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Especiales de la Casa</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/especiales de la casa.webp" 
+                             alt="Especiales de la Casa" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-4">Nuestros platos más solicitados. Fusión y tradición en su máxima expresión.</p>
+                        
+                        <!-- Botón para mostrar/ocultar platos -->
+                        <button class="toggle-dishes-btn w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 mt-auto mb-3" 
+                                data-target="especiales-dishes">
+                            Ver todos los platos
+                        </button>
+                        
+                        <!-- Lista de platos (inicialmente oculta) -->
+                        <div id="especiales-dishes" class="border-t border-[#FF8C42] pt-3 hidden">
+                            <ul class="space-y-2">
+                                <li><a href="/menu/platos/salmon.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Salmón
+                                </a></li>
+                                <li><a href="/menu/platos/picadillo.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Picadillo
+                                </a></li>
+                                <li><a href="/menu/platos/camarones_al_ajillo.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Camarones al Ajillo
+                                </a></li>
+                                <li><a href="/menu/platos/pollo_andaluz.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Pollo Andaluz
+                                </a></li>
+                                <li><a href="/menu/platos/camarones_fredd.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Camarones FREDD
+                                </a></li>
+                                <li><a href="/menu/platos/chuleta_de_cerdo_en_salsa_de_pina.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Chuleta de Cerdo en Salsa de Piña
+                                </a></li>
+                                <li><a href="/menu/platos/tilapia_a_los_sartenes.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Tilapia a los Sartenes
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Ensaladas -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Ensaladas</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/ensaladas.webp" 
+                             alt="Ensaladas" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-4">Frescura y sabor para acompañar o como plato principal, siempre ligeras.</p>
+                        
+                        <!-- Botón para mostrar/ocultar platos -->
+                        <button class="toggle-dishes-btn w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 mt-auto mb-3" 
+                                data-target="ensaladas-dishes">
+                            Ver todos los platos
+                        </button>
+                        
+                        <!-- Lista de platos (inicialmente oculta) -->
+                        <div id="ensaladas-dishes" class="border-t border-[#FF8C42] pt-3 hidden">
+                            <ul class="space-y-2">
+                                <li><a href="/menu/platos/ensalada_campera.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Ensalada Campera
+                                </a></li>
+                                <li><a href="/menu/platos/ensalada_cesar.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Ensalada César
+                                </a></li>
+                                <li><a href="/menu/platos/ensalada_los_sartenes.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Ensalada Los Sartenes
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Sopas -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Sopas</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/sopas.webp" 
+                             alt="Sopas" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-4">Calidez y sabor tradicional lojano, el inicio perfecto para cualquier comida.</p>
+                        
+                        <!-- Botón para mostrar/ocultar platos -->
+                        <button class="toggle-dishes-btn w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 mt-auto mb-3" 
+                                data-target="sopas-dishes">
+                            Ver todos los platos
+                        </button>
+                        
+                        <!-- Lista de platos (inicialmente oculta) -->
+                        <div id="sopas-dishes" class="border-t border-[#FF8C42] pt-3 hidden">
+                            <ul class="space-y-2">
+                                <li><a href="/menu/platos/crema_de_camaron.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Crema de Camarón
+                                </a></li>
+                                <li><a href="/menu/platos/locro_de_papa_clasico.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Locro de Papa Clásico
+                                </a></li>
+                                <li><a href="/menu/platos/crema_de_verduras.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Crema de Verduras
+                                </a></li>
+                                <li><a href="/menu/platos/sopa_de_pollo.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Sopa de Pollo
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Res -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Res</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/res.webp" 
+                             alt="Cortes de Res" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-4">Cortes selectos y cocciones precisas. Perfectos para los amantes de la carne.</p>
+                        
+                        <!-- Botón para mostrar/ocultar platos -->
+                        <button class="toggle-dishes-btn w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 mt-auto mb-3" 
+                                data-target="res-dishes">
+                            Ver todos los platos
+                        </button>
+                        
+                        <!-- Lista de platos (inicialmente oculta) -->
+                        <div id="res-dishes" class="border-t border-[#FF8C42] pt-3 hidden">
+                            <ul class="space-y-2">
+                                <li><a href="/menu/platos/filet_mignon.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Filet Mignon
+                                </a></li>
+                                <li><a href="/menu/platos/sarten_de_lomo_a_la_pimienta.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Sartén de Lomo a la Pimienta
+                                </a></li>
+                                <li><a href="/menu/platos/bistec_a_los_sartenes.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Bistec a los Sartenes
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Cerdo -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Cerdo</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/cerdo.webp" 
+                             alt="Platos de Cerdo" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-4">Sabores intensos y ahumados en nuestros mejores platos de cerdo.</p>
+                        
+                        <!-- Botón para mostrar/ocultar platos -->
+                        <button class="toggle-dishes-btn w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 mt-auto mb-3" 
+                                data-target="cerdo-dishes">
+                            Ver todos los platos
+                        </button>
+                        
+                        <!-- Lista de platos (inicialmente oculta) -->
+                        <div id="cerdo-dishes" class="border-t border-[#FF8C42] pt-3 hidden">
+                            <ul class="space-y-2">
+                                <li><a href="/menu/platos/chuleta_en_salsa_de_champinones.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Chuleta en Salsa de Champiñones
+                                </a></li>
+                                <li><a href="/menu/platos/sarten_de_costillas_bbq.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Sartén de Costillas BBQ
+                                </a></li>
+                                <li><a href="/menu/platos/cecina_a_los_sartenes.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Cecina a los Sartenes
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Aves -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Aves</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/aves.webp" 
+                             alt="Platos de Aves" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-4">Deliciosas preparaciones de pollo, desde lo tradicional hasta el Grill.</p>
+                        
+                        <!-- Botón para mostrar/ocultar platos -->
+                        <button class="toggle-dishes-btn w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 mt-auto mb-3" 
+                                data-target="aves-dishes">
+                            Ver todos los platos
+                        </button>
+                        
+                        <!-- Lista de platos (inicialmente oculta) -->
+                        <div id="aves-dishes" class="border-t border-[#FF8C42] pt-3 hidden">
+                            <ul class="space-y-2">
+                                <li><a href="/menu/platos/pollo_los_sartenes.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Pollo los Sartenes
+                                </a></li>
+                                <li><a href="/menu/platos/sarten_de_pollo_en_salsa_de_portobellos.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Sartén de Pollo en Salsa de Portobellos
+                                </a></li>
+                                <li><a href="/menu/platos/gordon_blue.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Gordon Blue
+                                </a></li>
+                                <li><a href="/menu/platos/sarten_de_alitas.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Sartén de Alitas
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: Pescados y Mariscos -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Pescados y Mariscos</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/pescados y mariscos.webp" 
+                             alt="Pescados y Mariscos" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-4">Lo mejor del mar en Loja. Frescura y preparaciones innovadoras.</p>
+                        
+                        <!-- Botón para mostrar/ocultar platos -->
+                        <button class="toggle-dishes-btn w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 mt-auto mb-3" 
+                                data-target="mariscos-dishes">
+                            Ver todos los platos
+                        </button>
+                        
+                        <!-- Lista de platos (inicialmente oculta) -->
+                        <div id="mariscos-dishes" class="border-t border-[#FF8C42] pt-3 hidden">
+                            <ul class="space-y-2">
+                                <li><a href="/menu/platos/sarten_frutos_del_mar.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Sartén Frutos del Mar
+                                </a></li>
+                                <li><a href="/menu/platos/camaron_a_los_sartenes.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Camarón a los Sartenes
+                                </a></li>
+                                <li><a href="/menu/platos/sarten_de_langostinos_al_grill.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Sartén de Langostinos al Grill
+                                </a></li>
+                                <li><a href="/menu/platos/ceviche_peruano.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Ceviche Peruano
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8: Pastas -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Pastas</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/pastas.webp" 
+                             alt="Pastas" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-4">Recetas italianas con el toque de sabor inconfundible de Los Sartenes.</p>
+                        
+                        <!-- Botón para mostrar/ocultar platos -->
+                        <button class="toggle-dishes-btn w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 mt-auto mb-3" 
+                                data-target="pastas-dishes">
+                            Ver todos los platos
+                        </button>
+                        
+                        <!-- Lista de platos (inicialmente oculta) -->
+                        <div id="pastas-dishes" class="border-t border-[#FF8C42] pt-3 hidden">
+                            <ul class="space-y-2">
+                                <li><a href="/menu/platos/espagueti_con_mariscos.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Espagueti con Mariscos
+                                </a></li>
+                                <li><a href="/menu/platos/espagueti_carbonara.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Espagueti Carbonara
+                                </a></li>
+                                <li><a href="/menu/platos/fettuccini_a_los_sartenes.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Fettuccini a los Sartenes
+                                </a></li>
+                                <li><a href="/menu/platos/risotto_marinero.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Risotto Marinero
+                                </a></li>
+                                <li><a href="/menu/platos/espagueti_di_pollo_con_champinones.html" class="text-[#2E8B57] hover:text-[#FF8C42] transition-colors flex items-center">
+                                    <span class="w-1.5 h-1.5 bg-[#FF8C42] rounded-full mr-2"></span>
+                                    Espagueti di Pollo con Champiñones
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 9: Vegetarianos (Tipo 2) -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Vegetarianos</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/vegetarianos.webp" 
+                             alt="Platos Vegetarianos" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-6">Platos creativos y llenos de sabor, donde los vegetales frescos son las estrellas. Una opción saludable y deliciosa.</p>
+                        <div class="mt-auto">
+                            <a href="/vegetarianos.html" class="block w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white text-center font-bold py-3 px-4 rounded-lg transition-colors duration-300">
+                                Explora el Menú Completo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 10: Festival de Mariscos (Tipo 2) -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Festival de Mariscos</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/festival de mariscos.webp" 
+                             alt="Festival de Mariscos" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-6">La gran fiesta del mar en una sola mesa, con opciones variadas y generosas. Ideal para compartir y disfrutar de los mejores sabores.</p>
+                        <div class="mt-auto">
+                            <a href="/festival_de_mariscos.html" class="block w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white text-center font-bold py-3 px-4 rounded-lg transition-colors duration-300">
+                                Explora el Menú Completo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 11: Parrilladas (Tipo 2) -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Parrilladas</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/parrilladas.webp" 
+                             alt="Parrilladas" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-6">Cortes al Grill con ese toque de sazón lojana. El punto de encuentro para los amantes de la carne de calidad.</p>
+                        <div class="mt-auto">
+                            <a href="/menu/parrilladas.html" class="block w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white text-center font-bold py-3 px-4 rounded-lg transition-colors duration-300">
+                                Explora el Menú Completo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 12: Menú Infantil (Tipo 2) -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <div class="bg-[#2E8B57] p-4 text-white">
+                        <h3 class="text-xl font-bold text-center">Menú Infantil</h3>
+                    </div>
+                    <!-- Imagen de la categoría -->
+                    <div class="h-40 overflow-hidden">
+                        <img src="/images/menu-inicio/infantil.webp" 
+                             alt="Menú Infantil" 
+                             class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col">
+                        <p class="text-gray-600 mb-6">Opciones nutritivas, seguras y divertidas. Platos diseñados para que los más pequeños disfruten su visita.</p>
+                        <div class="mt-auto">
+                            <a href="/menu_infantil.html" class="block w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white text-center font-bold py-3 px-4 rounded-lg transition-colors duration-300">
+                                Explora el Menú Completo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 13: Bebidas, Postres y Picaditos (Tipo 2 - Centrada) -->
+                <div class="col-span-full flex justify-center">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col w-full max-w-2xl">
+                        <div class="bg-[#2E8B57] p-4 text-white">
+                            <h3 class="text-xl font-bold text-center">Bebidas, Postres y Picaditos</h3>
+                        </div>
+                        <!-- Imagen de la categoría -->
+                        <div class="h-48 overflow-hidden">
+                            <img src="/images/menu-inicio/bebidas.webp" 
+                                 alt="Bebidas, Postres y Picaditos" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col">
+                            <p class="text-gray-600 mb-6">El toque final perfecto: desde un Capuchino espumoso hasta cócteles y postres de ensueño. Amplia carta de coctelería y bebidas frías.</p>
+                            <div class="mt-auto">
+                                <a href="/bebidas_postres_picaditos.html" class="block w-full bg-[#FF8C42] hover:bg-[#FF6B00] text-white text-center font-bold py-3 px-4 rounded-lg transition-colors duration-300">
+                                    Explora el Menú Completo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Voces que Confirman la Experiencia -->
+    <section class="py-16 md:py-20 bg-[#f9f8f6] relative md:overflow-hidden">
+        <!-- Fondo texturizado sutil -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwuMDIpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')]"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col lg:flex-row gap-8 md:gap-12 items-start">
+                <!-- Columna Izquierda: Texto y Calificación -->
+                <div class="lg:w-2/5 space-y-6">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-playfair font-bold text-[#2E8B57] mb-4">
+                        Voces que Confirman la Experiencia
+                    </h2>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Somos el resultado de cada visita y cada opinión. En Los Sartenes, la satisfacción de nuestros comensales es nuestra mejor carta de presentación. Aquí te mostramos lo que la gente de Loja dice sobre nuestro ambiente, nuestra cocina y el sabor de la tradición.
+                    </p>
+                    
+                    <!-- Tarjeta de Calificación -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 mt-6">
+                        <div class="flex items-center mb-3">
+                            <span class="text-2xl text-[#FF8C00] font-bold mr-2">4.4</span>
+                            <div class="flex">
+                                <i class="fas fa-star text-[#FF8C00] text-xl"></i>
+                                <i class="fas fa-star text-[#FF8C00] text-xl"></i>
+                                <i class="fas fa-star text-[#FF8C00] text-xl"></i>
+                                <i class="fas fa-star text-[#FF8C00] text-xl"></i>
+                                <i class="fas fa-star-half-alt text-[#FF8C00] text-xl"></i>
+                            </div>
+                        </div>
+                        <h4 class="text-lg font-semibold text-gray-800 mb-2">Calificación de Ambiente</h4>
+                        <p class="text-gray-600 text-sm">Basado en más de 100 valoraciones de nuestros clientes</p>
+                    </div>
+                </div>
+                
+                <!-- Columna Derecha: Testimonios -->
+                <div class="lg:w-3/5 mt-8 lg:mt-0 w-full">
+                    <!-- Contenedor del slider -->
+                    <div class="relative w-full">
+                        <!-- Contenedor del slider (solo móvil) -->
+                        <div class="testimonios-slider-container overflow-hidden rounded-lg md:hidden px-4">
+                            <div class="testimonios-track flex transition-transform duration-500 ease-in-out">
+                                <!-- Tarjeta 1 -->
+                                <div class="min-w-full px-2">
+                                    <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100 h-full">
+                                        <div class="flex justify-between items-start mb-3">
+                                            <div class="flex-1 pr-3">
+                                                <h4 class="font-bold text-base text-gray-900">María G.</h4>
+                                                <span class="text-xs text-[#FF8C00] font-medium">Clienta Frecuente</span>
+                                            </div>
+                                            <div class="text-[#FF8C00] text-3xl font-serif -mt-2">"</div>
+                                        </div>
+                                        <p class="text-gray-700 italic mb-3 text-sm leading-relaxed">
+                                            "Siempre volvemos por su atmósfera. La decoración de madera y el jazz de fondo te hacen sentir en otro lugar. ¡Calidad y calidez en un solo lugar!"
+                                        </p>
+                                        <div class="flex items-center text-xs text-gray-500">
+                                            <i class="fas fa-tag text-[#2E8B57] mr-2"></i>
+                                            <span>El Ambiente Insuperable de Loja</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tarjeta 2 -->
+                                <div class="min-w-full px-2">
+                                    <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100 h-full">
+                                        <div class="flex justify-between items-start mb-3">
+                                            <div class="flex-1 pr-3">
+                                                <h4 class="font-bold text-base text-gray-900">Javier R.</h4>
+                                                <span class="text-xs text-[#FF8C00] font-medium">Amante del Grill</span>
+                                            </div>
+                                            <div class="text-[#FF8C00] text-3xl font-serif -mt-2">"</div>
+                                        </div>
+                                        <p class="text-gray-700 italic mb-3 text-sm leading-relaxed">
+                                            "Pedí las costillas y fue una delicia. La sazón es auténtica. Además, servir en esas vajillas de barro tradicionales le da un toque que ningún otro lugar tiene."
+                                        </p>
+                                        <div class="flex items-center text-xs text-gray-500">
+                                            <i class="fas fa-tag text-[#2E8B57] mr-2"></i>
+                                            <span>Sabor Local con Clase Mundial</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tarjeta 3 -->
+                                <div class="min-w-full px-2">
+                                    <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100 h-full">
+                                        <div class="flex justify-between items-start mb-3">
+                                            <div class="flex-1 pr-3">
+                                                <h4 class="font-bold text-base text-gray-900">Sofía M.</h4>
+                                                <span class="text-xs text-[#FF8C00] font-medium">Visitante</span>
+                                            </div>
+                                            <div class="text-[#FF8C00] text-3xl font-serif -mt-2">"</div>
+                                        </div>
+                                        <p class="text-gray-700 italic mb-3 text-sm leading-relaxed">
+                                            "Desde que entramos, el trato fue atento. La comida estaba sabrosa y la variedad del menú es increíble. Un restaurante honesto con deliciosa comida y precios justos."
+                                        </p>
+                                        <div class="flex items-center text-xs text-gray-500">
+                                            <i class="fas fa-tag text-[#2E8B57] mr-2"></i>
+                                            <span>Una Experiencia 'Muy Buena'</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Versión desktop (tarjetas apiladas) -->
+                        <div class="hidden md:block space-y-6">
+                            <!-- Tarjeta 1 -->
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex-1 pr-4">
+                                        <h4 class="font-bold text-lg text-gray-900">María G.</h4>
+                                        <span class="text-sm text-[#FF8C00] font-medium">Clienta Frecuente</span>
+                                    </div>
+                                    <div class="text-[#FF8C00] text-4xl font-serif -mt-2">"</div>
+                                </div>
+                                <p class="text-gray-700 italic mb-4 text-base leading-relaxed">
+                                    "Siempre volvemos por su atmósfera. La decoración de madera y el jazz de fondo te hacen sentir en otro lugar. ¡Calidad y calidez en un solo lugar!"
+                                </p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <i class="fas fa-tag text-[#2E8B57] mr-2"></i>
+                                    <span>El Ambiente Insuperable de Loja</span>
+                                </div>
+                            </div>
+
+                            <!-- Tarjeta 2 -->
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex-1 pr-4">
+                                        <h4 class="font-bold text-lg text-gray-900">Javier R.</h4>
+                                        <span class="text-sm text-[#FF8C00] font-medium">Amante del Grill</span>
+                                    </div>
+                                    <div class="text-[#FF8C00] text-4xl font-serif -mt-2">"</div>
+                                </div>
+                                <p class="text-gray-700 italic mb-4 text-base leading-relaxed">
+                                    "Pedí las costillas y fue una delicia. La sazón es auténtica. Además, servir en esas vajillas de barro tradicionales le da un toque que ningún otro lugar tiene. Se nota el respeto por la tradición lojana."
+                                </p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <i class="fas fa-tag text-[#2E8B57] mr-2"></i>
+                                    <span>Sabor Local con Clase Mundial</span>
+                                </div>
+                            </div>
+
+                            <!-- Tarjeta 3 -->
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex-1 pr-4">
+                                        <h4 class="font-bold text-lg text-gray-900">Sofía M.</h4>
+                                        <span class="text-sm text-[#FF8C00] font-medium">Visitante</span>
+                                    </div>
+                                    <div class="text-[#FF8C00] text-4xl font-serif -mt-2">"</div>
+                                </div>
+                                <p class="text-gray-700 italic mb-4 text-base leading-relaxed">
+                                    "Desde que entramos, el trato fue atento. La comida estaba sabrosa y la variedad del menú es increíble. Es un restaurante honesto: deliciosa comida, precios justos y un servicio que siempre se esfuerza por hacerte sentir bienvenido."
+                                </p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <i class="fas fa-tag text-[#2E8B57] mr-2"></i>
+                                    <span>Una Experiencia 'Muy Buena'</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Indicadores de página (solo móvil) -->
+                        <div class="flex justify-center mt-4 space-x-2 md:hidden">
+                            <button class="testimonios-dot w-2 h-2 rounded-full bg-[#2E8B57]" data-index="0"></button>
+                            <button class="testimonios-dot w-2 h-2 rounded-full bg-gray-300" data-index="1"></button>
+                            <button class="testimonios-dot w-2 h-2 rounded-full bg-gray-300" data-index="2"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estilos específicos para el slider de testimonios en móvil -->
+    <style>
+        @media (max-width: 767px) {
+            .testimonios-slider-container {
+                margin: 0 -1rem;
+                padding: 0 1rem;
+                touch-action: pan-y;
+            }
+            
+            .testimonios-track {
+                align-items: stretch;
+                user-select: none;
+                -webkit-user-drag: none;
+                -khtml-user-drag: none;
+                -moz-user-drag: none;
+                -o-user-drag: none;
+            }
+            
+            .testimonios-track > div {
+                display: flex;
+                align-items: stretch;
+            }
+            
+            .testimonios-track > div > div {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    </style>
+
+    <!-- Script para el slider de testimonios con soporte táctil -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.testimonios-slider-container');
+            const track = document.querySelector('.testimonios-track');
+            const dots = document.querySelectorAll('.testimonios-dot');
+            
+            if (!slider || !track) return;
+            
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let animationID = 0;
+            let currentIndex = 0;
+            const slides = Array.from(track.children);
+            
+            // Configuración inicial
+            slides.forEach((slide, index) => {
+                // Touch events
+                slide.addEventListener('touchstart', touchStart(index));
+                slide.addEventListener('touchend', touchEnd);
+                slide.addEventListener('touchmove', touchMove);
+                
+                // Mouse events (para pruebas en desktop)
+                slide.addEventListener('mousedown', touchStart(index));
+                slide.addEventListener('mouseup', touchEnd);
+                slide.addEventListener('mouseleave', touchEnd);
+                slide.addEventListener('mousemove', touchMove);
+                
+                // Prevenir arrastrar imágenes
+                const images = slide.getElementsByTagName('img');
+                Array.from(images).forEach(img => {
+                    img.addEventListener('dragstart', (e) => e.preventDefault());
+                });
+            });
+            
+            // Evitar el menú contextual en el slider
+            window.oncontextmenu = function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            }
+            
+            // Funciones de arrastre táctil
+            function touchStart(index) {
+                return function(event) {
+                    isDragging = true;
+                    currentIndex = index;
+                    startPos = getPositionX(event);
+                    cancelAnimationFrame(animationID);
+                }
+            }
+            
+            function touchEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                const movedBy = currentTranslate - prevTranslate;
+                
+                // Si el movimiento es significativo, cambiar de slide
+                if (movedBy < -100 && currentIndex < slides.length - 1) {
+                    currentIndex += 1;
+                }
+                
+                if (movedBy > 100 && currentIndex > 0) {
+                    currentIndex -= 1;
+                }
+                
+                setPositionByIndex();
+                updateDots();
+            }
+            
+            function touchMove(event) {
+                if (!isDragging) return;
+                const currentPosition = getPositionX(event);
+                const diff = currentPosition - startPos;
+                currentTranslate = prevTranslate + diff;
+                
+                // Aplicar el desplazamiento
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                
+                // Prevenir el desplazamiento de la página
+                event.preventDefault();
+            }
+            
+            function getPositionX(event) {
+                return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+            }
+            
+            function setPositionByIndex() {
+                const slideWidth = slider.offsetWidth;
+                currentTranslate = currentIndex * -slideWidth;
+                prevTranslate = currentTranslate;
+                track.style.transition = 'transform 0.3s ease-out';
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                
+                // Reiniciar la transición después de la animación
+                track.addEventListener('transitionend', () => {
+                    track.style.transition = 'none';
+                }, { once: true });
+            }
+            
+            function updateDots() {
+                dots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.add('bg-[#2E8B57]');
+                        dot.classList.remove('bg-gray-300');
+                    } else {
+                        dot.classList.remove('bg-[#2E8B57]');
+                        dot.classList.add('bg-gray-300');
+                    }
+                });
+            }
+            
+            // Inicializar
+            setPositionByIndex();
+            updateDots();
+            
+            // Manejar clics en los dots
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    currentIndex = parseInt(this.getAttribute('data-index'));
+                    setPositionByIndex();
+                    updateDots();
+                });
+            });
+            
+            // Ajustar en redimensionamiento
+            window.addEventListener('resize', () => {
+                setPositionByIndex();
+            });
+        });
+    </script>
+
+    <!-- Sección: Preguntas Frecuentes -->
+    <section class="py-16 bg-white relative overflow-hidden">
+        <!-- Fondo texturizado sutil -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwuMDIpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')]"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-playfair font-bold text-[#2E8B57] mb-4">
+                    Preguntas Frecuentes
+                </h2>
+                <p class="text-lg text-gray-600">
+                    Todo sobre tu Visita a Los Sartenes
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Pregunta 1 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center bg-white hover:bg-gray-50 transition-colors duration-200">
+                        <h3 class="text-lg font-semibold text-[#2E8B57]">¿Cuál es el horario de atención de Los Sartenes en Loja?</h3>
+                        <svg class="w-5 h-5 text-[#FF8C00] transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-gray-700">Nuestro horario es dividido. Atendemos de lunes a sábado de 11:00 AM a 4:00 PM y de 6:00 PM a 11:00 PM. Los domingos, tenemos horario continuo de 10:00 AM a 5:00 PM. ¡Te esperamos en el centro de Loja!</p>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center bg-white hover:bg-gray-50 transition-colors duration-200">
+                        <h3 class="text-lg font-semibold text-[#2E8B57]">¿Dónde puedo encontrar el mejor menú diario económico en Loja?</h3>
+                        <svg class="w-5 h-5 text-[#FF8C00] transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-gray-700">En Restaurante Los Sartenes, ofrecemos un exquisito menú diario (almuerzo) a un precio muy asequible (aproximadamente $3.75). Incluye sopa, plato principal y postre, siendo una de las mejores propuestas de valor en Loja.</p>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center bg-white hover:bg-gray-50 transition-colors duration-200">
+                        <h3 class="text-lg font-semibold text-[#2E8B57]">¿Qué tipo de comida sirve el Restaurante Los Sartenes?</h3>
+                        <svg class="w-5 h-5 text-[#FF8C00] transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-gray-700">Somos un restaurante en Loja especializado en una rica fusión de gastronomía local, latinoamericana y parrillas. Nos enorgullece servir platos en vajillas de barro tradicionales y ofrecer una experiencia culinaria única.</p>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center bg-white hover:bg-gray-50 transition-colors duration-200">
+                        <h3 class="text-lg font-semibold text-[#2E8B57]">¿Se requiere hacer reservación para comer en Los Sartenes?</h3>
+                        <svg class="w-5 h-5 text-[#FF8C00] transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-gray-700">Recomendamos reservar tu mesa en Restaurante Loja con anticipación, especialmente durante las horas pico de almuerzo y cena, para garantizarte una mejor experiencia y evitar los retrasos en el servicio. Puedes contactarnos por WhatsApp.</p>
+                    </div>
+                </div>
+
+                <!-- Pregunta 5 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center bg-white hover:bg-gray-50 transition-colors duration-200">
+                        <h3 class="text-lg font-semibold text-[#2E8B57]">¿Por qué Los Sartenes es considerado el mejor restaurante en el centro de Loja?</h3>
+                        <svg class="w-5 h-5 text-[#FF8C00] transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-gray-700">Nuestra reputación se debe a nuestro ambiente cálido y acogedor (calificado con 4.4/5) con música jazz de fondo, nuestra calidad de comida y el compromiso con la tradición lojana. ¡Ven a vivir la experiencia!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script para el funcionamiento de las cards de menú y Slider de Galería Móvil -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar todos los sliders de galería en la página
+            document.querySelectorAll('.gallery-slider-container').forEach((container, containerIndex) => {
+                const galleryTrack = container.querySelector('.gallery-track');
+                const gallerySlides = container.querySelectorAll('.gallery-slide');
+                const galleryDots = container.parentElement.querySelectorAll('.gallery-dot');
+                const prevButton = container.parentElement.querySelector('.gallery-prev');
+                const nextButton = container.parentElement.querySelector('.gallery-next');
+                let currentIndex = 0;
+                const slideCount = gallerySlides.length;
+                let galleryInterval;
+                
+                // Solo inicializar el slider si hay elementos
+                if (gallerySlides.length > 0) {
+                    // Función para actualizar la posición del slider
+                    function updateGalleryPosition() {
+                        galleryTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+                        
+                        // Actualizar indicadores
+                        if (galleryDots.length > 0) {
+                            galleryDots.forEach((dot, index) => {
+                                if (index === currentIndex) {
+                                    dot.classList.add('bg-[#1A531A]');
+                                    dot.classList.remove('bg-gray-300');
+                                } else {
+                                    dot.classList.remove('bg-[#1A531A]');
+                                    dot.classList.add('bg-gray-300');
+                                }
+                            });
+                        }
+                    }
+                    
+                    // Iniciar navegación automática solo en móvil
+                    function startAutoSlide() {
+                        if (window.innerWidth < 1024) {
+                            galleryInterval = setInterval(() => {
+                                currentIndex = (currentIndex + 1) % slideCount;
+                                updateGalleryPosition();
+                            }, 5000);
+                        }
+                    }
+                    
+                    // Event listeners para los botones de navegación
+                    if (prevButton) {
+                        prevButton.addEventListener('click', () => {
+                            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                            updateGalleryPosition();
+                            resetGalleryInterval();
+                        });
+                    }
+                    
+                    if (nextButton) {
+                        nextButton.addEventListener('click', () => {
+                            currentIndex = (currentIndex + 1) % slideCount;
+                            updateGalleryPosition();
+                            resetGalleryInterval();
+                        });
+                    }
+                    
+                    // Event listeners para los dots de navegación
+                    if (galleryDots.length > 0) {
+                        galleryDots.forEach(dot => {
+                            dot.addEventListener('click', () => {
+                                currentIndex = parseInt(dot.getAttribute('data-index'));
+                                updateGalleryPosition();
+                                resetGalleryInterval();
+                            });
+                        });
+                    }
+                    
+                    // Reiniciar el intervalo cuando el usuario interactúa
+                    function resetGalleryInterval() {
+                        if (galleryInterval) {
+                            clearInterval(galleryInterval);
+                        }
+                        startAutoSlide();
+                    }
+                    
+                    // Inicializar posición y slider automático
+                    updateGalleryPosition();
+                    startAutoSlide();
+                    
+                    // Manejar el cambio de tamaño de la ventana
+                    let resizeTimer;
+                    window.addEventListener('resize', () => {
+                        clearTimeout(resizeTimer);
+                        resizeTimer = setTimeout(() => {
+                            if (galleryInterval) {
+                                clearInterval(galleryInterval);
+                            }
+                            if (window.innerWidth < 1024) {
+                                startAutoSlide();
+                            }
+                            updateGalleryPosition();
+                        }, 250);
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <!-- Script para el Carrusel de Testimonios -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.querySelector('.testimonial-track');
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.testimonial-dot');
+            const prevButton = document.getElementById('testimonial-prev');
+            const nextButton = document.getElementById('testimonial-next');
+            let currentIndex = 0;
+            let autoSlideInterval;
+            const slideCount = slides.length;
+            
+            // Configuración del carrusel
+            function updateCarousel() {
+                const slideWidth = 100; // Porcentaje del ancho del contenedor
+                track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                
+                // Actualizar puntos de navegación
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('bg-[#FF8C42]', index === currentIndex);
+                    dot.classList.toggle('bg-gray-300', index !== currentIndex);
+                });
+                
+                // Reiniciar el temporizador de auto-desplazamiento
+                resetAutoSlide();
+            }
+            
+            // Navegación automática
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % slideCount;
+                    updateCarousel();
+                }, 6000); // Cambia cada 6 segundos
+            }
+            
+            function resetAutoSlide() {
+                clearInterval(autoSlideInterval);
+                startAutoSlide();
+            }
+            
+            // Event Listeners
+            if (prevButton) {
+                prevButton.addEventListener('click', () => {
+                    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                    updateCarousel();
+                });
+            }
+
+            if (nextButton) {
+                nextButton.addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % slideCount;
+                    updateCarousel();
+                });
+            }
+
+            // Navegación por puntos
+            dots.forEach((dot, index) => {
+                if (dot) {
+                    dot.addEventListener('click', () => {
+                        currentIndex = index;
+                        updateCarousel();
+                    });
+                }
+            });
+            
+            // Iniciar el carrusel
+            updateCarousel();
+            startAutoSlide();
+            
+            // Pausar el carrusel al pasar el ratón
+            if (carouselContainer) {
+                carouselContainer.addEventListener('mouseenter', () => {
+                    clearInterval(autoSlideInterval);
+                });
+
+                carouselContainer.addEventListener('mouseleave', () => {
+                    resetAutoSlide();
+                });
+            }
+            
+            // Manejo de eventos táctiles para dispositivos móviles
+            if (track) {
+                track.addEventListener('touchstart', e => {
+                    touchStartX = e.touches[0].clientX;
+                    clearInterval(autoSlideInterval);
+                }, { passive: true });
+
+                track.addEventListener('touchmove', e => {
+                    touchEndX = e.touches[0].clientX;
+                }, { passive: true });
+
+                track.addEventListener('touchend', () => {
+                    handleSwipe();
+                    resetAutoSlide();
+                }, { passive: true });
+            }
+            
+            function handleSwipe() {
+                const swipeThreshold = 50; // Mínimo de píxeles para considerar un deslizamiento
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        // Deslizamiento hacia la izquierda (siguiente)
+                        currentIndex = (currentIndex + 1) % slideCount;
+                    } else {
+                        // Deslizamiento hacia la derecha (anterior)
+                        currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                    }
+                    updateCarousel();
+                }
+            }
+        });
+    </script>
+    
+    <!-- Componente Footer -->
+    <div id="footer-component">
+        <!-- El contenido del footer se cargará aquí mediante JavaScript -->
+    </div>
+    
+    <!-- Script para el Acordeón de Preguntas Frecuentes -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    // Cerrar todas las respuestas primero
+                    const allAnswers = document.querySelectorAll('.faq-answer');
+                    const allIcons = document.querySelectorAll('.faq-question svg');
+                    
+                    allAnswers.forEach(answer => {
+                        if (answer !== this.nextElementSibling) {
+                            answer.classList.add('hidden');
+                        }
+                    });
+                    
+                    allIcons.forEach(icon => {
+                        if (icon !== this.querySelector('svg')) {
+                            icon.classList.remove('rotate-180');
+                        }
+                    });
+                    
+                    // Alternar la respuesta actual
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('svg');
+                    
+                    answer.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                    
+                    // Animación suave
+                    if (!answer.classList.contains('hidden')) {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    } else {
+                        answer.style.maxHeight = '0';
+                    }
+                });
+            });
+            
+            // Cerrar al hacer clic fuera
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.faq-question')) {
+                    document.querySelectorAll('.faq-answer').forEach(answer => {
+                        answer.classList.add('hidden');
+                    });
+                    document.querySelectorAll('.faq-question svg').forEach(icon => {
+                        icon.classList.remove('rotate-180');
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+    // Contenido de platoDelDia.js
+    document.addEventListener('DOMContentLoaded', function() {
+        const heroSection = document.getElementById('hero-plato-del-dia');
+        const platosContainer = document.getElementById('platos-dinamicos-container');
+        
+        // Usar URL relativa para la API
+        const API_URL = '/api/platos-activos';
+        let platosData = [];
+        let currentPlatoIndex = 0;
+        let slideInterval;
+        
+        // Imagen por defecto si no hay imagen del plato
+        const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80';
+
+        // Función para actualizar el fondo del hero con la URL de la imagen
+        function updateHeroBackground(imageUrl) {
+            if (!imageUrl) {
+                console.warn('No se proporcionó URL de imagen para el fondo del hero');
+                return;
+            }
+            
+            console.log('Actualizando fondo del hero con URL:', imageUrl);
+            
+            // Crear una nueva imagen para verificar si la URL es accesible
+            const img = new Image();
+            img.onload = function() {
+                console.log('✅ La imagen del hero se cargó correctamente');
+                heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('${imageUrl}')`;
+                heroSection.style.backgroundSize = 'cover';
+                heroSection.style.backgroundPosition = 'center';
+                heroSection.style.backgroundRepeat = 'no-repeat';
+            };
+            
+            img.onerror = function() {
+                console.error('❌ No se pudo cargar la imagen del hero:', imageUrl);
+            };
+            
+            // Iniciar la carga de la imagen
+            img.src = imageUrl;
+            
+            // Forzar la actualización del fondo inmediatamente
+            heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('${imageUrl}')`;
+            heroSection.style.backgroundSize = 'cover';
+            heroSection.style.backgroundPosition = 'center';
+            heroSection.style.backgroundRepeat = 'no-repeat';
+        }
+
+        // Función para mostrar un plato específico
+        function showPlato(index) {
+            if (platosData.length === 0) return;
+            
+            // Asegurarse de que el índice esté dentro de los límites
+            currentPlatoIndex = (index + platosData.length) % platosData.length;
+            
+            const plato = platosData[currentPlatoIndex];
+            if (!plato) return;
+
+            // Actualizar el fondo con la URL de la imagen del plato
+            const imageUrl = plato.imagen_url_completa || plato.imagen_url || DEFAULT_IMAGE;
+            updateHeroBackground(imageUrl);
+            
+            // Formatear el valor a 2 decimales
+            const valorFormateado = plato.valor ? parseFloat(plato.valor).toFixed(2) : '0.00';
+            
+            console.log('Mostrando plato:', {
+                titulo: plato.titulo,
+                imagen_url: plato.imagen_url,
+                imagen_url_completa: plato.imagen_url_completa,
+                valor: valorFormateado
+            });
+            
+            // Actualizar el contenido del plato
+            platosContainer.innerHTML = `
+                <div class="plato-content text-center max-w-3xl mx-auto px-4 transform transition-all duration-500 ease-in-out">
+                    <h3 class="text-3xl md:text-5xl font-bold font-playfair text-white mb-4" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
+                        ${plato.titulo || 'Plato del Día'}
+                    </h3>
+                    <p class="text-lg md:text-xl text-gray-200 mb-6" style="text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000;">
+                        ${plato.descripcion || 'Deliciosa especialidad del chef preparada con los mejores ingredientes.'}
+                    </p>
+                    <p class="text-4xl font-bold text-[#FF8C42] mb-8 animate-pulse">
+                        $${valorFormateado}
+                    </p>
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="navegarPlato(-1)" class="nav-button bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button onclick="navegarPlato(1)" class="nav-button bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex justify-center mt-6 space-x-2">
+                        ${platosData.map((_, i) => `
+                            <button onclick="irAPlato(${i})" 
+                                    class="w-3 h-3 rounded-full ${i === currentPlatoIndex ? 'bg-[#FF8C42] w-6' : 'bg-white bg-opacity-50'}
+                                           transition-all duration-300">
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Función para navegar entre platos
+        window.navegarPlato = function(direction) {
+            const newIndex = (currentPlatoIndex + direction + platosData.length) % platosData.length;
+            showPlato(newIndex);
+            resetAutoSlide();
+        };
+
+        // Función para ir a un plato específico
+        window.irAPlato = function(index) {
+            if (index >= 0 && index < platosData.length) {
+                showPlato(index);
+                resetAutoSlide();
+            }
+        };
+
+        // Función para iniciar el carrusel automático
+        function startAutoSlide() {
+            stopAutoSlide();
+            slideInterval = setInterval(() => {
+                const nextIndex = (currentPlatoIndex + 1) % platosData.length;
+                showPlato(nextIndex);
+            }, 5000); // Cambiar de plato cada 5 segundos
+        }
+
+        // Función para detener el carrusel automático
+        function stopAutoSlide() {
+            if (slideInterval) {
+                clearInterval(slideInterval);
+                slideInterval = null;
+            }
+        }
+
+        // Función para reiniciar el temporizador de cambio automático
+        function resetAutoSlide() {
+            stopAutoSlide();
+            if (platosData.length > 1) {
+                startAutoSlide();
+            }
+        }
+
+        // Función para mostrar mensaje de error
+        function mostrarMensajeError() {
+            platosContainer.innerHTML = `
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold text-white mb-2">¡Ups! Algo salió mal</h3>
+                    <p class="text-gray-200 mb-4">No pudimos cargar el menú del día. Por favor, intenta de nuevo más tarde.</p>
+                    <button onclick="window.location.reload()" class="px-4 py-2 bg-[#FF8C42] text-white rounded hover:bg-[#e67e22] transition-colors">
+                        Reintentar
+                    </button>
+                </div>
+            `;
+        }
+
+        // Función para mostrar mensaje cuando no hay platos
+        function mostrarMensajePorDefecto() {
+            platosContainer.innerHTML = `
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold text-white mb-2">¡Bienvenido a Los Sartenes!</h3>
+                    <p class="text-gray-200">Próximamente nuestras especialidades del día</p>
+                </div>
+            `;
+        }
+
+        // Función para obtener los platos de la API
+        async function fetchPlatos() {
+            try {
+                console.log('🔍 Solicitando datos de la API...');
+                const response = await fetch(API_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('✅ Datos recibidos de la API:', data);
+                
+                if (Array.isArray(data) && data.length > 0) {
+                    platosData = data;
+                    showPlato(0);
+                    resetAutoSlide();
+                } else {
+                    console.warn('No se encontraron platos activos');
+                    mostrarMensajePorDefecto();
+                }
+            } catch (error) {
+                console.error('Error al cargar los platos:', error);
+                mostrarMensajeError();
+            }
+        }
+
+        // Inicializar solo si el contenedor existe
+        if (platosContainer) {
+            fetchPlatos();
+            
+            // Pausar el carrusel cuando el mouse está sobre él
+            platosContainer.addEventListener('mouseenter', stopAutoSlide);
+            platosContainer.addEventListener('mouseleave', () => {
+                if (platosData.length > 1) {
+                    startAutoSlide();
+                }
+            });
+            
+            // Soporte para navegación con teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    navegarPlato(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navegarPlato(1);
+                }
+            });
+        }
+    });
+    </script>
+    <script>
+    // Script para el funcionamiento de las cards de menú
+    document.addEventListener('DOMContentLoaded', function() {
+        // Función para mostrar/ocultar la lista de platos
+        const toggleButtons = document.querySelectorAll('.toggle-dishes-btn');
+        
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation(); // Evitar que el evento se propague al documento
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                const isHidden = targetElement.classList.contains('hidden');
+                
+                // Cerrar todos los otros menús abiertos
+                document.querySelectorAll('.toggle-dishes-btn').forEach(btn => {
+                    if (btn !== button) {
+                        const otherTargetId = btn.getAttribute('data-target');
+                        const otherTarget = document.getElementById(otherTargetId);
+                        if (otherTarget) {
+                            otherTarget.classList.add('hidden');
+                            btn.textContent = 'Ver todos los platos';
+                            btn.classList.remove('bg-[#FF6B00]');
+                            btn.classList.add('bg-[#FF8C42]');
+                        }
+                    }
+                });
+                
+                // Alternar el menú actual
+                if (isHidden) {
+                    targetElement.classList.remove('hidden');
+                    this.textContent = 'Ocultar platos';
+                    this.classList.remove('bg-[#FF8C42]');
+                    this.classList.add('bg-[#FF6B00]');
+                    
+                    // Desplazamiento suave para asegurar que el contenido sea visible
+                    setTimeout(() => {
+                        this.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'nearest'
+                        });
+                    }, 100);
+                } else {
+                    targetElement.classList.add('hidden');
+                    this.textContent = 'Ver todos los platos';
+                    this.classList.remove('bg-[#FF6B00]');
+                    this.classList.add('bg-[#FF8C42]');
+                }
+            });
+            
+            // Prevenir que el clic en el botón se propague a la tarjeta
+            button.addEventListener('mousedown', function(e) {
+                e.stopPropagation();
+            });
+        });
+        
+        // Cerrar menús al hacer clic fuera
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.toggle-dishes-btn').forEach(button => {
+                const targetId = button.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                if (targetElement && !targetElement.classList.contains('hidden')) {
+                    targetElement.classList.add('hidden');
+                    button.textContent = 'Ver todos los platos';
+                    button.classList.remove('bg-[#FF6B00]');
+                    button.classList.add('bg-[#FF8C42]');
+                }
+            });
+        });
+        
+        // Evitar que el clic en los enlaces cierre el menú
+        document.querySelectorAll('.border-t.border-\\[\\#FF8C42\\] a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    });
+    </script>
+    
+    <script>
+    // Función para truncar texto en móvil
+    function truncarTextoMovil() {
+        if (window.innerWidth < 768) {
+            const textos = document.querySelectorAll('.texto-expandible');
+            textos.forEach(texto => {
+                const textoCompleto = texto.textContent.trim();
+                const palabras = textoCompleto.split(' ');
+
+                if (palabras.length > 10) {
+                    texto.setAttribute('data-texto-completo', textoCompleto);
+                    const textoCorto = palabras.slice(0, 10).join(' ') + '...';
+                    texto.setAttribute('data-texto-corto', textoCorto);
+                    texto.textContent = textoCorto;
+                }
+            });
+        }
+    }
+
+    // Función para expandir/contraer texto
+    function toggleTexto(id) {
+        const texto = document.getElementById(id);
+        const btn = document.getElementById('btn-' + id);
+        const textoCompleto = texto.getAttribute('data-texto-completo');
+        const textoCorto = texto.getAttribute('data-texto-corto');
+
+        if (texto.textContent === textoCorto) {
+            texto.textContent = textoCompleto;
+            btn.textContent = 'Leer menos';
+        } else {
+            texto.textContent = textoCorto;
+            btn.textContent = 'Leer más';
+        }
+    }
+
+    // Ejecutar al cargar la página
+    document.addEventListener('DOMContentLoaded', truncarTextoMovil);
+
+    // Ejecutar al cambiar el tamaño de la ventana
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+            // Restaurar texto completo en desktop
+            const textos = document.querySelectorAll('.texto-expandible');
+            textos.forEach(texto => {
+                const textoCompleto = texto.getAttribute('data-texto-completo');
+                if (textoCompleto) {
+                    texto.textContent = textoCompleto;
+                }
+            });
+        } else {
+            truncarTextoMovil();
+        }
+    });
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Slider de testimonios (funciona en móvil y desktop)
+        const testimoniosContainer = document.querySelector('.testimonios-slider-container');
+        if (testimoniosContainer) {
+            const testimoniosTrack = testimoniosContainer.querySelector('.testimonios-track');
+            const testimoniosSlides = testimoniosContainer.querySelectorAll('.w-full.flex-shrink-0');
+            const testimoniosDots = document.querySelectorAll('.testimonios-dot');
+            const prevButton = document.querySelector('.testimonios-prev');
+            const nextButton = document.querySelector('.testimonios-next');
+            let currentIndex = 0;
+            const slideCount = testimoniosSlides.length;
+            let testimoniosInterval;
+
+            function updateTestimoniosPosition() {
+                testimoniosTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+                testimoniosDots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.add('bg-[#2E8B57]');
+                        dot.classList.remove('bg-gray-300');
+                    } else {
+                        dot.classList.remove('bg-[#2E8B57]');
+                        dot.classList.add('bg-gray-300');
+                    }
+                });
+            }
+
+            function startAutoSlide() {
+                testimoniosInterval = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % slideCount;
+                    updateTestimoniosPosition();
+                }, 5000);
+            }
+
+            function resetInterval() {
+                if (testimoniosInterval) {
+                    clearInterval(testimoniosInterval);
+                }
+                startAutoSlide();
+            }
+
+            if (prevButton) {
+                prevButton.addEventListener('click', () => {
+                    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                    updateTestimoniosPosition();
+                    resetInterval();
+                });
+            }
+
+            if (nextButton) {
+                nextButton.addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % slideCount;
+                    updateTestimoniosPosition();
+                    resetInterval();
+                });
+            }
+
+            testimoniosDots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    currentIndex = parseInt(dot.getAttribute('data-index'));
+                    updateTestimoniosPosition();
+                    resetInterval();
+                });
+            });
+
+            // Soporte táctil mejorado para dispositivos móviles
+            if (testimoniosTrack) {
+                testimoniosTrack.addEventListener('touchstart', e => {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartTime = Date.now();
+                    isSwipeInProgress = true;
+                    clearInterval(testimoniosInterval);
+                }, { passive: true });
+
+                testimoniosTrack.addEventListener('touchmove', e => {
+                    if (!isSwipeInProgress) return;
+
+                    touchEndX = e.touches[0].clientX;
+                    touchEndTime = Date.now();
+
+                    // Prevenir el comportamiento por defecto durante el swipe
+                    e.preventDefault();
+                }, { passive: false });
+
+                testimoniosTrack.addEventListener('touchend', () => {
+                    if (!isSwipeInProgress) return;
+
+                    touchEndX = touchEndX || touchStartX;
+                    touchEndTime = touchEndTime || touchStartTime;
+
+                    const diff = touchStartX - touchEndX;
+                    const timeDiff = touchEndTime - touchStartTime;
+
+                    // Solo considerar como swipe válido si:
+                    // 1. El movimiento es mayor a 50px
+                    // 2. El tiempo es menor a 500ms (swipe rápido)
+                    // 3. No hay movimiento vertical significativo
+                    if (Math.abs(diff) > 50 && timeDiff < 500) {
+                        if (diff > 0) {
+                            // Deslizamiento hacia la izquierda (siguiente)
+                            currentIndex = (currentIndex + 1) % slideCount;
+                        } else {
+                            // Deslizamiento hacia la derecha (anterior)
+                            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                        }
+                        updateTestimoniosPosition();
+                    }
+
+                    isSwipeInProgress = false;
+                    resetInterval();
+                }, { passive: true });
+
+                // Soporte para mouse en desktop (opcional)
+                testimoniosTrack.addEventListener('mousedown', e => {
+                    touchStartX = e.clientX;
+                    touchStartTime = Date.now();
+                    isSwipeInProgress = true;
+                    clearInterval(testimoniosInterval);
+                });
+
+                testimoniosTrack.addEventListener('mouseup', e => {
+                    if (!isSwipeInProgress) return;
+
+                    touchEndX = e.clientX;
+                    touchEndTime = Date.now();
+
+                    const diff = touchStartX - touchEndX;
+                    const timeDiff = touchEndTime - touchStartTime;
+
+                    if (Math.abs(diff) > 50 && timeDiff < 500) {
+                        if (diff > 0) {
+                            currentIndex = (currentIndex + 1) % slideCount;
+                        } else {
+                            currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                        }
+                        updateTestimoniosPosition();
+                    }
+
+                    isSwipeInProgress = false;
+                    resetInterval();
+                });
+            }
+
+            updateTestimoniosPosition();
+            startAutoSlide();
+        }
+    });
+    </script>
+
+    <!-- Script para Google Translate y cambio de idioma -->
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+      if (document.getElementById('google_translate_element')) {  // Check si contenedor existe
+        new google.translate.TranslateElement({
+          pageLanguage: 'es',
+          includedLanguages: 'en,es',
+          autoDisplay: false
+        }, 'google_translate_element');
+        console.log('Google Translate initialized');  // Debug
+      } else {
+        console.error('google_translate_element no encontrado');
+      }
+    }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
+    <script>
+    function changeLanguage(lang) {
+      console.log('=== changeLanguage called with lang:', lang, ' (Clic número: ' + (++window.clickCount || (window.clickCount = 1)) + ') ===');
+      var select = document.querySelector('.goog-te-combo');
+      if (select) {
+        const currentValue = select.value;
+        console.log('Estado actual del selector:', currentValue, 'Intentando cambiar a:', lang);
+        if (currentValue === lang) {
+          console.log('Selector ya está en el idioma deseado, forzando cambio...');
+        }
+        select.value = lang;
+        setTimeout(() => {
+          select.dispatchEvent(new Event('change'));
+          console.log('Evento de cambio disparado para:', lang);
+          // Verificar si el cambio se aplicó después de un tiempo
+          setTimeout(() => {
+            const newValue = select.value;
+            console.log('Verificación post-cambio: Selector ahora en:', newValue);
+            if (newValue !== lang) {
+              console.warn('Cambio no se aplicó correctamente, intentando reset del widget...');
+              // Reset del widget si falla
+              if (typeof googleTranslateElementInit === 'function') {
+                googleTranslateElementInit();
+              }
+              // Fallback: Intentar de nuevo después de reset
+              setTimeout(() => {
+                const selectAfterReset = document.querySelector('.goog-te-combo');
+                if (selectAfterReset) {
+                  selectAfterReset.value = lang;
+                  selectAfterReset.dispatchEvent(new Event('change'));
+                  console.log('Fallback aplicado: Cambio intentado de nuevo después de reset.');
+                } else {
+                  console.error('Selector no encontrado después de reset, posible problema de inicialización.');
+                }
+              }, 500);
+            }
+          }, 500); // Verificación más tardía
+        }, 300); // Delay mayor para cambios rápidos
+      } else {
+        console.error('Google Translate combo not found! Widget may not have loaded.');
+        // Fallback si no hay selector inicial
+        setTimeout(() => {
+          const selectLater = document.querySelector('.goog-te-combo');
+          if (selectLater) {
+            selectLater.value = lang;
+            selectLater.dispatchEvent(new Event('change'));
+            console.log('Fallback inicial aplicado: Selector encontrado tarde, cambio intentado.');
+          }
+        }, 1000);
+      }
+      // Toggle con checks para null
+      const btnEs = document.getElementById('lang-es');
+      const btnEn = document.getElementById('lang-en');
+      if (btnEs && btnEn) {
+        if (lang === 'es') {
+          btnEs.style.display = 'none';
+          btnEn.style.display = 'block';
+        } else {
+          btnEs.style.display = 'block';
+          btnEn.style.display = 'none';
+        }
+        console.log('Botones toggleados correctamente para:', lang);
+      } else {
+        console.error('Botones no encontrados! lang-es:', btnEs, 'lang-en:', btnEn);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOMContentLoaded fired');  // Debug: Verifica timing
+      const btnEs = document.getElementById('lang-es');
+      const btnEn = document.getElementById('lang-en');
+      if (btnEs) {
+        btnEs.addEventListener('click', () => changeLanguage('es'));
+      } else {
+        console.error('lang-es no encontrado en DOMContentLoaded');
+      }
+      if (btnEn) {
+        btnEn.addEventListener('click', () => changeLanguage('en'));
+      } else {
+        console.error('lang-en no encontrado en DOMContentLoaded');
+      }
+
+      var isEnglish = document.cookie.match(/googtrans=\/es\/en/);
+      if (isEnglish) {
+        changeLanguage('en');
+      } else {
+        changeLanguage('es');
+      }
+    });
+
+    // Agrega esto para esperar si header es dinámico
+    window.addEventListener('load', function() {
+      console.log('Window load fired - checking botones again');
+      // Si botones no estaban en DOMContentLoaded, re-intenta aquí
+      const btnEs = document.getElementById('lang-es');
+      const btnEn = document.getElementById('lang-en');
+      if (btnEs && !btnEs.hasAttribute('data-listener-added')) {
+        btnEs.addEventListener('click', () => changeLanguage('es'));
+        btnEs.setAttribute('data-listener-added', 'true');
+        console.log('Added listener to lang-es in window.load');
+      }
+      if (btnEn && !btnEn.hasAttribute('data-listener-added')) {
+        btnEn.addEventListener('click', () => changeLanguage('en'));
+        btnEn.setAttribute('data-listener-added', 'true');
+        console.log('Added listener to lang-en in window.load');
+      }
+    });
+    </script>
+</body>
+</html>
