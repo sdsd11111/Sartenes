@@ -150,6 +150,11 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
+            // Obtener la ruta base del sitio
+            const basePath = window.location.pathname.includes('/admin/') ? 
+                window.location.pathname.split('/admin/')[0] + '/admin/' : 
+                '/admin/';
+            
             // Credenciales de acceso
             const validUsername = 'Lossartenes';
             const validPassword = 'Contraseña123.';
@@ -159,8 +164,8 @@
                 // Guardar sesión en sessionStorage
                 sessionStorage.setItem('isAuthenticated', 'true');
                 
-                // Redirigir al panel de administración
-                window.location.href = 'index.html';
+                // Redirigir al panel de administración usando ruta absoluta
+                window.location.href = basePath + 'index.html';
             } else {
                 // Mostrar mensaje de error
                 document.getElementById('errorMessage').style.display = 'block';

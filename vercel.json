@@ -49,48 +49,56 @@
       "dest": "/public/menu/platos/$1.html"
     },
     {
-      "src": "/sobre-nosotros",
+      "src": "^/sobre-nosotros\\.html$",
+      "dest": "/public/sobre-nosotros.html"
+    },
+    {
+      "src": "^/galeria\\.html$",
+      "dest": "/public/galeria.html"
+    },
+    {
+      "src": "^/contacto\\.html$",
+      "dest": "/public/contacto.html"
+    },
+    {
+      "src": "^/vegetarianos\\.html$",
+      "dest": "/public/vegetarianos.html"
+    },
+    {
+      "src": "^/festival-de-mariscos\\.html$",
+      "dest": "/public/festival-de-mariscos.html"
+    },
+    {
+      "src": "^/parrilladas\\.html$",
+      "dest": "/public/parrilladas.html"
+    },
+    {
+      "src": "^/menu-infantil\\.html$",
+      "dest": "/public/menu-infantil.html"
+    },
+    {
+      "src": "^/bebidas\\.html$",
+      "dest": "/public/bebidas.html"
+    },
+    {
+      "src": "^/postres\\.html$",
+      "dest": "/public/postres.html"
+    },
+    {
+      "src": "^/picaditos\\.html$",
+      "dest": "/public/picaditos.html"
+    },
+    {
+      "src": "^/index\\.html$",
       "dest": "/public/index.html"
     },
     {
-      "src": "/galeria",
-      "dest": "/public/index.html"
-    },
-    {
-      "src": "/contacto",
-      "dest": "/public/index.html"
-    },
-    {
-      "src": "/vegetarianos",
-      "dest": "/public/index.html"
-    },
-    {
-      "src": "/festival-de-mariscos",
-      "dest": "/public/index.html"
-    },
-    {
-      "src": "/parrilladas",
-      "dest": "/public/index.html"
-    },
-    {
-      "src": "/menu-infantil",
-      "dest": "/public/index.html"
-    },
-    {
-      "src": "/bebidas",
-      "dest": "/public/index.html"
-    },
-    {
-      "src": "/postres",
-      "dest": "/public/index.html"
-    },
-    {
-      "src": "/picaditos",
+      "src": "^/$",
       "dest": "/public/index.html"
     },
     {
       "src": "/(.*)",
-      "dest": "/public/index.html"
+      "dest": "/public/404.html"
     }
   ]
 }

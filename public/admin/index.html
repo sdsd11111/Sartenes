@@ -99,16 +99,35 @@
     <!-- Verificación de autenticación -->
     <script>
         // Verificar si el usuario está autenticado
-        if (sessionStorage.getItem('isAuthenticated') !== 'true') {
-            // Si no está autenticado, redirigir a la página de login
-            window.location.href = 'login.html';
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener la ruta base del sitio
+            const basePath = window.location.pathname.includes('/admin/') ? 
+                window.location.pathname.split('/admin/')[0] + '/admin/' : 
+                '/admin/';
+                
+            // Verificar autenticación
+            if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+                // Si no está autenticado, redirigir a la página de login
+                window.location.href = basePath + 'login.html';
+                return;
+            }
+            
+            // Configurar el botón de cerrar sesión si existe
+            const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+            if (btnCerrarSesion) {
+                btnCerrarSesion.onclick = cerrarSesion;
+            }
+        });
 
         // Función para cerrar sesión
-        function cerrarSesion() {
+        function cerrarSesion(e) {
+            if (e) e.preventDefault();
             sessionStorage.removeItem('isAuthenticated');
-            // Usar ruta relativa para asegurar que funcione en cualquier entorno
-            window.location.href = window.location.pathname.replace('index.html', '') + 'login.html';
+            // Redirigir al login
+            const basePath = window.location.pathname.includes('/admin/') ? 
+                window.location.pathname.split('/admin/')[0] + '/admin/' : 
+                '/admin/';
+            window.location.href = basePath + 'login.html';
         }
     </script>
     <!-- Tailwind CSS -->
