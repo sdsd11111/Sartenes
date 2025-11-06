@@ -15,7 +15,82 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="apple-touch-icon" href="images/favicon.ico">
 </head>
-<body class="bg-gray-50" data-initialized="true">
+<body class="bg-gray-50" data-initialized="false">
+    <!-- Loader de carga -->
+    <div id="page-loader" class="fixed inset-0 bg-white bg-opacity-90 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
+        <div class="animate-pulse flex flex-col items-center">
+            <img src="/images/Logo.jpg" alt="Logo Los Sartenes" class="h-24 w-24 md:h-32 md:w-32 rounded-full object-cover shadow-lg border-4 border-[#2E8B57] mb-4">
+            <div class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden mt-4">
+                <div id="loader-bar" class="h-full bg-[#2E8B57] rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; pointer-events: none; }
+        }
+        
+        .page-loaded #page-loader {
+            animation: fadeOut 0.3s ease-out forwards;
+        }
+        
+        #page-loader {
+            backdrop-filter: blur(2px);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .animate-pulse {
+            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+    <script>
+        // Ocultar loader rápidamente
+        function hideLoader() {
+            document.body.classList.add('page-loaded');
+            document.body.setAttribute('data-initialized', 'true');
+            setTimeout(() => {
+                const loader = document.getElementById('page-loader');
+                if (loader) loader.style.display = 'none';
+            }, 300);
+        }
+        
+        // Mostrar progreso de carga inicial rápido
+        function initLoader() {
+            let progress = 0;
+            const loaderBar = document.getElementById('loader-bar');
+            const duration = 800; // Reducido de 1500ms a 800ms
+            const interval = 30;
+            const increment = (interval / duration) * 100;
+            
+            const progressInterval = setInterval(() => {
+                progress += increment;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(progressInterval);
+                }
+                if (loaderBar) {
+                    loaderBar.style.width = Math.min(progress, 100) + '%';
+                }
+            }, interval);
+            
+            // Ocultar el loader cuando todo esté listo o después de 1.5 segundos como máximo
+            const hideTimeout = setTimeout(hideLoader, 1500);
+            
+            window.addEventListener('load', () => {
+                clearTimeout(hideTimeout);
+                setTimeout(hideLoader, 300); // Pequeño retraso para asegurar que todo se renderice
+            });
+        }
+        
+        // Iniciar la carga
+        document.addEventListener('DOMContentLoaded', initLoader);
+    </script>
+    
     <!-- Componente Header -->
     <div id="header-component">
         <!-- El contenido del header se cargará aquí mediante JavaScript -->
