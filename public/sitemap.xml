@@ -1,91 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sartenes.vercel.app/</loc>
+    <loc>https://lossartenes.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <lastmod>2025-11-19</lastmod>
   </url>
   <url>
-    <loc>https://sartenes.vercel.app/sobre-nosotros.html</loc>
+    <loc>https://lossartenes.com/sobre-nosotros.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2025-11-19</lastmod>
   </url>
   <url>
-    <loc>https://sartenes.vercel.app/contacto.html</loc>
+    <loc>https://lossartenes.com/contacto.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2025-11-19</lastmod>
   </url>
   <url>
-    <loc>https://sartenes.vercel.app/galeria.html</loc>
+    <loc>https://lossartenes.com/galeria.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <lastmod>2025-11-19</lastmod>
   </url>
   <url>
-    <loc>https://sartenes.vercel.app/menu_infantil.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2025-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://sartenes.vercel.app/bebidas_postres_picaditos.html</loc>
+    <loc>https://lossartenes.com/menu_infantil.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <lastmod>2025-11-19</lastmod>
   </url>
   <url>
-    <loc>https://sartenes.vercel.app/festival_de_mariscos.html</loc>
+    <loc>https://lossartenes.com/bebidas_postres_picaditos.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <lastmod>2025-11-19</lastmod>
   </url>
   <url>
-    <loc>https://sartenes.vercel.app/vegetarianos.html</loc>
+    <loc>https://lossartenes.com/festival_de_mariscos.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <lastmod>2025-11-19</lastmod>
   </url>
   <url>
-    <loc>https://sartenes.vercel.app/menu/bebidas.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2025-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://sartenes.vercel.app/menu/carnes.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2025-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://sartenes.vercel.app/menu/parrilladas.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2025-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://sartenes.vercel.app/menu/pastas.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2025-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://sartenes.vercel.app/menu/pescados-mariscos.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2025-11-19</lastmod>
-  </url>
-  <url>
-    <loc>https://sartenes.vercel.app/menu/postres.html</loc>
+    <loc>https://lossartenes.com/vegetarianos.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <lastmod>2025-11-19</lastmod>
   </url>
   <url>
-    <loc>https://sartenes.vercel.app/menu/vegetariano.html</loc>
+    <loc>https://lossartenes.com.app/menu/bebidas.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2025-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://lossartenes.com.app/menu/carnes.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2025-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://lossartenes.com/menu/parrilladas.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2025-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://lossartenes.com/menu/pastas.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2025-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://lossartenes.com/menu/pescados-mariscos.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2025-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://lossartenes.com/menu/postres.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2025-11-19</lastmod>
+  </url>
+  <url>
+    <loc>https://lossartenes.com/menu/vegetariano.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <lastmod>2025-11-19</lastmod>
