@@ -12,11 +12,70 @@
         
         <!-- Botón Menú Hamburguesa y Cambio de Idioma agrupados a la derecha -->
         <div class="flex items-center gap-4">
-            <!-- Botones con toggle de visibilidad (solo English y Spanish, sin duplicados) -->
-            <div class="language-switcher">
-                <button id="lang-es" class="notranslate bg-[#FF8C42] text-white font-bold py-2 px-4 rounded-full uppercase transition-all duration-300 hover:bg-[#e67e22] hover:scale-105 shadow-lg !important" style="display: none;">Spanish</button>
-                <button id="lang-en" class="notranslate bg-[#FF8C42] text-white font-bold py-2 px-4 rounded-full uppercase transition-all duration-300 hover:bg-[#e67e22] hover:scale-105 shadow-lg !important">English</button>
+            <!-- Botones de cambio de idioma -->
+            <div class="language-switcher flex items-center space-x-2">
+                <button id="lang-es" 
+                        class="language-btn notranslate bg-[#FF8C42] text-white font-bold py-1.5 px-3 text-sm rounded-full uppercase transition-all duration-300 hover:bg-[#e67e22] hover:scale-105 shadow-lg" 
+                        data-lang="es"
+                        style="display: none;">
+                    Español
+                </button>
+                <button id="lang-en" 
+                        class="language-btn notranslate bg-[#FF8C42] text-white font-bold py-1.5 px-3 text-sm rounded-full uppercase transition-all duration-300 hover:bg-[#e67e22] hover:scale-105 shadow-lg"
+                        data-lang="en">
+                    English
+                </button>
             </div>
+            
+            <script>
+              // === IDIOMA: FUNCIONA AL CARGAR Y AL RECARGAR ===
+              (function () {
+                // 1. Leer idioma: URL > localStorage > 'es'
+                const urlLang = new URLSearchParams(window.location.search).get('lang');
+                const savedLang = localStorage.getItem('userLanguage') || 'es';
+                const lang = urlLang || savedLang;
+
+                // 2. Guardar si viene de URL
+                if (urlLang) localStorage.setItem('userLanguage', urlLang);
+
+                // 3. APLICAR IDIOMA INMEDIATAMENTE (sin esperar DOM)
+                document.querySelectorAll('[data-lang]').forEach(el => {
+                  const text = el.getAttribute(`data-lang-${lang}`);
+                  if (text) el.textContent = text;
+                });
+
+                // 4. Mostrar/ocultar botones
+                const btnEs = document.getElementById('lang-es');
+                const btnEn = document.getElementById('lang-en');
+                if (btnEs) btnEs.style.display = lang === 'es' ? 'none' : 'inline-block';
+                if (btnEn) btnEn.style.display = lang === 'en' ? 'none' : 'inline-block';
+
+                // 5. Cambiar idioma
+                window.cambiarIdioma = function (nuevoLang) {
+                  if (nuevoLang === lang) return;
+                  localStorage.setItem('userLanguage', nuevoLang);
+                  const url = new URL(window.location);
+                  url.searchParams.set('lang', nuevoLang);
+                  url.searchParams.set('t', Date.now());
+                  window.location.replace(url);
+                };
+
+                // 6. Eventos (cuando el DOM esté listo)
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', init);
+                } else {
+                  init();
+                }
+                function init() {
+                  document.querySelectorAll('.language-btn').forEach(btn => {
+                    btn.onclick = (e) => {
+                      e.preventDefault();
+                      cambiarIdioma(btn.dataset.lang);
+                    };
+                  });
+                }
+              })();
+            </script>
             
             <!-- Botón Menú Hamburguesa -->
             <button id="menuToggle" class="text-orange-500 hover:text-orange-600 focus:outline-none">

@@ -306,6 +306,16 @@ const staticOptions = {
 // Servir archivos estáticos desde la carpeta public
 app.use(express.static(publicPath, staticOptions));
 
+// === ANTI-CACHÉ PARA HTML ===
+app.use((req, res, next) => {
+  if (req.path.endsWith('.html') || req.path === '/') {
+    res.set('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+  }
+  next();
+});
+
 // Ruta específica para los componentes
 app.use('/components', express.static(path.join(__dirname, 'public', 'components'), {
   setHeaders: (res, path) => {
@@ -1300,6 +1310,11 @@ app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api/')) {
     return next();
   }
+  
+  // Forzar anti-caché en HTML
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
   
   // Si es un archivo estático, continuar al siguiente middleware
   if (req.path.match(/\.(js|css|json|xml|jpg|jpeg|png|gif|ico|svg|webp|avif|woff|woff2|ttf|eot)$/)) {
