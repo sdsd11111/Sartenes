@@ -303,40 +303,8 @@ const staticOptions = {
   }
 };
 
-// Security headers middleware
-app.use((req, res, next) => {
-  // Set security headers for all responses
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-  res.setHeader('X-XSS-Protection', '1; mode=block');
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
-  
-  // Cache control for static assets
-  if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
-    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-  } else {
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  }
-  
-  next();
-});
-
 // Servir archivos estáticos desde la carpeta public
 app.use(express.static(publicPath, staticOptions));
-
-// Google Translate proxy endpoint to avoid CORS issues
-app.get('/api/translate', async (req, res) => {
-  try {
-    const targetUrl = 'https://translate.googleapis.com' + req.url.replace('/api/translate', '');
-    const response = await fetch(targetUrl);
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error('Error in translate proxy:', error);
-    res.status(500).json({ error: 'Translation service unavailable' });
-  }
-});
 
 // === ANTI-CACHÉ PARA HTML ===
 app.use((req, res, next) => {

@@ -37,39 +37,25 @@
                 </div>
             </div>
             
-            <!-- Google Translate Element (hidden) -->
+            <!-- Google Translate Element (oculto) -->
             <div id="google_translate_element" style="display:none"></div>
             
             <!-- Google Translate Implementation -->
             <script>
             // Global function for Google Translate
-            window.googleTranslateElementInit = function() {
+            function googleTranslateElementInit() {
               try {
-                console.log('Google Translate initialization started...');
-                
-                // Ensure the container exists
-                const container = document.getElementById('google_translate_element');
-                if (!container) {
+                if (!document.getElementById('google_translate_element')) {
                   console.error('Google Translate container not found');
                   return;
                 }
                 
-                // Check if Google Translate API is loaded
                 if (!window.google || !window.google.translate) {
-                  console.warn('Google Translate API not loaded, retrying...');
-                  setTimeout(googleTranslateElementInit, 1000);
+                  console.log('Google Translate API not loaded yet, retrying...');
+                  setTimeout(googleTranslateElementInit, 500);
                   return;
                 }
-                
-                // Check if already initialized
-                if (window.googleTranslateInitialized) {
-                  console.log('Google Translate already initialized');
-                  return;
-                }
-                
-                console.log('Initializing Google Translate...');
-                
-                // Initialize Google Translate
+
                 new google.translate.TranslateElement({
                   pageLanguage: 'es',
                   includedLanguages: 'es,en',
@@ -77,83 +63,57 @@
                   layout: google.translate.TranslateElement.InlineLayout.SIMPLE
                 }, 'google_translate_element');
                 
-                window.googleTranslateInitialized = true;
                 console.log('Google Translate initialized successfully');
                 
-                // Initial hide of Google elements
+                // Hide Google elements after initialization
                 hideGoogleElements();
                 
-                // Set up observer to watch for dynamic elements
-                const observer = new MutationObserver(hideGoogleElements);
-                observer.observe(document.body, { 
-                  childList: true, 
-                  subtree: true 
-                });
-                
-                // Set up periodic check for Google elements
-                setInterval(hideGoogleElements, 1000);
-                
-                // Restore language preference
-                const savedLang = getCurrentLang();
-                if (savedLang) {
-                  console.log('Restoring saved language:', savedLang);
-                  // Small delay to ensure everything is ready
-                  setTimeout(() => changeLanguage(savedLang), 500);
+                // Update UI with current language
+                const currentLang = getCurrentLang();
+                if (currentLang) {
+                  changeLanguage(currentLang);
                 }
                 
               } catch (e) {
                 console.error('Error initializing Google Translate:', e);
-                // Retry with exponential backoff
-                const retryDelay = Math.min(1000 * Math.pow(2, window.googleTranslateRetryCount || 0), 10000);
-                console.log(`Retrying in ${retryDelay}ms...`);
-                window.googleTranslateRetryCount = (window.googleTranslateRetryCount || 0) + 1;
-                setTimeout(googleTranslateElementInit, retryDelay);
+                // Retry initialization
+                setTimeout(googleTranslateElementInit, 1000);
               }
-            };
+            }
 
-            // Load Google Translate script with retry logic
+            // Load Google Translate script
             function loadGoogleTranslate() {
-              try {
-                // Remove any existing script
-                const oldScripts = document.querySelectorAll('script[src*="translate_a/element.js"]');
-                oldScripts.forEach(script => script.remove());
-                
-                // Create new script element
-                const script = document.createElement('script');
-                const cacheBuster = 'cb=' + new Date().getTime();
-                script.src = `https://translate.google.com/translate_a/element.js?${cacheBuster}&hl=es&cb=googleTranslateElementInit`;
-                script.async = true;
-                
-                script.onload = function() {
-                  console.log('Google Translate script loaded successfully');
-                  window.googleTranslateLoadError = null;
-                };
-                
-                script.onerror = function(error) {
-                  console.error('Failed to load Google Translate script:', error);
-                  // Retry with exponential backoff
-                  const retryDelay = Math.min(5000 * Math.pow(2, window.googleTranslateLoadRetry || 0), 60000);
-                  console.log(`Retrying script load in ${retryDelay}ms...`);
-                  window.googleTranslateLoadRetry = (window.googleTranslateLoadRetry || 0) + 1;
-                  setTimeout(loadGoogleTranslate, retryDelay);
-                };
-                
-                // Add to document
-                (document.head || document.documentElement).appendChild(script);
-                
-              } catch (e) {
-                console.error('Error loading Google Translate script:', e);
-                // Fallback: try again in 5 seconds
-                setTimeout(loadGoogleTranslate, 5000);
+              // Remove existing script if any
+              const oldScript = document.querySelector('script[src*="translate_a/element.js"]');
+              if (oldScript) {
+                oldScript.remove();
               }
+              
+              const script = document.createElement('script');
+              script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=es';
+              script.async = true;
+              script.onerror = function() {
+                console.error('Failed to load Google Translate script');
+                // Retry loading
+                setTimeout(loadGoogleTranslate, 2000);
+              };
+              document.head.appendChild(script);
             }
 
-            // Start loading Google Translate when DOM is ready
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', loadGoogleTranslate);
-            } else {
+            // Initialize when DOM is ready
+            document.addEventListener('DOMContentLoaded', function() {
+              // Load Google Translate
               loadGoogleTranslate();
-            }
+              
+              // Set up language switching
+              setupLanguageSwitcher();
+              
+              // Hide Google elements periodically
+              setInterval(hideGoogleElements, 1000);
+              
+              // Initial hide
+              hideGoogleElements();
+            });
             </script>
             
             <!-- Nuestro script de arreglo -->

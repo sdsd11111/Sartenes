@@ -6,50 +6,14 @@
     { "src": "public/**", "use": "@vercel/static" },
     { "src": "public/admin/**", "use": "@vercel/static" }
   ],
+  
   "routes": [
     { "src": "/api/(.*)", "dest": "/server.js" },
     { "src": "/admin/login.html", "dest": "/public/admin/login.html" },
     { "src": "/admin/index.html", "dest": "/public/admin/index.html" },
     { "src": "/admin/(.*)", "dest": "/public/admin/$1" },
     { "src": "^/(css|js|images|menu|components)/(.*)", "dest": "/public/$1/$2" },
-    { "src": "^/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot))", "dest": "/public/$1" },
-    { 
-      "src": "^/(.*)",
-      "headers": {
-        "cache-control": "s-maxage=0, stale-while-revalidate=60",
-        "x-robots-tag": "all",
-        "x-frame-options": "SAMEORIGIN",
-        "x-content-type-options": "nosniff",
-        "referrer-policy": "strict-origin-when-cross-origin",
-        "permissions-policy": "geolocation=(), microphone=(), camera=()"
-      },
-      "dest": "/server.js" 
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "geolocation=(), microphone=(), camera=()"
-        }
-      ]
-    }
+    { "src": "^(.*\\..*)$", "dest": "/public/$1" },
+    { "src": "/(.*)", "dest": "/server.js" }
   ]
 }
