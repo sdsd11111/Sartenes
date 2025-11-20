@@ -10,8 +10,8 @@
         <!-- Botón Menú Hamburguesa y Cambio de Idioma agrupados a la derecha -->
         <div class="flex items-center gap-4">
             <!-- Menú desplegable de idiomas -->
-            <div class="relative group">
-                <button id="language-toggle" class="bg-black text-white font-bold py-1.5 md:py-2 px-3 md:px-4 rounded-md text-xs md:text-sm uppercase hover:bg-gray-800 transition-colors duration-200 flex items-center" onclick="event.stopPropagation(); document.querySelector('.language-dropdown').classList.toggle('hidden')">
+            <div class="relative">
+                <button id="language-toggle" class="bg-black text-white font-bold py-1.5 md:py-2 px-3 md:px-4 rounded-md text-xs md:text-sm uppercase hover:bg-gray-800 transition-colors duration-200 flex items-center" onclick="document.querySelector('#menuLang').classList.toggle('hidden')">
                     <span class="whitespace-nowrap">IDIOMA</span>
                     <svg class="w-3 h-3 md:w-4 md:h-4 ml-1 md:ml-2 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -19,15 +19,15 @@
                 </button>
                 
                 <!-- Menú desplegable -->
-                <div class="language-dropdown absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1 z-50 hidden">
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="es" onclick="changeLanguage('es'); return false;">
+                <div id="menuLang" class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                    <a href="#" onclick="changeLanguage('es');return false;" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                         <span class="flex items-center">
                             <span class="mr-2">🇪🇸</span>
                             <span>Español</span>
-                            <span class="ml-auto text-green-500 lang-check hidden">✓</span>
+                            <span class="ml-auto text-green-500 lang-check">✓</span>
                         </span>
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="en" onclick="changeLanguage('en'); return false;">
+                    <a href="#" onclick="changeLanguage('en');return false;" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                         <span class="flex items-center">
                             <span class="mr-2">🇬🇧</span>
                             <span>English</span>
@@ -40,63 +40,77 @@
             <!-- Google Translate Element (oculto) -->
             <div id="google_translate_element" style="display: none;"></div>
             
-            <!-- Forzar recarga si se carga desde caché -->
+            <!-- Cargar el script de arreglo de Google Translate -->
+            <script src="/js/google-translate-fix.js"></script>
+            
             <script>
-            // Este script se ejecutará cuando el header se cargue dinámicamente
-            window.addEventListener('pageshow', function(event) {
-                if (event.persisted) {
-                    window.location.reload();
-                }
-            });
-            
-            // Inicialización del menú de idiomas
-            document.addEventListener('DOMContentLoaded', function() {
-                // Manejar clics en el botón de idioma
-                const languageToggle = document.getElementById('language-toggle');
-                if (languageToggle) {
-                    languageToggle.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const languageMenu = document.querySelector('.language-dropdown');
-                        if (languageMenu) {
-                            languageMenu.classList.toggle('hidden');
-                        }
-                    });
-                }
-                
-                // Cerrar menú al hacer clic fuera
-                document.addEventListener('click', function(e) {
-                    const languageMenu = document.querySelector('.language-dropdown');
-                    const languageButton = document.getElementById('language-toggle');
-                    
-                    if (languageMenu && !languageMenu.contains(e.target) && 
-                        languageButton && !languageButton.contains(e.target)) {
-                        languageMenu.classList.add('hidden');
-                    }
-                });
-            });
-            
             // Cerrar menú al hacer clic fuera
             document.addEventListener('click', function(e) {
-                const languageMenu = document.querySelector('.language-dropdown');
-                const languageButton = document.getElementById('language-toggle');
+                const menu = document.getElementById('menuLang');
+                const button = document.getElementById('language-toggle');
                 
-                if (!languageMenu.contains(e.target) && e.target !== languageButton && !languageButton.contains(e.target)) {
-                    languageMenu.classList.add('hidden');
+                if (menu && button && !menu.contains(e.target) && !button.contains(e.target)) {
+                    menu.classList.add('hidden');
                 }
             });
             
-            // Actualizar flecha del botón cuando se muestra/oculta el menú
-            const languageToggle = document.getElementById('language-toggle');
-            const languageMenu = document.querySelector('.language-dropdown');
-            const arrow = languageToggle.querySelector('svg');
+            // Actualizar checkmarks basado en el idioma actual
+            function updateLanguageCheckmarks() {
+                const currentLang = localStorage.getItem('lang') || 'es';
+                document.querySelectorAll('.lang-check').forEach(el => {
+                    el.classList.toggle('hidden', el.parentElement.dataset.lang !== currentLang);
+                });
+            }
             
-            languageToggle.addEventListener('click', function() {
-                if (languageMenu.classList.contains('hidden')) {
-                    arrow.style.transform = 'rotate(180deg)';
-                } else {
-                    arrow.style.transform = 'rotate(0deg)';
+            // Inicializar cuando el DOM esté listo
+            document.addEventListener('DOMContentLoaded', function() {
+                // Actualizar checkmarks iniciales
+                updateLanguageCheckmarks();
+                
+                // Ocultar elementos de Google Translate
+                hideGoogleElements();
+                
+                // Verificar si necesitamos forzar la recarga después de un cambio de idioma
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('lang')) {
+                    // Limpiar el parámetro de la URL sin recargar
+                    urlParams.delete('lang');
+                    const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+                    window.history.replaceState({}, '', newUrl);
                 }
             });
+            
+            // Función para ocultar elementos de Google Translate
+            function hideGoogleElements() {
+                const elements = [
+                    '.goog-te-gadget',
+                    '.goog-te-banner-frame',
+                    '.skiptranslate',
+                    '.goog-te-gt-bb',
+                    'iframe[src*="translate"]',
+                    '.goog-te-balloon-frame',
+                    '.goog-te-menu-value',
+                    '.goog-te-menu2',
+                    '.goog-te-ftab',
+                    '.goog-te-ftab-link',
+                    '.goog-te-combo'
+                ];
+                
+                elements.forEach(selector => {
+                    document.querySelectorAll(selector).forEach(el => {
+                        if (el) {
+                            el.style.display = 'none';
+                            el.style.visibility = 'hidden';
+                        }
+                    });
+                });
+            }
+            
+            // Hacer la función accesible globalmente
+            window.hideGoogleElements = hideGoogleElements;
+            
+            // Ejecutar hideGoogleElements periódicamente por si aparecen nuevos elementos
+            setInterval(hideGoogleElements, 1000);
             </script>
             
             <!-- Botón Menú Hamburguesa -->

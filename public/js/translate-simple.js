@@ -63,39 +63,82 @@ function forceCleanGoogle() {
 
 // --- CARGAR GOOGLE TRANSLATE ---
 function loadGoogle() {
+    console.log('Iniciando carga de Google Translate...');
+    
+    // Limpiar cualquier instancia previa
     forceCleanGoogle();
 
-    // recrear contenedor limpio
+    // Asegurarse de que el contenedor exista
     let cont = document.getElementById("google_translate_element");
     if (!cont) {
         cont = document.createElement("div");
         cont.id = "google_translate_element";
         cont.style.display = "none";
         document.body.appendChild(cont);
+        console.log('Contenedor de Google Translate creado');
     }
 
+    // Configurar la función de inicialización global
     window.googleTranslateElementInit = () => {
-        new google.translate.TranslateElement(
-            {
-                pageLanguage: DEFAULT_LANG,
-                includedLanguages: LANGS.join(","),
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            },
-            "google_translate_element"
-        );
-
-        // Ocultar elementos de Google Translate
-        hideGoogleElements();
+        console.log('googleTranslateElementInit ejecutándose...');
         
-        // Aplicar idioma actual
-        applyLang(getLang());
+        try {
+            // Verificar si google.translate está disponible
+            if (!window.google || !window.google.translate) {
+                console.error('Google Translate no está disponible');
+                return;
+            }
+
+            // Crear el elemento de traducción
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: DEFAULT_LANG,
+                    includedLanguages: LANGS.join(","),
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false
+                },
+                "google_translate_element"
+            );
+
+            console.log('Elemento de Google Translate creado');
+            
+            // Ocultar elementos no deseados
+            hideGoogleElements();
+            
+            // Aplicar el idioma actual
+            const currentLang = getLang();
+            console.log('Aplicando idioma:', currentLang);
+            applyLang(currentLang);
+            
+            // Forzar actualización después de un breve retraso
+            setTimeout(() => {
+                updateUI();
+                const select = document.querySelector('.goog-te-combo');
+                if (select) {
+                    select.value = currentLang;
+                    select.dispatchEvent(new Event('change'));
+                }
+            }, 500);
+            
+        } catch (error) {
+            console.error('Error en googleTranslateElementInit:', error);
+        }
     };
 
-    const s = document.createElement("script");
-    s.id = "gt-script";
-    s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-    document.head.appendChild(s);
+    // Cargar el script de Google Translate
+    const script = document.createElement("script");
+    script.id = "gt-script";
+    script.src = `//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=${getLang()}&t=${Date.now()}`;
+    script.async = true;
+    script.onerror = () => {
+        console.error('Error al cargar el script de Google Translate');
+        // Reintentar después de un tiempo
+        setTimeout(loadGoogle, 2000);
+    };
+    
+    // Agregar el script al documento
+    document.head.appendChild(script);
+    console.log('Script de Google Translate cargado');
 }
 
 // --- OCULTAR ELEMENTOS DE GOOGLE TRANSLATE ---
@@ -147,74 +190,135 @@ function updateUI() {
 
 // --- CAMBIAR IDIOMA ---
 function changeLanguage(lang) {
-    // Guardar el idioma en localStorage
+    console.log(`=== changeLanguage called with lang: ${lang} ===`);
+    
+    // No hacer nada si ya está en el idioma solicitado
+    if (lang === getLang() && window.google && window.google.translate) {
+        console.log('El idioma ya está establecido, actualizando solo la interfaz');
+        updateUI();
+        return;
+    }
+    
+    // Guardar preferencia
     localStorage.setItem("userLanguage", lang);
     
     // Actualizar la cookie de Google Translate
-    document.cookie = `googtrans=/${DEFAULT_LANG}/${lang}; path=/; domain=${window.location.hostname}`;
+    const domain = window.location.hostname;
+    const cookieValue = `googtrans=/${DEFAULT_LANG}/${lang}; path=/; domain=${domain}; SameSite=Lax`;
+    document.cookie = cookieValue;
+    console.log('Cookie configurada:', cookieValue);
     
-    // Si ya está cargado Google Translate, forzar la actualización
-    if (window.google && window.google.translate) {
+    // Intentar actualizar el selector de Google Translate si está disponible
+    const updateGoogleTranslate = () => {
         const select = document.querySelector('.goog-te-combo');
         if (select) {
+            console.log('Actualizando selector de Google Translate a:', lang);
             select.value = lang;
             select.dispatchEvent(new Event('change'));
-        } else {
-            // Si no hay selector, recargar la página
+            return true;
+        }
+        return false;
+    };
+    
+    // Si Google Translate está cargado, actualizarlo
+    if (window.google && window.google.translate) {
+        console.log('Google Translate está cargado, actualizando...');
+        if (!updateGoogleTranslate()) {
+            console.log('No se encontró el selector de Google Translate, recargando...');
             window.location.reload();
         }
     } else {
-        // Si no está cargado Google Translate, recargar la página
+        console.log('Google Translate no está cargado, recargando la página...');
         window.location.reload();
     }
     
-    // Actualizar la interfaz
+    // Actualizar la interfaz de usuario
     updateUI();
 }
 
 // --- INICIALIZACIÓN ---
 function initializeTranslator() {
+    console.log('=== INICIALIZANDO TRADUCTOR ===');
+    
     // Configurar eventos del menú desplegable
-    const languageToggle = document.getElementById("language-toggle");
-    if (languageToggle) {
-        languageToggle.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const menu = document.querySelector(".language-dropdown");
-            if (menu) menu.classList.toggle("hidden");
-        });
-    }
-
-    // Cerrar menú al hacer clic fuera
-    document.addEventListener("click", (e) => {
-        const menu = document.querySelector(".language-dropdown");
-        const button = document.getElementById("language-toggle");
-        
-        if (menu && !menu.contains(e.target) && button && !button.contains(e.target)) {
-            menu.classList.add("hidden");
+    const setupMenu = () => {
+        const languageToggle = document.getElementById("language-toggle");
+        if (languageToggle) {
+            // Eliminar event listeners antiguos para evitar duplicados
+            const newToggle = languageToggle.cloneNode(true);
+            languageToggle.parentNode.replaceChild(newToggle, languageToggle);
+            
+            newToggle.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const menu = document.querySelector(".language-dropdown");
+                if (menu) menu.classList.toggle("hidden");
+            });
+            
+            console.log('Menú de idiomas configurado');
         }
-    });
 
-    // Configurar eventos de los botones de idioma
-    document.querySelectorAll("[data-lang]").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            e.preventDefault();
-            const lang = btn.dataset.lang;
-            changeLanguage(lang);
-            const menu = btn.closest(".language-dropdown");
-            if (menu) menu.classList.add("hidden");
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener("click", (e) => {
+            const menu = document.querySelector(".language-dropdown");
+            const button = document.getElementById("language-toggle");
+            
+            if (menu && !menu.contains(e.target) && button && !button.contains(e.target)) {
+                menu.classList.add("hidden");
+            }
         });
-    });
 
+        // Configurar eventos de los botones de idioma
+        document.querySelectorAll("[data-lang]").forEach((btn) => {
+            // Eliminar event listeners antiguos
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+            
+            newBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                const lang = newBtn.dataset.lang;
+                console.log('Botón de idioma clickeado:', lang);
+                changeLanguage(lang);
+                const menu = newBtn.closest(".language-dropdown");
+                if (menu) menu.classList.add("hidden");
+            });
+        });
+        
+        console.log('Eventos de menú configurados');
+    };
+
+    // Configurar el menú de idiomas
+    setupMenu();
+    
     // Verificar si ya hay un script de Google Translate
     if (!document.getElementById('gt-script')) {
-        // Inicializar
+        console.log('Cargando Google Translate por primera vez...');
         updateUI();
         loadGoogle();
     } else if (window.google && window.google.translate) {
-        // Si ya está cargado, solo actualizar la interfaz
+        console.log('Google Translate ya está cargado, actualizando interfaz...');
         updateUI();
         applyLang(getLang());
+    } else {
+        console.log('Recargando Google Translate...');
+        loadGoogle();
     }
+    
+    // Verificar periódicamente que el traductor esté funcionando
+    const checkTranslator = setInterval(() => {
+        if (window.google && window.google.translate) {
+            console.log('Google Translate está funcionando correctamente');
+            clearInterval(checkTranslator);
+            updateUI();
+            applyLang(getLang());
+        } else {
+            console.log('Esperando a que Google Translate se cargue...');
+        }
+    }, 1000);
+    
+    // Limpiar el intervalo después de 10 segundos
+    setTimeout(() => {
+        clearInterval(checkTranslator);
+    }, 10000);
 }
 
 // Inicializar cuando el DOM esté listo

@@ -7,50 +7,77 @@ async function loadComponent(elementId, path) {
         }
         const html = await response.text();
         const element = document.getElementById(elementId);
-        if (element) {
-            // Usar DOMParser para parsear el HTML
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
+        
+        if (!element) {
+            console.error(`Elemento con ID ${elementId} no encontrado`);
+            return;
+        }
+
+        // Crear un contenedor temporal
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+
+        // Extraer y ejecutar los scripts
+        const scripts = temp.querySelectorAll('script');
+        const scriptsToExecute = [];
+
+        // Procesar todos los scripts
+        for (const script of scripts) {
+            const newScript = document.createElement('script');
             
-            // Reemplazar el contenido del elemento
-            element.innerHTML = doc.body.innerHTML;
+            // Copiar atributos
+            Array.from(script.attributes).forEach(attr => {
+                newScript.setAttribute(attr.name, attr.value);
+            });
             
-            // Procesar y ejecutar los scripts
-            const scripts = Array.from(doc.scripts);
-            for (const oldScript of scripts) {
-                const newScript = document.createElement('script');
+            // Si es un script externo, configurar para cargarlo
+            if (script.src) {
+                newScript.src = script.src;
+                // Añadir timestamp para evitar caché
+                if (!newScript.src.includes('?')) {
+                    newScript.src += '?' + Date.now();
+                }
                 
-                // Copiar atributos
-                Array.from(oldScript.attributes).forEach(attr => {
-                    newScript.setAttribute(attr.name, attr.value);
+                // Hacer que los scripts se carguen en orden
+                const loadPromise = new Promise((resolve) => {
+                    newScript.onload = resolve;
+                    newScript.onerror = () => {
+                        console.error(`Error cargando script: ${script.src}`);
+                        resolve(); // Continuar aunque falle
+                    };
                 });
                 
-                // Si es un script externo, cargarlo
-                if (oldScript.src) {
-                    newScript.src = oldScript.src;
-                    // Añadir timestamp para evitar caché
-                    if (!newScript.src.includes('?')) {
-                        newScript.src += '?' + new Date().getTime();
-                    }
-                } else {
-                    newScript.textContent = oldScript.textContent;
-                }
-                
-                // Reemplazar el script antiguo con el nuevo
-                if (oldScript.parentNode) {
-                    oldScript.parentNode.replaceChild(newScript, oldScript);
-                } else {
-                    // Si no tiene parentNode, agregarlo al final del body
-                    document.body.appendChild(newScript);
-                }
+                scriptsToExecute.push(loadPromise);
+            } else {
+                newScript.textContent = script.textContent;
             }
             
-            // Inicializar el menú móvil después de cargar el header
-            if (elementId === 'header-container') {
+            // Reemplazar el script en el HTML
+            script.parentNode.replaceChild(newScript, script);
+        }
+
+        // Actualizar el contenido del elemento
+        element.innerHTML = temp.innerHTML;
+
+        // Inicializar el menú móvil después de cargar el header
+        if (elementId === 'header-container') {
+            // Esperar a que los scripts se carguen antes de inicializar
+            await Promise.all(scriptsToExecute);
+            
+            // Inicializar menú móvil
+            if (typeof initMobileMenu === 'function') {
                 initMobileMenu();
-                
-                // Cargar el script de traducción después de que el header esté en el DOM
+            } else {
+                console.warn('initMobileMenu no está definido');
+            }
+            
+            // Cargar el traductor si está disponible
+            if (typeof loadTranslationScript === 'function') {
                 loadTranslationScript();
+            } else if (typeof loadGoogleTranslate === 'function') {
+                loadGoogleTranslate();
+            } else {
+                console.warn('No se encontró la función de carga del traductor');
             }
         }
     } catch (error) {
@@ -59,29 +86,61 @@ async function loadComponent(elementId, path) {
 }
 
 // Función para cargar el script de traducción
-export function loadTranslationScript() {
-    return new Promise((resolve, reject) => {
+function loadTranslationScript() {
+    return new Promise((resolve) => {
         // Verificar si ya está cargado
-        if (window.translationScriptLoaded) {
+        if (window.googleTranslateInitialized) {
+            console.log('Google Translate ya está inicializado');
             resolve();
             return;
         }
         
+        // Verificar si el script ya está en el DOM
+        const existingScript = document.querySelector('script[src*="translate-loader.js"]');
+        if (existingScript) {
+            console.log('Script de traducción ya cargado');
+            // Esperar un momento para que el script se ejecute
+            setTimeout(() => {
+                window.googleTranslateInitialized = true;
+                resolve();
+            }, 100);
+            return;
+        }
+        
+        // Cargar el script de traducción
         const script = document.createElement('script');
-        script.src = '/js/translate-simple.js?' + new Date().getTime();
+        script.src = '/js/translate-loader.js?' + Date.now();
+        script.async = true;
+        
         script.onload = () => {
-            window.translationScriptLoaded = true;
-            resolve();
+            console.log('Script de traducción cargado correctamente');
+            window.googleTranslateInitialized = true;
+            
+            // Esperar un momento para que el widget se inicialice
+            setTimeout(() => {
+                // Forzar la actualización de la interfaz
+                if (typeof updateLanguageUI === 'function') {
+                    updateLanguageUI(getCurrentLang?.() || 'es');
+                }
+                resolve();
+            }, 500);
         };
+        
         script.onerror = (error) => {
             console.error('Error al cargar el script de traducción:', error);
-            reject(error);
+            // Reintentar después de un retraso
+            setTimeout(() => {
+                loadTranslationScript().then(resolve);
+            }, 2000);
         };
         
         // Agregar el script al final del body
         document.body.appendChild(script);
     });
 }
+
+// Hacer la función disponible globalmente
+window.loadTranslationScript = loadTranslationScript;
 
 // Función para inicializar el menú móvil
 function initMobileMenu() {
