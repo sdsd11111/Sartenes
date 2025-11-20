@@ -8,15 +8,79 @@ async function loadComponent(elementId, path) {
         const html = await response.text();
         const element = document.getElementById(elementId);
         if (element) {
-            element.innerHTML = html;
+            // Usar DOMParser para parsear el HTML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Reemplazar el contenido del elemento
+            element.innerHTML = doc.body.innerHTML;
+            
+            // Procesar y ejecutar los scripts
+            const scripts = Array.from(doc.scripts);
+            for (const oldScript of scripts) {
+                const newScript = document.createElement('script');
+                
+                // Copiar atributos
+                Array.from(oldScript.attributes).forEach(attr => {
+                    newScript.setAttribute(attr.name, attr.value);
+                });
+                
+                // Si es un script externo, cargarlo
+                if (oldScript.src) {
+                    newScript.src = oldScript.src;
+                    // Añadir timestamp para evitar caché
+                    if (!newScript.src.includes('?')) {
+                        newScript.src += '?' + new Date().getTime();
+                    }
+                } else {
+                    newScript.textContent = oldScript.textContent;
+                }
+                
+                // Reemplazar el script antiguo con el nuevo
+                if (oldScript.parentNode) {
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
+                } else {
+                    // Si no tiene parentNode, agregarlo al final del body
+                    document.body.appendChild(newScript);
+                }
+            }
+            
             // Inicializar el menú móvil después de cargar el header
             if (elementId === 'header-container') {
                 initMobileMenu();
+                
+                // Cargar el script de traducción después de que el header esté en el DOM
+                loadTranslationScript();
             }
         }
     } catch (error) {
         console.error('Error al cargar el componente:', error);
     }
+}
+
+// Función para cargar el script de traducción
+export function loadTranslationScript() {
+    return new Promise((resolve, reject) => {
+        // Verificar si ya está cargado
+        if (window.translationScriptLoaded) {
+            resolve();
+            return;
+        }
+        
+        const script = document.createElement('script');
+        script.src = '/js/translate-simple.js?' + new Date().getTime();
+        script.onload = () => {
+            window.translationScriptLoaded = true;
+            resolve();
+        };
+        script.onerror = (error) => {
+            console.error('Error al cargar el script de traducción:', error);
+            reject(error);
+        };
+        
+        // Agregar el script al final del body
+        document.body.appendChild(script);
+    });
 }
 
 // Función para inicializar el menú móvil

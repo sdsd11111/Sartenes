@@ -40,75 +40,14 @@
             <!-- Google Translate Element (oculto) -->
             <div id="google_translate_element" style="display: none;"></div>
             
-            <!-- Script para limpiar cookies de Google -->
+            <!-- Forzar recarga si se carga desde caché -->
             <script>
-            // Limpiar cookies de Google Translate
-            function clearGoogleCookies() {
-                const domain = window.location.hostname;
-                const cookies = [
-                    `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`,
-                    `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.${domain}; path=/;`,
-                    `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=${domain}; path=/;`
-                ];
-                
-                cookies.forEach(cookie => document.cookie = cookie);
-                localStorage.removeItem('googtrans');
-                sessionStorage.removeItem('googtrans');
-            }
-            
-            // Limpiar cookies al cargar
-            clearGoogleCookies();
-            
-            // Forzar recarga si se carga desde caché
+            // Este script se ejecutará cuando el header se cargue dinámicamente
             window.addEventListener('pageshow', function(event) {
                 if (event.persisted) {
-                    clearGoogleCookies();
                     window.location.reload();
                 }
             });
-            </script>
-            
-            <!-- Cargar el script de traducción simplificado -->
-            <script src="/js/translate-simple.js"></script>
-            
-            <script>
-            // La lógica de inicialización ahora está en translate-simple.js
-            // Este script se encarga de todo el manejo de idiomas
-                    
-                    // Actualizar la interfaz de usuario inmediatamente
-                    updateLanguageUI(langToSet);
-                    
-                    // Cargar Google Translate
-                    loadGoogleTranslate()
-                        .then(() => {
-                            console.log('Inicializando Google Translate...');
-                            // Si ya está definida, llamar directamente
-                            if (typeof googleTranslateElementInit === 'function') {
-                                googleTranslateElementInit();
-                            }
-                            
-                            // Verificar después de un tiempo si se inicializó correctamente
-                            setTimeout(() => {
-                                if (!window.googleTranslateInitialized) {
-                                    console.warn('Google Translate no se inicializó correctamente, reintentando...');
-                                    initializeTranslator();
-                                }
-                            }, 2000);
-                        })
-                        .catch(error => {
-                            console.error('No se pudo cargar Google Translate:', error);
-                            // Mostrar un mensaje de error o intentar una solución alternativa
-                            updateLanguageUI(langToSet);
-                            
-                            // Reintentar después de un tiempo
-                            setTimeout(initializeTranslator, 3000);
-                        });
-                } catch (error) {
-                    console.error('Error en initializeTranslator:', error);
-                } finally {
-                    window.initializingTranslator = false;
-                }
-            }
             
             // Inicialización del menú de idiomas
             document.addEventListener('DOMContentLoaded', function() {
