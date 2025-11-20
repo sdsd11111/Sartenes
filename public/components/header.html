@@ -41,62 +41,13 @@
             <div id="google_translate_element" style="display: none !important;"></div>
             
             <script>
-            // Función para cargar Google Translate de manera segura
-            function loadGoogleTranslate() {
-                return new Promise((resolve, reject) => {
-                    // Verificar si ya está cargado
-                    if (window.google && window.google.translate) {
-                        console.log('Google Translate ya está cargado');
-                        resolve();
-                        return;
-                    }
-
-                    // Eliminar cualquier script anterior
-                    const oldScript = document.querySelector('script[src*="translate.google.com"]');
-                    if (oldScript) {
-                        document.head.removeChild(oldScript);
-                    }
-
-                    // Crear y cargar el script
-                    const script = document.createElement('script');
-                    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-                    script.async = true;
-                    
-                    script.onload = () => {
-                        console.log('Google Translate cargado correctamente');
-                        // Esperar un momento para que la API esté disponible
-                        setTimeout(() => {
-                            if (window.google && window.google.translate) {
-                                resolve();
-                            } else {
-                                reject(new Error('La API de Google Translate no está disponible'));
-                            }
-                        }, 1000);
-                    };
-                    
-                    script.onerror = (error) => {
-                        console.error('Error al cargar Google Translate:', error);
-                        reject(error);
-                    };
-
-                    document.head.appendChild(script);
-                });
-            }
-            
-            // Función para forzar la actualización del widget
-            function forceGoogleTranslateUpdate(lang) {
-                if (window.google && window.google.translate) {
-                    const select = document.querySelector('.goog-te-combo');
-                    if (select) {
-                        select.value = lang;
-                        const event = new Event('change', { bubbles: true });
-                        select.dispatchEvent(event);
-                        console.log('Forzando actualización del widget a:', lang);
-                        return true;
-                    }
-                }
-                return false;
-            }
+            // Cargar el script del selector de idiomas
+            (function() {
+                const script = document.createElement('script');
+                script.src = '/js/language-switcher.js';
+                script.async = true;
+                document.head.appendChild(script);
+            })();
 
             // Inicializar el traductor
             function googleTranslateElementInit() {
@@ -170,59 +121,26 @@
                 });
             }
             
-            // Función para cambiar el idioma
-            function changeLanguage(lang) {
-                try {
-                    console.log('Solicitando cambio a idioma:', lang);
-                    // Guardar el idioma seleccionado
+            // Función global para cambiar el idioma (se definirá después de cargar language-switcher.js)
+            window.changeLanguage = function(lang) {
+                if (window.languageSwitcher) {
+                    window.languageSwitcher.changeLanguage(lang);
+                } else {
+                    // Fallback en caso de que el script no se haya cargado
                     localStorage.setItem('userLanguage', lang);
-                    
-                    // Actualizar la interfaz inmediatamente
-                    updateLanguageUI(lang);
-                    
-                    // Cerrar el menú desplegable
-                    const dropdown = document.querySelector('.language-dropdown');
-                    if (dropdown) dropdown.classList.add('hidden');
-                    
-                    // Actualizar la flecha
-                    const toggle = document.querySelector('#language-toggle svg');
-                    if (toggle) toggle.style.transform = 'rotate(0deg)';
-                    
-                    // Intentar usar Google Translate si está disponible
-                    let translationApplied = false;
-                    if (window.google && google.translate) {
-                        translationApplied = forceGoogleTranslateUpdate(lang);
-                    }
-                    
-                    // Si no se pudo aplicar la traducción o es necesario recargar
-                    if (!translationApplied) {
-                        // Recargar la página con el parámetro de idioma
-                        const url = new URL(window.location.href);
-                        url.searchParams.set('lang', lang);
-                        window.location.href = url.toString();
-                    }
-                    
-                } catch (error) {
-                    console.error('Error al cambiar el idioma:', error);
-                    // En caso de error, recargar la página con el parámetro de idioma
                     const url = new URL(window.location.href);
                     url.searchParams.set('lang', lang);
                     window.location.href = url.toString();
                 }
                 return false;
-            }
+            };
             
-            // Actualizar la interfaz de usuario del selector de idioma
+            // Función para actualizar la interfaz (será manejada por language-switcher.js)
             function updateLanguageUI(lang) {
-                // Mostrar la marca de verificación en el idioma activo
+                // Esta función será reemplazada por la implementación en language-switcher.js
+                console.log('Actualizando interfaz al idioma:', lang);
                 document.getElementById('check-es').classList.toggle('hidden', lang !== 'es');
                 document.getElementById('check-en').classList.toggle('hidden', lang !== 'en');
-                
-                // Actualizar el título del botón si es necesario
-                const button = document.querySelector('.group button span:first-child');
-                if (button) {
-                    button.textContent = 'IDIOMA';
-                }
             }
             
             // Cargar Google Translate con manejo de errores
@@ -325,43 +243,31 @@
                 }
             }
             
-            // Inicializar el traductor cuando el documento esté listo
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', function() {
-                    initializeTranslator();
-                    
-                    // Verificar después de que todo esté cargado
-                    setTimeout(initializeTranslator, 1000);
-                });
-            } else {
-                initializeTranslator();
-                // Verificar después de que todo esté cargado
-                setTimeout(initializeTranslator, 1000);
-            }
-            
-            // También verificar cuando la ventana se carga completamente
-            window.addEventListener('load', function() {
-                console.log('Window load - Verificando estado del traductor...');
-                initializeTranslator();
+            // Inicialización del selector de idiomas (manejado por language-switcher.js)
+            document.addEventListener('DOMContentLoaded', function() {
+                // Función para manejar clics en el botón de idioma
+                const languageToggle = document.getElementById('language-toggle');
+                if (languageToggle) {
+                    languageToggle.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const languageMenu = document.querySelector('.language-dropdown');
+                        if (languageMenu) {
+                            languageMenu.classList.toggle('hidden');
+                        }
+                    });
+                }
                 
-                // Verificar el idioma de la URL
-                const urlParams = new URLSearchParams(window.location.search);
-                const urlLang = urlParams.get('lang');
-                if (urlLang) {
-                    updateLanguageUI(urlLang);
-                    forceGoogleTranslateUpdate(urlLang);
-                }
+                // Cerrar menú al hacer clic fuera
+                document.addEventListener('click', function(e) {
+                    const languageMenu = document.querySelector('.language-dropdown');
+                    const languageButton = document.getElementById('language-toggle');
+                    
+                    if (languageMenu && !languageMenu.contains(e.target) && 
+                        languageButton && !languageButton.contains(e.target)) {
+                        languageMenu.classList.add('hidden');
+                    }
+                });
             });
-            
-            // Función global para forzar la recarga del traductor
-            window.reloadTranslator = function() {
-                console.log('Recargando traductor...');
-                if (window.google && google.translate) {
-                    delete window.google;
-                }
-                window.googleTranslateInitialized = false;
-                initializeTranslator();
-            };
             
             // Cerrar menú al hacer clic fuera
             document.addEventListener('click', function(e) {
