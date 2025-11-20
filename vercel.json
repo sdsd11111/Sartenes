@@ -2,51 +2,18 @@
   "version": 2,
   "public": true,
   "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "admin/**",
-      "use": "@vercel/static"
-    }
+    { "src": "server.js", "use": "@vercel/node" },
+    { "src": "public/**", "use": "@vercel/static" },
+    { "src": "public/admin/**", "use": "@vercel/static" }
   ],
+  
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/admin",
-      "dest": "/admin/index.html"
-    },
-    {
-      "src": "/admin/(.*)",
-      "dest": "/admin/$1"
-    },
-    {
-      "src": "/(css|js|images|fonts|menu|components)/(.*)",
-      "dest": "/public/$1/$2"
-    },
-    {
-      "src": "/([^.]+)$",
-      "dest": "/public/$1.html",
-      "continue": true
-    },
-    {
-      "src": "/(.*\\..*)",
-      "dest": "/public/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/server.js"
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+    { "src": "/api/(.*)", "dest": "/server.js" },
+    { "src": "/admin/login.html", "dest": "/public/admin/login.html" },
+    { "src": "/admin/index.html", "dest": "/public/admin/index.html" },
+    { "src": "/admin/(.*)", "dest": "/public/admin/$1" },
+    { "src": "^/(css|js|images|menu|components)/(.*)", "dest": "/public/$1/$2" },
+    { "src": "^(.*\\..*)$", "dest": "/public/$1" },
+    { "src": "/(.*)", "dest": "/server.js" }
+  ]
 }
