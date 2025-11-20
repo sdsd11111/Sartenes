@@ -13,13 +13,14 @@
     "ensure-admin": "node scripts/ensure-admin.js",
     "copy-admin": "node scripts/copy-admin.js",
     "verify-images": "node scripts/verify-images.js",
-    "vercel-build": "npm run prebuild",
+    "vercel-build": "npm run build",
     "prebuild": "npm run ensure-admin && npm run verify-images",
     "build": "npm run prebuild && node generate_dish_pages.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js",
     "format": "prettier --write .",
-    "deploy": "vercel --prod"
+    "deploy": "vercel --prod",
+    "now-build": "npm run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.75.0",
@@ -47,7 +48,8 @@
     "nodemon": "^3.0.1",
     "postcss": "^8.5.6",
     "prettier": "^3.2.4",
-    "tailwindcss": "^4.1.14"
+    "tailwindcss": "^4.1.14",
+    "vercel": "^48.10.6"
   },
   "engines": {
     "node": ">=16.0.0",
