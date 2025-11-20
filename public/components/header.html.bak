@@ -7,10 +7,253 @@
             <h1 class="text-xl md:text-2xl font-bold text-green-800">LOS SARTENES</h1>
         </a>
         
-        <!-- Botón Menú Hamburguesa -->
-        <button id="menuToggle" class="text-orange-500 hover:text-orange-600 focus:outline-none">
-            <i class="fas fa-bars text-2xl"></i>
-        </button>
+        <!-- Botón Menú Hamburguesa y Cambio de Idioma agrupados a la derecha -->
+        <div class="flex items-center gap-4">
+            <!-- Menú desplegable de idiomas -->
+            <div class="relative group">
+                <button id="language-toggle" class="bg-black text-white font-bold py-1.5 md:py-2 px-3 md:px-4 rounded-md text-xs md:text-sm uppercase hover:bg-gray-800 transition-colors duration-200 flex items-center" onclick="event.stopPropagation(); document.querySelector('.language-dropdown').classList.toggle('hidden')">
+                    <span class="whitespace-nowrap">IDIOMA</span>
+                    <svg class="w-3 h-3 md:w-4 md:h-4 ml-1 md:ml-2 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                
+                <!-- Menú desplegable -->
+                <div class="language-dropdown absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('es'); return false;">
+                        <span class="flex items-center">
+                            <span class="mr-2">🇪🇸</span>
+                            <span>Español</span>
+                            <span id="check-es" class="ml-auto text-green-500 hidden">✓</span>
+                        </span>
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="changeLanguage('en'); return false;">
+                        <span class="flex items-center">
+                            <span class="mr-2">🇬🇧</span>
+                            <span>English</span>
+                            <span id="check-en" class="ml-auto text-green-500 hidden">✓</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Google Translate Element (oculto) -->
+            <div id="google_translate_element" style="display: none !important;"></div>
+            
+            <script>
+            // Inicializar el traductor
+            function googleTranslateElementInit() {
+                try {
+                    // Verificar si Google Translate está disponible
+                    if (typeof google !== 'undefined' && google.translate && google.translate.TranslateElement) {
+                        new google.translate.TranslateElement({
+                            pageLanguage: 'es',
+                            includedLanguages: 'es,en',
+                            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                            autoDisplay: false
+                        }, 'google_translate_element');
+                        
+                        // Configurar el idioma inicial
+                        const savedLang = localStorage.getItem('userLanguage') || 'es';
+                        if (savedLang) {
+                            const select = document.querySelector('.goog-te-combo');
+                            if (select) {
+                                select.value = savedLang;
+                                // Forzar el cambio después de un breve retraso para asegurar que el widget esté listo
+                                setTimeout(() => {
+                                    select.dispatchEvent(new Event('change'));
+                                }, 100);
+                            }
+                        }
+                        
+                        // Ocultar elementos de Google Translate
+                        const hideGoogleElements = () => {
+                            const elements = document.querySelectorAll('.goog-te-gadget, .goog-te-banner-frame, .skiptranslate, .goog-te-gt-bb');
+                            elements.forEach(el => {
+                                if (el) el.style.display = 'none';
+                            });
+                            // También ocultar el iframe del banner
+                            const iframes = document.querySelectorAll('iframe[src*="translate"]');
+                            iframes.forEach(iframe => {
+                                if (iframe && iframe.src.includes('translate')) {
+                                    iframe.style.display = 'none';
+                                }
+                            });
+                        };
+                        
+                        hideGoogleElements();
+                        // Verificar periódicamente para asegurarnos de que los elementos sigan ocultos
+                        setInterval(hideGoogleElements, 1000);
+                        
+                        // Actualizar la interfaz de usuario
+                        updateLanguageUI(savedLang || 'es');
+                    } else {
+                        console.error('Google Translate no se cargó correctamente');
+                    }
+                } catch (error) {
+                    console.error('Error al inicializar Google Translate:', error);
+                }
+            }
+            
+            // Función para cambiar el idioma
+            function changeLanguage(lang) {
+                try {
+                    console.log('Cambiando a idioma:', lang);
+                    localStorage.setItem('userLanguage', lang);
+                    
+                    // Actualizar la interfaz de usuario inmediatamente
+                    updateLanguageUI(lang);
+                    
+                    // Intentar con el método de Google Translate
+                    if (typeof google !== 'undefined' && google.translate) {
+                        const select = document.querySelector('.goog-te-combo');
+                        if (select) {
+                            select.value = lang;
+                            select.dispatchEvent(new Event('change'));
+                            console.log('Evento de cambio de idioma enviado a Google Translate');
+                            
+                            // Forzar la actualización del estilo del iframe
+                            setTimeout(() => {
+                                const iframe = document.querySelector('iframe[src*="translate"]');
+                                if (iframe) {
+                                    iframe.style.display = 'none';
+                                }
+                            }, 100);
+                        } else {
+                            // Si no se encuentra el selector, intentar forzar la recarga
+                            console.log('Selector de Google Translate no encontrado, recargando página...');
+                            window.location.href = window.location.pathname + '?lang=' + lang;
+                            return false;
+                        }
+                    } else {
+                        // Si Google Translate no está disponible, recargar la página con el parámetro de idioma
+                        console.log('Google Translate no está disponible, recargando página...');
+                        window.location.href = window.location.pathname + '?lang=' + lang;
+                        return false;
+                    }
+                    
+                    // Cerrar el menú después de seleccionar un idioma
+                    const dropdown = document.querySelector('.language-dropdown');
+                    const toggle = document.querySelector('#language-toggle svg');
+                    if (dropdown) dropdown.classList.add('hidden');
+                    if (toggle) toggle.style.transform = 'rotate(0deg)';
+                    
+                    return false;
+                } catch (error) {
+                    console.error('Error al cambiar el idioma:', error);
+                    // En caso de error, recargar la página con el parámetro de idioma
+                    window.location.href = window.location.pathname + '?lang=' + lang;
+                    return false;
+                }
+            }
+            
+            // Actualizar la interfaz de usuario del selector de idioma
+            function updateLanguageUI(lang) {
+                // Mostrar la marca de verificación en el idioma activo
+                document.getElementById('check-es').classList.toggle('hidden', lang !== 'es');
+                document.getElementById('check-en').classList.toggle('hidden', lang !== 'en');
+                
+                // Actualizar el título del botón si es necesario
+                const button = document.querySelector('.group button span:first-child');
+                if (button) {
+                    button.textContent = 'IDIOMA';
+                }
+            }
+            
+            // Cargar Google Translate con manejo de errores
+            function loadGoogleTranslate() {
+                return new Promise((resolve, reject) => {
+                    // Verificar si ya está cargado
+                    if (window.google && window.google.translate) {
+                        console.log('Google Translate ya está cargado');
+                        resolve();
+                        return;
+                    }
+                    
+                    // Eliminar cualquier script anterior
+                    const oldScript = document.querySelector('script[src*="translate.google.com"]');
+                    if (oldScript) {
+                        oldScript.remove();
+                    }
+                    
+                    const script = document.createElement('script');
+                    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=es';
+                    script.async = true;
+                    
+                    script.onload = () => {
+                        console.log('Google Translate cargado correctamente');
+                        // Verificar que la API esté disponible
+                        if (window.google && window.google.translate) {
+                            resolve();
+                        } else {
+                            reject(new Error('La API de Google Translate no está disponible'));
+                        }
+                    };
+                    
+                    script.onerror = (error) => {
+                        console.error('Error al cargar Google Translate:', error);
+                        reject(error);
+                    };
+                    
+                    document.head.appendChild(script);
+                });
+            }
+            
+            // Función para inicializar el traductor
+            function initializeTranslator() {
+                // Cargar Google Translate
+                loadGoogleTranslate()
+                    .then(() => {
+                        console.log('Inicializando Google Translate...');
+                        // Si ya está definida, llamar directamente
+                        if (typeof googleTranslateElementInit === 'function') {
+                            googleTranslateElementInit();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('No se pudo cargar Google Translate:', error);
+                        // Mostrar un mensaje de error o intentar una solución alternativa
+                        const lang = localStorage.getItem('userLanguage') || 'es';
+                        updateLanguageUI(lang);
+                    });
+            }
+            
+            // Cargar Google Translate cuando el documento esté listo
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeTranslator);
+            } else {
+                initializeTranslator();
+            }
+            
+            // Cerrar menú al hacer clic fuera
+            document.addEventListener('click', function(e) {
+                const languageMenu = document.querySelector('.language-dropdown');
+                const languageButton = document.getElementById('language-toggle');
+                
+                if (!languageMenu.contains(e.target) && e.target !== languageButton && !languageButton.contains(e.target)) {
+                    languageMenu.classList.add('hidden');
+                }
+            });
+            
+            // Actualizar flecha del botón cuando se muestra/oculta el menú
+            const languageToggle = document.getElementById('language-toggle');
+            const languageMenu = document.querySelector('.language-dropdown');
+            const arrow = languageToggle.querySelector('svg');
+            
+            languageToggle.addEventListener('click', function() {
+                if (languageMenu.classList.contains('hidden')) {
+                    arrow.style.transform = 'rotate(180deg)';
+                } else {
+                    arrow.style.transform = 'rotate(0deg)';
+                }
+            });
+            </script>
+            
+            <!-- Botón Menú Hamburguesa -->
+            <button id="menuToggle" class="text-orange-500 hover:text-orange-600 focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
     </div>
 </header>
 
@@ -36,14 +279,14 @@
             <li class="relative">
                 <button id="menuDropdownBtn" class="w-full text-left px-6 py-3 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
                     <span>Menú</span>
-                    <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+                    <i class="fas fa fa-chevron-down text-xs transition-transform duration-200"></i>
                 </button>
                 <ul id="menuDropdown" class="hidden bg-green-900">
                     <!-- Especiales de la Casa -->
                     <li class="relative">
                         <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors" aria-expanded="false" aria-haspopup="true" aria-controls="especialidades-submenu">
                             <span>Especiales de la Casa</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+                            <i class="fas fa fa-chevron-down text-xs transition-transform duration-200"></i>
                         </button>
                         <ul class="menu-subcategory hidden bg-green-800">
                             <li><a href="/menu/platos/salmon.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Salmón</a></li>
@@ -60,7 +303,7 @@
                     <li class="relative">
                         <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
                             <span>Ensaladas</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+                            <i class="fas fa fa-chevron-down text-xs transition-transform duration-200"></i>
                         </button>
                         <ul class="menu-subcategory hidden bg-green-800">
                             <li><a href="/menu/platos/ensalada_campera.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Ensalada Campera</a></li>
@@ -73,7 +316,7 @@
                     <li class="relative">
                         <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
                             <span>Sopas</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+                            <i class="fas fa fa-chevron-down text-xs transition-transform duration-200"></i>
                         </button>
                         <ul class="menu-subcategory hidden bg-green-800">
                             <li><a href="/menu/platos/crema_de_camaron.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Crema de Camarón</a></li>
@@ -87,7 +330,7 @@
                     <li class="relative">
                         <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
                             <span>Res</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+                            <i class="fas fa fa-chevron-down text-xs transition-transform duration-200"></i>
                         </button>
                         <ul class="menu-subcategory hidden bg-green-800">
                             <li><a href="/menu/platos/filet_mignon.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Filet Mignon</a></li>
@@ -100,7 +343,7 @@
                     <li class="relative">
                         <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
                             <span>Cerdo</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+                            <i class="fas fa fa-chevron-down text-xs transition-transform duration-200"></i>
                         </button>
                         <ul class="menu-subcategory hidden bg-green-800">
                             <li><a href="/menu/platos/chuleta_en_salsa_de_champinones.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Chuleta en Salsa de Champiñones</a></li>
@@ -113,7 +356,7 @@
                     <li class="relative">
                         <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
                             <span>Aves</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+                            <i class="fas fa fa-chevron-down text-xs transition-transform duration-200"></i>
                         </button>
                         <ul class="menu-subcategory hidden bg-green-800">
                             <li><a href="/menu/platos/pollo_los_sartenes.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Pollo los Sartenes</a></li>
@@ -127,7 +370,7 @@
                     <li class="relative">
                         <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
                             <span>Pescados y Mariscos</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+                            <i class="fas fa fa-chevron-down text-xs transition-transform duration-200"></i>
                         </button>
                         <ul class="menu-subcategory hidden bg-green-800">
                             <li><a href="/menu/platos/sarten_frutos_del_mar.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Sartén Frutos del Mar</a></li>
@@ -141,7 +384,7 @@
                     <li class="relative">
                         <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
                             <span>Pastas</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
+                            <i class="fas fa fa-chevron-down text-xs transition-transform duration-200"></i>
                         </button>
                         <ul class="menu-subcategory hidden bg-green-800">
                             <li><a href="/menu/platos/espagueti_con_mariscos.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Espagueti con Mariscos</a></li>
@@ -153,73 +396,36 @@
                     </li>
                     
                     <!-- Vegetarianos -->
-                    <li class="relative">
-                        <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
+                    <li>
+                        <a href="/vegetarianos.html" class="block w-full text-left px-10 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">
                             <span>Vegetarianos</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
-                        </button>
-                        <ul class="menu-subcategory hidden bg-green-800">
-                            <li><a href="/menu/platos/ceviche_champinon.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Ceviche de Champiñón</a></li>
-                            <li><a href="/menu/platos/espagueti_funghi.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Espagueti al Funghi</a></li>
-                            <li><a href="/menu/platos/sarten_portobellos.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Sartén de Portobellos</a></li>
-                            <li><a href="/menu/platos/risotto_funghi.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Risotto al Funghi</a></li>
-                            <li><a href="/menu/platos/sarten_champinones_ajillo.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Sartén de Champiñones al Ajillo</a></li>
-                            <li><a href="/menu/platos/espagueti_pesto.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Espagueti al Pesto</a></li>
-                        </ul>
+                        </a>
                     </li>
                     
                     <!-- Festival de Mariscos -->
-                    <li class="relative">
-                        <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
+                    <li>
+                        <a href="/festival_de_mariscos.html" class="block w-full text-left px-10 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">
                             <span>Festival de Mariscos</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
-                        </button>
-                        <ul class="menu-subcategory hidden bg-green-800">
-                            <li><a href="/sopa-marisco.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Sopa de Marisco</a></li>
-                            <li><a href="/sudado-mariscos.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Sudado de Mariscos</a></li>
-                            <li><a href="/cazuela-marisco.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Cazuela de Marisco</a></li>
-                            <li><a href="/sango-camaron.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Sango de Camarón</a></li>
-                            <li><a href="/encocado-camaron.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Encocado de Camarón</a></li>
-                            <li><a href="/camaron-diabla.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Camarón a la Diabla</a></li>
-                            <li><a href="/ceviche-mixto.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Ceviche Mixto</a></li>
-                            <li><a href="/jalea-mixta.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Jalea Mixta</a></li>
-                            <li><a href="/arroz-camaron.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Arroz con Camarón</a></li>
-                            <li><a href="/arroz-chaufa.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Arroz Chaufa</a></li>
-                            <li><a href="/arroz-marinero.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Arroz Marinero</a></li>
-                            <li><a href="/orgia-mariscos.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Orgia de Mariscos</a></li>
-                            <li><a href="/gratinado-mariscos.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Gratinado de Mariscos</a></li>
-                            <li><a href="/majarisco.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Majarisco</a></li>
-                        </ul>
+                        </a>
                     </li>
                     
                     <!-- Parrilladas -->
-                    <li class="relative">
-                        <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
+                    <li>
+                        <a href="/menu/parrilladas.html" class="block w-full text-left px-10 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">
                             <span>Parrilladas</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
-                        </button>
-                        <ul class="menu-subcategory hidden bg-green-800">
-                            <li><a href="/bandeja-parrillera.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Bandeja Parrillera Mar y Tierra</a></li>
-                            <li><a href="/asados.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Asados (Pollo, Res y Cerdo)</a></li>
-                        </ul>
+                        </a>
                     </li>
                     
                     <!-- Menú Infantil -->
-                    <li class="relative">
-                        <button class="menu-category-btn w-full text-left px-10 py-2 flex justify-between items-center hover:bg-green-700 hover:text-orange-300 transition-colors">
+                    <li>
+                        <a href="/menu_infantil.html" class="block w-full text-left px-10 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">
                             <span>Menú Infantil</span>
-                            <i class="fas fa-chevron-down text-xs transition-transform duration-200"></i>
-                        </button>
-                        <ul class="menu-subcategory hidden bg-green-800">
-                            <li><a href="/nuggets-pollo.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Nuggets de Pollo</a></li>
-                            <li><a href="/alitas-bbq.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Alitas BBQ</a></li>
-                            <li><a href="/papas-chorizo.html" class="block px-6 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Papas con Chorizo</a></li>
-                        </ul>
+                        </a>
                     </li>
                     
                     <!-- Bebidas, Postres y Picaditos -->
                     <li>
-                        <a href="/bebidas-postres-picaditos.html" class="block px-10 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Bebidas, Postres y Picaditos</a>
+                        <a href="/bebidas_postres_picaditos.html" class="block px-10 py-2 hover:bg-green-700 hover:text-orange-300 transition-colors">Bebidas, Postres y Picaditos</a>
                     </li>
                     </li>
                 </ul>
