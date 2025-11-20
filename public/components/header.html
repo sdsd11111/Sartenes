@@ -17,64 +17,123 @@
                 <button id="lang-es" 
                         class="language-btn notranslate bg-[#FF8C42] text-white font-bold py-1.5 px-3 text-sm rounded-full uppercase transition-all duration-300 hover:bg-[#e67e22] hover:scale-105 shadow-lg" 
                         data-lang="es"
+                        data-lang-es="Español"
+                        data-lang-en="Spanish"
                         style="display: none;">
                     Español
                 </button>
                 <button id="lang-en" 
                         class="language-btn notranslate bg-[#FF8C42] text-white font-bold py-1.5 px-3 text-sm rounded-full uppercase transition-all duration-300 hover:bg-[#e67e22] hover:scale-105 shadow-lg"
-                        data-lang="en">
+                        data-lang="en"
+                        data-lang-es="Inglés"
+                        data-lang-en="English">
                     English
                 </button>
             </div>
             
             <script>
-              // === IDIOMA: FUNCIONA AL CARGAR Y AL RECARGAR ===
-              (function () {
-                // 1. Leer idioma: URL > localStorage > 'es'
-                const urlLang = new URLSearchParams(window.location.search).get('lang');
-                const savedLang = localStorage.getItem('userLanguage') || 'es';
-                const lang = urlLang || savedLang;
+            // === IDIOMA MEJORADO ===
+            (function() {
+                // 1. Función para inicializar Google Translate
+                function initGoogleTranslate() {
+                    if (typeof google !== 'undefined' && google.translate) {
+                        new google.translate.TranslateElement({
+                            pageLanguage: 'es',
+                            includedLanguages: 'es,en',
+                            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                            autoDisplay: false
+                        }, 'google_translate_element');
+                        
+                        // Ocultar elementos de Google Translate
+                        const hideGoogleElements = () => {
+                            const elements = document.querySelectorAll('.goog-te-gadget, .goog-te-banner-frame, .skiptranslate');
+                            elements.forEach(el => el.style.display = 'none');
+                        };
+                        
+                        // Intentar ocultar inmediatamente y luego cada 100ms
+                        hideGoogleElements();
+                        const interval = setInterval(hideGoogleElements, 100);
+                        setTimeout(() => clearInterval(interval), 2000);
+                    } else {
+                        // Reintentar si Google Translate no está cargado
+                        setTimeout(initGoogleTranslate, 100);
+                    }
+                }
 
-                // 2. Guardar si viene de URL
-                if (urlLang) localStorage.setItem('userLanguage', urlLang);
+                // 2. Función para cambiar el idioma
+                function cambiarIdioma(nuevoLang) {
+                    const currentLang = localStorage.getItem('userLanguage') || 'es';
+                    if (nuevoLang === currentLang) return;
+                    
+                    // Actualizar en localStorage
+                    localStorage.setItem('userLanguage', nuevoLang);
+                    
+                    // Actualizar la URL
+                    const url = new URL(window.location);
+                    url.searchParams.set('lang', nuevoLang);
+                    url.searchParams.set('t', Date.now()); // Evitar caché
+                    
+                    // Recargar la página
+                    window.location.href = url.toString();
+                }
 
-                // 3. APLICAR IDIOMA INMEDIATAMENTE (sin esperar DOM)
-                document.querySelectorAll('[data-lang]').forEach(el => {
-                  const text = el.getAttribute(`data-lang-${lang}`);
-                  if (text) el.textContent = text;
+                // 3. Aplicar el idioma
+                function aplicarIdioma() {
+                    const urlLang = new URLSearchParams(window.location.search).get('lang');
+                    const savedLang = localStorage.getItem('userLanguage');
+                    const lang = urlLang || savedLang || 'es';
+                    
+                    // Guardar si viene de URL
+                    if (urlLang) localStorage.setItem('userLanguage', urlLang);
+                    
+                    // Actualizar botones
+                    const btnEs = document.getElementById('lang-es');
+                    const btnEn = document.getElementById('lang-en');
+                    
+                    if (btnEs && btnEn) {
+                        btnEs.style.display = lang === 'es' ? 'none' : 'inline-block';
+                        btnEn.style.display = lang === 'en' ? 'none' : 'inline-block';
+                        
+                        // Actualizar textos de los botones
+                        btnEs.textContent = btnEs.getAttribute(`data-lang-${lang}`) || 'Español';
+                        btnEn.textContent = btnEn.getAttribute(`data-lang-${lang}`) || 'English';
+                    }
+                    
+                    // Inicializar Google Translate
+                    if (typeof google !== 'undefined' && google.translate) {
+                        const select = document.querySelector('.goog-te-combo');
+                        if (select) {
+                            select.value = lang;
+                            select.dispatchEvent(new Event('change'));
+                        }
+                    }
+                    
+                    return lang;
+                }
+
+                // 4. Inicialización
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Aplicar el idioma
+                    aplicarIdioma();
+                    
+                    // Configurar eventos de los botones
+                    document.querySelectorAll('.language-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            cambiarIdioma(btn.dataset.lang);
+                        });
+                    });
+                    
+                    // Inicializar Google Translate
+                    initGoogleTranslate();
                 });
 
-                // 4. Mostrar/ocultar botones
-                const btnEs = document.getElementById('lang-es');
-                const btnEn = document.getElementById('lang-en');
-                if (btnEs) btnEs.style.display = lang === 'es' ? 'none' : 'inline-block';
-                if (btnEn) btnEn.style.display = lang === 'en' ? 'none' : 'inline-block';
-
-                // 5. Cambiar idioma
-                window.cambiarIdioma = function (nuevoLang) {
-                  if (nuevoLang === lang) return;
-                  localStorage.setItem('userLanguage', nuevoLang);
-                  const url = new URL(window.location);
-                  url.searchParams.set('lang', nuevoLang);
-                  url.searchParams.set('t', Date.now());
-                  window.location.replace(url);
-                };
-
-                // 6. Eventos (cuando el DOM esté listo)
-                if (document.readyState === 'loading') {
-                  document.addEventListener('DOMContentLoaded', init);
-                } else {
-                  init();
-                }
-                function init() {
-                  document.querySelectorAll('.language-btn').forEach(btn => {
-                    btn.onclick = (e) => {
-                      e.preventDefault();
-                      cambiarIdioma(btn.dataset.lang);
-                    };
-                  });
-                }
-              })();
+                // 5. Hacer la función accesible globalmente
+                window.cambiarIdioma = cambiarIdioma;
+                
+                // Ejecutar aplicación de idioma inmediatamente para mejor rendimiento
+                aplicarIdioma();
+            })();
             </script>
             
             <!-- Botón Menú Hamburguesa -->
