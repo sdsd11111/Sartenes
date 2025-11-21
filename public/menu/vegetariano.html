@@ -287,6 +287,18 @@
                 if (sel) {
                     sel.value = prefAfter;
                     sel.dispatchEvent(new Event("change"));
+                    
+                    // Ocultar elementos de Google Translate para evitar banners
+                    const googleElements = document.querySelectorAll('.goog-te-gadget, .goog-te-banner-frame, .skiptranslate');
+                    googleElements.forEach(el => el.style.display = 'none');
+                    
+                    // Actualizar botones de idioma
+                    const btnEs = document.getElementById('lang-es');
+                    const btnEn = document.getElementById('lang-en');
+                    if (btnEs && btnEn) {
+                        btnEs.style.display = prefAfter === 'es' ? 'none' : 'block';
+                        btnEn.style.display = prefAfter === 'en' ? 'none' : 'block';
+                    }
                 } else if (!sessionStorage.getItem("gt_reloaded")) {
                     sessionStorage.setItem("gt_reloaded", "1");
                     location.reload();
@@ -298,15 +310,25 @@
             console.error("Translator init error:", err);
         }
     }
+    }
 
     /* --- función pública para cambiar idioma --- */
     function changeLang(lang) {
         if (!lang) return;
+        console.log('Changing language to:', lang);
         localStorage.setItem("preferred_lang", lang);
 
         // ajustar cookie para dominio
         setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365, cookieDomain);
         setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365);
+
+        // Actualizar botones de idioma inmediatamente para mejor UX
+        const btnEs = document.getElementById('lang-es');
+        const btnEn = document.getElementById('lang-en');
+        if (btnEs && btnEn) {
+            btnEs.style.display = lang === 'es' ? 'none' : 'block';
+            btnEn.style.display = lang === 'en' ? 'none' : 'block';
+        }
 
         // limpiamos y recargamos el traductor
         cleanPreviousGoogle();

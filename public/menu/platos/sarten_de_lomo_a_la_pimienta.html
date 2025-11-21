@@ -27,8 +27,6 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     
     <title>Sarten De Lomo A La Pimienta | Los Sartenes</title>
-        <!-- Google Translate Element - Hidden -->
-    
     <meta property="og:title" content="Sarten De Lomo A La Pimienta-Los Sartenes">
     <meta property="og:description" content="Bienvenido a Los Sartenes, disfruta nuestro servicio">
     <meta property="og:image" content="https://www.lossartenes.com/images/Res/Sarten De Lomo A La Pimienta.webp">
@@ -38,7 +36,11 @@
     <meta name="twitter:title" content="Sarten De Lomo A La Pimienta-Los Sartenes">
     <meta name="twitter:description" content="Bienvenido a Los Sartenes, disfruta nuestro servicio">
     <meta name="twitter:image" content="https://www.lossartenes.com/images/Res/Sarten De Lomo A La Pimienta.webp">
-<meta property="og:image:width" content="1200">
+    
+    <!-- Google Translate Element - Hidden -->
+    <div id="google_translate_element" style="display:none"></div>
+    
+    <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image"><script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -395,155 +397,27 @@
     });
     </script>
 
-    <!-- Script para Google Translate y cambio de idioma -->
-    <script type="text/javascript">
-    function googleTranslateElementInit() {
-      if (document.getElementById('google_translate_element')) {  // Check si contenedor existe
-        new google.translate.TranslateElement({
-          pageLanguage: 'es',
-          includedLanguages: 'en,es',
-          autoDisplay: false
-        }, 'google_translate_element');
-        console.log('Google Translate initialized');  // Debug
-      } else {
-        console.error('google_translate_element no encontrado');
-      }
-    }
-    </script>
-    
-    <script>
-    function changeLanguage(lang) {
-      console.log('=== changeLanguage called with lang:', lang, ' (Clic número: ' + (++window.clickCount || (window.clickCount = 1)) + ') ===');
-      var select = document.querySelector('.goog-te-combo');
-      if (select) {
-        const currentValue = select.value;
-        console.log('Estado actual del selector:', currentValue, 'Intentando cambiar a:', lang);
-        if (currentValue === lang) {
-          console.log('Selector ya está en el idioma deseado, forzando cambio...');
-        }
-        select.value = lang;
-        setTimeout(() => {
-          select.dispatchEvent(new Event('change'));
-          console.log('Evento de cambio disparado para:', lang);
-          // Verificar si el cambio se aplicó después de un tiempo
-          setTimeout(() => {
-            const newValue = select.value;
-            console.log('Verificación post-cambio: Selector ahora en:', newValue);
-            if (newValue !== lang) {
-              console.warn('Cambio no se aplicó correctamente, intentando reset del widget...');
-              // Reset del widget si falla
-              if (typeof googleTranslateElementInit === 'function') {
-                googleTranslateElementInit();
-              }
-              // Fallback: Intentar de nuevo después de reset
-              setTimeout(() => {
-                const selectAfterReset = document.querySelector('.goog-te-combo');
-                if (selectAfterReset) {
-                  selectAfterReset.value = lang;
-                  selectAfterReset.dispatchEvent(new Event('change'));
-                  console.log('Fallback aplicado: Cambio intentado de nuevo después de reset.');
-                } else {
-                  console.error('Selector no encontrado después de reset, posible problema de inicialización.');
-                }
-              }, 500);
-            }
-          }, 500); // Verificación más tardía
-        }, 300); // Delay mayor para cambios rápidos
-      } else {
-        console.error('Google Translate combo not found! Widget may not have loaded.');
-        // Fallback si no hay selector inicial
-        setTimeout(() => {
-          const selectLater = document.querySelector('.goog-te-combo');
-          if (selectLater) {
-            selectLater.value = lang;
-            selectLater.dispatchEvent(new Event('change'));
-            console.log('Fallback inicial aplicado: Selector encontrado tarde, cambio intentado.');
-          }
-        }, 1000);
-      }
-      // Ocultar elementos de Google Translate para evitar banners
-      const googleElements = document.querySelectorAll('.goog-te-gadget, .goog-te-banner-frame, .skiptranslate');
-      googleElements.forEach(el => el.style.display = 'none');
-      // Toggle con checks para null
-      const btnEs = document.getElementById('lang-es');
-      const btnEn = document.getElementById('lang-en');
-      if (btnEs && btnEn) {
-        if (lang === 'es') {
-          btnEs.style.display = 'none';
-          btnEn.style.display = 'block';
-        } else {
-          btnEs.style.display = 'block';
-          btnEn.style.display = 'none';
-        }
-        console.log('Botones toggleados correctamente para:', lang);
-      } else {
-        console.error('Botones no encontrados! lang-es:', btnEs, 'lang-en:', btnEn);
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOMContentLoaded fired');  // Debug: Verifica timing
-      const btnEs = document.getElementById('lang-es');
-      const btnEn = document.getElementById('lang-en');
-      if (btnEs) {
-        btnEs.addEventListener('click', () => changeLanguage('es'));
-      } else {
-        console.error('lang-es no encontrado en DOMContentLoaded');
-      }
-      if (btnEn) {
-        btnEn.addEventListener('click', () => changeLanguage('en'));
-      } else {
-        console.error('lang-en no encontrado en DOMContentLoaded');
-      }
-
-      var isEnglish = document.cookie.match(/googtrans=\/es\/en/);
-      if (isEnglish) {
-        changeLanguage('en');
-      } else {
-        changeLanguage('es');
-      }
-    });
-
-    // Agrega esto para esperar si header es dinámico
-    window.addEventListener('load', function() {
-      console.log('Window load fired - checking botones again');
-      // Si botones no estaban en DOMContentLoaded, re-intenta aquí
-      const btnEs = document.getElementById('lang-es');
-      const btnEn = document.getElementById('lang-en');
-      if (btnEs && !btnEs.hasAttribute('data-listener-added')) {
-        btnEs.addEventListener('click', () => changeLanguage('es'));
-        btnEs.setAttribute('data-listener-added', 'true');
-        console.log('Added listener to lang-es in window.load');
-      }
-      if (btnEn && !btnEn.hasAttribute('data-listener-added')) {
-        btnEn.addEventListener('click', () => changeLanguage('en'));
-        btnEn.setAttribute('data-listener-added', 'true');
-        console.log('Added listener to lang-en in window.load');
-      }
-    });
-    </script>
-
     <!-- Google Translate Implementation -->
     <script>
     /* --- CONFIG --- */
     const cookieDomain = "lossartenes.com";
     const defaultSrcLang = "es";
 
-    /* --- Cookie utilities --- */
+    /* --- utilidades cookie --- */
     function setCookie(name, value, days, domain) {
         let expires = "";
         if (days) {
             const d = new Date();
-            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            d.setTime(d.getTime() + (days*24*60*60*1000));
             expires = ";expires=" + d.toUTCString();
         }
         const domainPart = domain ? ";domain=" + domain : "";
-        document.cookie = name + "=" + encodeURIComponent(value) + expires + ";path=/" + domainPart;
+        document.cookie = name + "=" + value + expires + ";path=/" + domainPart;
     }
 
     function getCookie(name) {
-        const v = document.cookie.match('(^|;)\s*' + name + '\s*=\s*([^;]+)');
-        return v ? decodeURIComponent(v.pop()) : "";
+        const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+        return v ? v.pop() : "";
     }
 
     /* --- limpiar restos previos de Google (si los hay) --- */
@@ -600,7 +474,7 @@
             cleanPreviousGoogle();
 
             // Si el usuario guardó idioma en localStorage, aplicar cookie googtrans
-            const pref = localStorage.getItem("preferred_lang");
+            const pref = localStorage.getItem("preferred_lang"); // ej: "en" o "es"
             if (pref && pref !== defaultSrcLang) {
                 // formato cookie: /SOURCE/TARGET  -> ej: /es/en
                 setCookie("googtrans", "/" + defaultSrcLang + "/" + pref, 365, cookieDomain);
@@ -613,18 +487,24 @@
 
             await loadAndInitTranslate();
 
-            // Si hay preferencia, forzar refresco visual inmediato
+            // Si hay preferencia, forzar refresco visual inmediato (algunas veces el widget aplica sin recarga)
             const prefAfter = localStorage.getItem("preferred_lang");
             if (prefAfter && prefAfter !== defaultSrcLang) {
+                // Intentamos disparar el cambio con el select si ya existe
                 const sel = document.querySelector("select.goog-te-combo");
                 if (sel) {
                     sel.value = prefAfter;
                     sel.dispatchEvent(new Event("change"));
-                } else if (!sessionStorage.getItem("gt_reloaded")) {
-                    sessionStorage.setItem("gt_reloaded", "1");
-                    location.reload();
                 } else {
-                    sessionStorage.removeItem("gt_reloaded");
+                    // Si no hay select, recargar la página para que Google aplique la cookie (fallback)
+                    // pero solo si no estamos en proceso de navegación SPA
+                    // Nota: recarga solo si no venimos de una recarga inmediata (evitar loop)
+                    if (!sessionStorage.getItem("gt_reloaded")) {
+                        sessionStorage.setItem("gt_reloaded", "1");
+                        location.reload();
+                    } else {
+                        sessionStorage.removeItem("gt_reloaded");
+                    }
                 }
             }
         } catch (err) {
@@ -641,7 +521,7 @@
         setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365, cookieDomain);
         setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365);
 
-        // limpiamos y recargamos el traductor
+        // limpiamos y recargamos el traductor (si funciona sin reload)
         cleanPreviousGoogle();
 
         // Intentamos aplicar sin recargar (mejor UX)
@@ -666,6 +546,5 @@
     /* --- iniciar al cargar --- */
     window.addEventListener("load", initTranslator);
     </script>
-
 </body>
 </html>
