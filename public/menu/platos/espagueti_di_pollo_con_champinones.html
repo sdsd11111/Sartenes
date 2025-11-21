@@ -28,7 +28,8 @@
     
     <title>Espagueti Di Pollo Con Champinones | Los Sartenes</title>
         <!-- Google Translate Element - Hidden -->
-    
+    <div id="google_translate_element" style="display:none"></div>
+    <script src="https://cdn.tailwindcss.com"></script>
     <meta property="og:title" content="Espagueti Di Pollo Con Champinones-Los Sartenes">
     <meta property="og:description" content="Bienvenido a Los Sartenes, disfruta nuestro servicio">
     <meta property="og:image" content="https://www.lossartenes.com/images/Pastas/Espagueti Di Pollo Con Champinones.webp">
@@ -538,12 +539,12 @@
             expires = ";expires=" + d.toUTCString();
         }
         const domainPart = domain ? ";domain=" + domain : "";
-        document.cookie = name + "=" + encodeURIComponent(value) + expires + ";path=/" + domainPart;
+        document.cookie = name + "=" + value + expires + ";path=/" + domainPart;
     }
 
     function getCookie(name) {
-        const v = document.cookie.match('(^|;)\s*' + name + '\s*=\s*([^;]+)');
-        return v ? decodeURIComponent(v.pop()) : "";
+        const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+        return v ? v.pop() : "";
     }
 
     /* --- limpiar restos previos de Google (si los hay) --- */
@@ -600,7 +601,7 @@
             cleanPreviousGoogle();
 
             // Si el usuario guardó idioma en localStorage, aplicar cookie googtrans
-            const pref = localStorage.getItem("preferred_lang");
+            const pref = localStorage.getItem("preferred_lang"); // ej: "en" o "es"
             if (pref && pref !== defaultSrcLang) {
                 // formato cookie: /SOURCE/TARGET  -> ej: /es/en
                 setCookie("googtrans", "/" + defaultSrcLang + "/" + pref, 365, cookieDomain);
@@ -613,18 +614,23 @@
 
             await loadAndInitTranslate();
 
-            // Si hay preferencia, forzar refresco visual inmediato
+            // Si hay preferencia, forzar refresco visual inmediato (algunas veces el widget aplica sin recarga)
             const prefAfter = localStorage.getItem("preferred_lang");
             if (prefAfter && prefAfter !== defaultSrcLang) {
                 const sel = document.querySelector("select.goog-te-combo");
                 if (sel) {
                     sel.value = prefAfter;
                     sel.dispatchEvent(new Event("change"));
-                } else if (!sessionStorage.getItem("gt_reloaded")) {
-                    sessionStorage.setItem("gt_reloaded", "1");
-                    location.reload();
                 } else {
-                    sessionStorage.removeItem("gt_reloaded");
+                    // Si no hay select, recargar la página para que Google aplique la cookie (fallback)
+                    // pero solo si no estamos en proceso de navegación SPA
+                    // Nota: recarga solo si no venimos de una recarga inmediata (evitar loop)
+                    if (!sessionStorage.getItem("gt_reloaded")) {
+                        sessionStorage.setItem("gt_reloaded", "1");
+                        location.reload();
+                    } else {
+                        sessionStorage.removeItem("gt_reloaded");
+                    }
                 }
             }
         } catch (err) {
