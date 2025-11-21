@@ -25,6 +25,8 @@
     <link rel="apple-touch-icon" href="images/favicon.ico">
 </head>
 <body class="bg-gray-50" data-initialized="false">
+    <!-- Google Translate Element (Hidden) -->
+    <div id="google_translate_element" style="display:none;"></div>
     <!-- Loader de carga -->
     <div id="page-loader" class="fixed inset-0 bg-white bg-opacity-90 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
         <div class="animate-pulse flex flex-col items-center">
@@ -1992,128 +1994,56 @@
     });
     </script>
 
-    <!-- Script para Google Translate y cambio de idioma -->
-    <script type="text/javascript">
-    function googleTranslateElementInit() {
-      if (document.getElementById('google_translate_element')) {  // Check si contenedor existe
-        new google.translate.TranslateElement({
-          pageLanguage: 'es',
-          includedLanguages: 'en,es',
-          autoDisplay: false
-        }, 'google_translate_element');
-        console.log('Google Translate initialized');  // Debug
-      } else {
-        console.error('google_translate_element no encontrado');
-      }
-    }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
+    <!-- Google Translate Implementation -->
     <script>
-    function changeLanguage(lang) {
-      console.log('=== changeLanguage called with lang:', lang, ' (Clic número: ' + (++window.clickCount || (window.clickCount = 1)) + ') ===');
-      var select = document.querySelector('.goog-te-combo');
-      if (select) {
-        const currentValue = select.value;
-        console.log('Estado actual del selector:', currentValue, 'Intentando cambiar a:', lang);
-        if (currentValue === lang) {
-          console.log('Selector ya está en el idioma deseado, forzando cambio...');
-        }
-        select.value = lang;
-        setTimeout(() => {
-          select.dispatchEvent(new Event('change'));
-          console.log('Evento de cambio disparado para:', lang);
-          // Verificar si el cambio se aplicó después de un tiempo
-          setTimeout(() => {
-            const newValue = select.value;
-            console.log('Verificación post-cambio: Selector ahora en:', newValue);
-            if (newValue !== lang) {
-              console.warn('Cambio no se aplicó correctamente, intentando reset del widget...');
-              // Reset del widget si falla
-              if (typeof googleTranslateElementInit === 'function') {
-                googleTranslateElementInit();
-              }
-              // Fallback: Intentar de nuevo después de reset
-              setTimeout(() => {
-                const selectAfterReset = document.querySelector('.goog-te-combo');
-                if (selectAfterReset) {
-                  selectAfterReset.value = lang;
-                  selectAfterReset.dispatchEvent(new Event('change'));
-                  console.log('Fallback aplicado: Cambio intentado de nuevo después de reset.');
-                } else {
-                  console.error('Selector no encontrado después de reset, posible problema de inicialización.');
-                }
-              }, 500);
+    function loadGoogleTranslate() {
+        return new Promise((resolve, reject) => {
+            if (window.google && window.google.translate) {
+                resolve();
+                return;
             }
-          }, 500); // Verificación más tardía
-        }, 300); // Delay mayor para cambios rápidos
-      } else {
-        console.error('Google Translate combo not found! Widget may not have loaded.');
-        // Fallback si no hay selector inicial
-        setTimeout(() => {
-          const selectLater = document.querySelector('.goog-te-combo');
-          if (selectLater) {
-            selectLater.value = lang;
-            selectLater.dispatchEvent(new Event('change'));
-            console.log('Fallback inicial aplicado: Selector encontrado tarde, cambio intentado.');
-          }
-        }, 1000);
-      }
-      // Toggle con checks para null
-      const btnEs = document.getElementById('lang-es');
-      const btnEn = document.getElementById('lang-en');
-      if (btnEs && btnEn) {
-        if (lang === 'es') {
-          btnEs.style.display = 'none';
-          btnEn.style.display = 'block';
-        } else {
-          btnEs.style.display = 'block';
-          btnEn.style.display = 'none';
-        }
-        console.log('Botones toggleados correctamente para:', lang);
-      } else {
-        console.error('Botones no encontrados! lang-es:', btnEs, 'lang-en:', btnEn);
-      }
+
+            const script = document.createElement("script");
+            script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+            script.async = true;
+
+            script.onload = resolve;
+            script.onerror = reject;
+
+            document.body.appendChild(script);
+        });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOMContentLoaded fired');  // Debug: Verifica timing
-      const btnEs = document.getElementById('lang-es');
-      const btnEn = document.getElementById('lang-en');
-      if (btnEs) {
-        btnEs.addEventListener('click', () => changeLanguage('es'));
-      } else {
-        console.error('lang-es no encontrado en DOMContentLoaded');
-      }
-      if (btnEn) {
-        btnEn.addEventListener('click', () => changeLanguage('en'));
-      } else {
-        console.error('lang-en no encontrado en DOMContentLoaded');
-      }
+    function googleTranslateElementInit() {
+        if (!window.googleTranslateLoaded) {
+            new google.translate.TranslateElement({
+                pageLanguage: "es",
+                includedLanguages: "en,es",
+                autoDisplay: false
+            }, "google_translate_element");
 
-      var isEnglish = document.cookie.match(/googtrans=\/es\/en/);
-      if (isEnglish) {
-        changeLanguage('en');
-      } else {
-        changeLanguage('es');
-      }
-    });
+            window.googleTranslateLoaded = true;
+        }
+    }
 
-    // Agrega esto para esperar si header es dinámico
-    window.addEventListener('load', function() {
-      console.log('Window load fired - checking botones again');
-      // Si botones no estaban en DOMContentLoaded, re-intenta aquí
-      const btnEs = document.getElementById('lang-es');
-      const btnEn = document.getElementById('lang-en');
-      if (btnEs && !btnEs.hasAttribute('data-listener-added')) {
-        btnEs.addEventListener('click', () => changeLanguage('es'));
-        btnEs.setAttribute('data-listener-added', 'true');
-        console.log('Added listener to lang-es in window.load');
-      }
-      if (btnEn && !btnEn.hasAttribute('data-listener-added')) {
-        btnEn.addEventListener('click', () => changeLanguage('en'));
-        btnEn.setAttribute('data-listener-added', 'true');
-        console.log('Added listener to lang-en in window.load');
-      }
+    // Function to change language
+    function changeLang(lang) {
+        const select = document.querySelector("select.goog-te-combo");
+        if (!select) return alert("Google Translate aún no ha cargado");
+
+        select.value = lang;
+        select.dispatchEvent(new Event("change"));
+    }
+
+    // Initialize on page load
+    window.addEventListener("load", async () => {
+        try {
+            await loadGoogleTranslate();
+            // Set default language to Spanish
+            setTimeout(() => changeLang('es'), 1000);
+        } catch (e) {
+            console.error("Error loading Google Translate:", e);
+        }
     });
     </script>
 </body>
