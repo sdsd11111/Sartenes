@@ -1,22 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset 
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://lossartenes.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <lastmod>2025-11-19</lastmod>
+    <image:image>
+      <image:loc>https://lossartenes.com/images/Logo.jpg</image:loc>
+      <image:title>Logo de Los Sartenes</image:title>
+      <image:caption>Restaurante Los Sartenes - Comida típica de Loja</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://lossartenes.com/images/Inicio/Restaurante.webp</image:loc>
+      <image:title>Vista del restaurante Los Sartenes</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lossartenes.com/images/Inicio/Restaurante 2.webp</image:loc>
+      <image:title>Ambiente acogedor en Los Sartenes</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lossartenes.com/sobre-nosotros.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2025-11-19</lastmod>
+    <image:image>
+      <image:loc>https://lossartenes.com/images/Inicio/Restaurante 3.webp</image:loc>
+      <image:title>Nuestro equipo en Los Sartenes</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lossartenes.com/contacto.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2025-11-19</lastmod>
+    <image:image>
+      <image:loc>https://lossartenes.com/images/Logo.jpg</image:loc>
+      <image:title>Contacta a Los Sartenes</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lossartenes.com/galeria.html</loc>
@@ -63,20 +89,44 @@
   <url>
     <loc>https://lossartenes.com/menu/parrilladas.html</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
     <lastmod>2025-11-19</lastmod>
+    <image:image>
+      <image:loc>https://lossartenes.com/images/Parrilladas/Parrilladas los sartenes.webp</image:loc>
+      <image:title>Parrillada Los Sartenes</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lossartenes.com/images/Parrilladas/Asado a la parrilla.webp</image:loc>
+      <image:title>Asado a la parrilla</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lossartenes.com/menu/pastas.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <lastmod>2025-11-19</lastmod>
+    <image:image>
+      <image:loc>https://lossartenes.com/images/Pastas/Espagueti Carbonara.webp</image:loc>
+      <image:title>Espagueti Carbonara</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lossartenes.com/images/Pastas/Espagueti Con Mariscos.webp</image:loc>
+      <image:title>Espagueti con Mariscos</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lossartenes.com/menu/pescados-mariscos.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <lastmod>2025-11-19</lastmod>
+    <image:image>
+      <image:loc>https://lossartenes.com/images/Festival de Mariscos/Orgia de mariscos.webp</image:loc>
+      <image:title>Orgía de mariscos</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://lossartenes.com/images/Festival de Mariscos/Ceviche mixto.webp</image:loc>
+      <image:title>Ceviche mixto</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://lossartenes.com/menu/postres.html</loc>
