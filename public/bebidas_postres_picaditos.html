@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Disfruta de nuestra selección de bebidas, postres y picaditos en Los Sartenes de Loja. La combinación perfecta para acompañar tus comidas.">
-    <meta name="keywords" content="bebidas Loja, postres Loja, coctelería, picaditos, restaurante Los Sartenes, comida para compartir">
+    <meta name="description"
+        content="Disfruta de nuestra selección de bebidas, postres y picaditos en Los Sartenes de Loja. La combinación perfecta para acompañar tus comidas.">
+    <meta name="keywords"
+        content="bebidas Loja, postres Loja, coctelería, picaditos, restaurante Los Sartenes, comida para compartir">
     <meta name="author" content="Los Sartenes">
-    <meta name="robots" content="index, follow"><title>Coctelería, Postres y Picaditos en Loja | Bebidas Calientes y Frías | Los Sartenes</title>
+    <meta name="robots" content="index, follow">
+    <title>Coctelería, Postres y Picaditos en Loja | Bebidas Calientes y Frías | Los Sartenes</title>
     <meta property="og:title" content="Coctelería, Postres y Picaditos en Loja-Los Sartenes">
     <meta property="og:description" content="Bienvenido a Los Sartenes, disfruta nuestro servicio">
     <meta property="og:image" content="https://www.lossartenes.com/images/bebidas/Tiramisú.webp">
@@ -26,8 +30,8 @@
     <meta name="msapplication-TileColor" content="#2E8B57">
     <meta name="theme-color" content="#ffffff">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    
-    <title>Bebidas, postres y picaditos | Los Sartenes</title>
+
+
     <!-- Google Translate Element - Hidden -->
     <div id="google_translate_element" style="display:none"></div>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,34 +41,42 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="/css/styles.css">
-    
+
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
         }
+
         .font-playfair {
             font-family: 'Playfair Display', serif;
         }
+
         .menu-section {
             scroll-margin-top: 120px;
         }
+
         .menu-item {
             transition: all 0.3s ease;
             border-bottom: 1px solid #e5e7eb;
             padding: 12px 0;
         }
+
         .menu-item:last-child {
             border-bottom: none;
         }
+
         .menu-item:hover {
             background-color: #f9fafb;
             padding-left: 10px;
         }
+
         .price-tag {
             background-color: #f59e0b;
             color: white;
@@ -73,6 +85,7 @@
             font-size: 0.875rem;
             font-weight: 600;
         }
+
         .category-icon {
             width: 40px;
             height: 40px;
@@ -87,22 +100,29 @@
         }
     </style>
 </head>
+
 <body class="bg-white flex flex-col min-h-screen">
     <!-- Componente Header -->
     <div id="header-component" class="fixed top-0 left-0 right-0 z-50 w-full bg-white shadow-md">
         <!-- El contenido del header se cargará aquí mediante JavaScript -->
     </div>
-    
+
     <!-- Espaciador para el header fijo -->
     <div class="h-16"></div>
 
     <!-- Hero Section - Pantalla completa -->
-    <section class="relative pt-24 md:pt-32 pb-16 md:pb-24 flex items-center justify-center min-h-[70vh] bg-cover bg-center bg-fixed" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/bebidas/hero.webp');">
+    <section
+        class="relative pt-24 md:pt-32 pb-16 md:pb-24 flex items-center justify-center min-h-[70vh] bg-cover bg-center bg-fixed"
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/bebidas/hero.webp');">
         <div class="container mx-auto px-4 text-center text-white relative z-10">
-            <h1 class="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">El Complemento Perfecto</h1>
-            <p class="text-xl md:text-2xl lg:text-3xl mb-8 max-w-3xl mx-auto">Postres, Bebidas y Coctelería para acompañar tu experiencia</p>
+            <h1 class="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">El Complemento
+                Perfecto</h1>
+            <p class="text-xl md:text-2xl lg:text-3xl mb-8 max-w-3xl mx-auto">Postres, Bebidas y Coctelería para
+                acompañar tu experiencia</p>
             <div class="mt-10">
-                <a href="#nuestro-menu" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 inline-block">Ver Menú</a>
+                <a href="#nuestro-menu"
+                    class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 inline-block">Ver
+                    Menú</a>
             </div>
         </div>
     </section>
@@ -111,9 +131,11 @@
     <main id="nuestro-menu" class="flex-grow py-16">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="font-playfair text-3xl md:text-4xl font-bold text-green-800 mb-4">Nuestra Amplia Selección de Complementos y Postres en Loja</h2>
+                <h2 class="font-playfair text-3xl md:text-4xl font-bold text-green-800 mb-4">Nuestra Amplia Selección de
+                    Complementos y Postres en Loja</h2>
                 <div class="w-24 h-1 bg-orange-500 mx-auto my-6"></div>
-                <p class="text-gray-600 max-w-3xl mx-auto">Disfruta de nuestra variedad de bebidas, postres y picaditos, perfectos para acompañar tus comidas o para disfrutar en cualquier momento.</p>
+                <p class="text-gray-600 max-w-3xl mx-auto">Disfruta de nuestra variedad de bebidas, postres y picaditos,
+                    perfectos para acompañar tus comidas o para disfrutar en cualquier momento.</p>
             </div>
 
             <!-- Sección de Postres -->
@@ -131,7 +153,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">TIRAMISÚ</h4>
-                                        <p class="text-gray-600 text-sm">El clásico postre italiano con capas de bizcocho de soletilla empapado en café y crema de mascarpone.</p>
+                                        <p class="text-gray-600 text-sm">El clásico postre italiano con capas de
+                                            bizcocho de soletilla empapado en café y crema de mascarpone.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$3.00</span>
                                 </div>
@@ -140,7 +163,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">MOJADO DE CHOCOLATE</h4>
-                                        <p class="text-gray-600 text-sm">Delicioso bizcocho de chocolate empapado en salsa de chocolate caliente, acompañado de helado de vainilla.</p>
+                                        <p class="text-gray-600 text-sm">Delicioso bizcocho de chocolate empapado en
+                                            salsa de chocolate caliente, acompañado de helado de vainilla.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$3.00</span>
                                 </div>
@@ -149,7 +173,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">CHEESECAKE DE MARACUYÁ</h4>
-                                        <p class="text-gray-600 text-sm">Suave y cremoso cheesecake con base de galleta, coronado con una deliciosa salsa de maracuyá.</p>
+                                        <p class="text-gray-600 text-sm">Suave y cremoso cheesecake con base de galleta,
+                                            coronado con una deliciosa salsa de maracuyá.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$3.00</span>
                                 </div>
@@ -159,13 +184,16 @@
                 </div>
                 <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="overflow-hidden rounded-lg h-48">
-                        <img src="/images/bebidas/Tiramisú.webp" alt="Tiramisú" class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
+                        <img src="/images/bebidas/Tiramisú.webp" alt="Tiramisú"
+                            class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
                     </div>
                     <div class="overflow-hidden rounded-lg h-48">
-                        <img src="/images/bebidas/Mojado de chocolate.webp" alt="Mojado de Chocolate" class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
+                        <img src="/images/bebidas/Mojado de chocolate.webp" alt="Mojado de Chocolate"
+                            class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
                     </div>
                     <div class="overflow-hidden rounded-lg h-48">
-                        <img src="/images/bebidas/CHEESECAKE DE MARACUYÁ.webp" alt="Cheesecake de Maracuyá" class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
+                        <img src="/images/bebidas/CHEESECAKE DE MARACUYÁ.webp" alt="Cheesecake de Maracuyá"
+                            class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
                     </div>
                 </div>
             </section>
@@ -332,14 +360,17 @@
                 </div>
                 <div class="bg-white rounded-xl shadow-md overflow-hidden">
                     <div class="p-6">
-                        <p class="text-gray-600 mb-6">Disfruta de nuestros exquisitos cocteles preparados con los mejores licores y jugos naturales. Todos los cocteles incluyen decoración y acompañamiento.</p>
-                        
+                        <p class="text-gray-600 mb-6">Disfruta de nuestros exquisitos cocteles preparados con los
+                            mejores licores y jugos naturales. Todos los cocteles incluyen decoración y acompañamiento.
+                        </p>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="menu-item">
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">ALEXANDER</h4>
-                                        <p class="text-gray-600 text-sm">Una mezcla cremosa de licor de cacao marrón, crema y brandy.</p>
+                                        <p class="text-gray-600 text-sm">Una mezcla cremosa de licor de cacao marrón,
+                                            crema y brandy.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$5.00</span>
                                 </div>
@@ -348,7 +379,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">PIÑA COLADA</h4>
-                                        <p class="text-gray-600 text-sm">Ron blanco, jugo de piña y crema de coco, servido con hielo.</p>
+                                        <p class="text-gray-600 text-sm">Ron blanco, jugo de piña y crema de coco,
+                                            servido con hielo.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$5.00</span>
                                 </div>
@@ -357,7 +389,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">MOJITO CUBANO</h4>
-                                        <p class="text-gray-600 text-sm">Ron blanco, azúcar, menta, limón y agua con gas.</p>
+                                        <p class="text-gray-600 text-sm">Ron blanco, azúcar, menta, limón y agua con
+                                            gas.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$5.00</span>
                                 </div>
@@ -366,7 +399,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">MARGARITA</h4>
-                                        <p class="text-gray-600 text-sm">Tequila, triple seco y jugo de limón, servida con sal en el borde.</p>
+                                        <p class="text-gray-600 text-sm">Tequila, triple seco y jugo de limón, servida
+                                            con sal en el borde.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$5.00</span>
                                 </div>
@@ -375,7 +409,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">RUSO NEGRO</h4>
-                                        <p class="text-gray-600 text-sm">Vodka mezclado con licor de café, servido con hielo.</p>
+                                        <p class="text-gray-600 text-sm">Vodka mezclado con licor de café, servido con
+                                            hielo.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$5.00</span>
                                 </div>
@@ -385,10 +420,12 @@
                 </div>
                 <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="overflow-hidden rounded-lg h-64">
-                        <img src="/images/bebidas/Margarita.webp" alt="Cocteles variados" class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
+                        <img src="/images/bebidas/Margarita.webp" alt="Cocteles variados"
+                            class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
                     </div>
                     <div class="overflow-hidden rounded-lg h-64">
-                        <img src="/images/bebidas/Mojito cubano.webp" alt="Mojito Cubano" class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
+                        <img src="/images/bebidas/Mojito cubano.webp" alt="Mojito Cubano"
+                            class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
                     </div>
                 </div>
             </section>
@@ -408,7 +445,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">TABLITA DE EMBUTIDOS</h4>
-                                        <p class="text-gray-600 text-sm">Selección de embutidos finos, quesos, aceitunas y pan tostado.</p>
+                                        <p class="text-gray-600 text-sm">Selección de embutidos finos, quesos, aceitunas
+                                            y pan tostado.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$12.00</span>
                                 </div>
@@ -417,7 +455,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">CAMARONES REVENTADOS</h4>
-                                        <p class="text-gray-600 text-sm">Camarones salteados con ajo, mantequilla y especias, servidos con pan.</p>
+                                        <p class="text-gray-600 text-sm">Camarones salteados con ajo, mantequilla y
+                                            especias, servidos con pan.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$10.00</span>
                                 </div>
@@ -426,7 +465,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">NACHOS</h4>
-                                        <p class="text-gray-600 text-sm">Tortillas de maíz horneadas con queso derretido, frijoles, guacamole, crema agria y jalapeños.</p>
+                                        <p class="text-gray-600 text-sm">Tortillas de maíz horneadas con queso
+                                            derretido, frijoles, guacamole, crema agria y jalapeños.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$8.00</span>
                                 </div>
@@ -435,7 +475,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">BURRITOS DE CARNE</h4>
-                                        <p class="text-gray-600 text-sm">Tortillas de harina rellenas de carne sazonada, frijoles, arroz y vegetales.</p>
+                                        <p class="text-gray-600 text-sm">Tortillas de harina rellenas de carne sazonada,
+                                            frijoles, arroz y vegetales.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$7.00</span>
                                 </div>
@@ -444,7 +485,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">ALITAS BBQ</h4>
-                                        <p class="text-gray-600 text-sm">Alitas de pollo horneadas bañadas en salsa BBQ casera, acompañadas de apio y aderezo ranch.</p>
+                                        <p class="text-gray-600 text-sm">Alitas de pollo horneadas bañadas en salsa BBQ
+                                            casera, acompañadas de apio y aderezo ranch.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$9.00</span>
                                 </div>
@@ -453,7 +495,8 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-bold text-gray-800">CHORIZO MEDITERRÁNEO</h4>
-                                        <p class="text-gray-600 text-sm">Chorizo español a la parrilla con pimientos asados y pan con tomate.</p>
+                                        <p class="text-gray-600 text-sm">Chorizo español a la parrilla con pimientos
+                                            asados y pan con tomate.</p>
                                     </div>
                                     <span class="price-tag ml-4 whitespace-nowrap">$8.50</span>
                                 </div>
@@ -463,21 +506,25 @@
                 </div>
                 <div class="mt-6">
                     <div class="overflow-hidden rounded-lg h-64 w-full">
-                        <img src="/images/bebidas/Tablita de embutidos.webp" alt="Tablita de embutidos" class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
+                        <img src="/images/bebidas/Tablita de embutidos.webp" alt="Tablita de embutidos"
+                            class="w-full h-full object-contain hover:scale-110 transition-transform duration-500">
                     </div>
                 </div>
             </section>
 
             <!-- Llamado a la acción -->
-            <div class="mt-16 bg-gradient-to-r from-green-800 to-green-700 rounded-xl p-8 text-center text-white relative overflow-hidden">
+            <div
+                class="mt-16 bg-gradient-to-r from-green-800 to-green-700 rounded-xl p-8 text-center text-white relative overflow-hidden">
                 <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-orange-500 rounded-full opacity-10"></div>
                 <div class="absolute -left-10 -top-10 w-32 h-32 bg-orange-500 rounded-full opacity-10"></div>
-                
-                <h3 class="text-2xl md:text-3xl font-bold mb-4 font-playfair relative z-10">¿Listo para disfrutar de nuestros cocteles y postres?</h3>
-                <p class="text-lg mb-6 max-w-2xl mx-auto relative z-10">Visítanos y descubre por qué tenemos la mejor selección de bebidas y postres en Loja.</p>
-                <a href="https://wa.me/59372587432?text=Hola%20Los%20Sartenes,%20quisiera%20hacer%20una%20reserva%20y%20consultar%20por%20sus%20cocteles%20y%20postres" 
-                   class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 inline-block relative z-10"
-                   target="_blank">
+
+                <h3 class="text-2xl md:text-3xl font-bold mb-4 font-playfair relative z-10">¿Listo para disfrutar de
+                    nuestros cocteles y postres?</h3>
+                <p class="text-lg mb-6 max-w-2xl mx-auto relative z-10">Visítanos y descubre por qué tenemos la mejor
+                    selección de bebidas y postres en Loja.</p>
+                <a href="https://wa.me/59372587432?text=Hola%20Los%20Sartenes,%20quisiera%20hacer%20una%20reserva%20y%20consultar%20por%20sus%20cocteles%20y%20postres"
+                    class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 inline-block relative z-10"
+                    target="_blank">
                     <i class="fas fa-calendar-alt mr-2"></i> Reservar Ahora
                 </a>
             </div>
@@ -489,30 +536,30 @@
     <div id="footer-component">
         <!-- El contenido del footer se cargará aquí mediante JavaScript -->
     </div>
-    
+
     <!-- Scripts -->
     <script src="/js/components.js" defer></script>
     <script src="/js/main.js" defer></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() { 
-            if (typeof loadComponents === "function") { 
-                loadComponents(); 
-            } 
-            
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof loadComponents === "function") {
+                loadComponents();
+            }
+
             // Smooth scroll para los enlaces del menú
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
                     if (targetId === '#') return;
-                    
+
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         window.scrollTo({
                             top: targetElement.offsetTop - 100,
                             behavior: 'smooth'
                         });
-                        
+
                         // Cerrar el menú móvil si está abierto
                         const sidebar = document.getElementById('sidebar');
                         const overlay = document.getElementById('sidebarOverlay');
@@ -529,154 +576,155 @@
 
     <!-- Google Translate Implementation -->
     <script>
-    /* --- CONFIG --- */
-    const cookieDomain = "lossartenes.com";
-    const defaultSrcLang = "es";
+        /* --- CONFIG --- */
+        const cookieDomain = "lossartenes.com";
+        const defaultSrcLang = "es";
 
-    /* --- Cookie utilities --- */
-    function setCookie(name, value, days, domain) {
-        let expires = "";
-        if (days) {
-            const d = new Date();
-            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = ";expires=" + d.toUTCString();
+        /* --- Cookie utilities --- */
+        function setCookie(name, value, days, domain) {
+            let expires = "";
+            if (days) {
+                const d = new Date();
+                d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = ";expires=" + d.toUTCString();
+            }
+            const domainPart = domain ? ";domain=" + domain : "";
+            document.cookie = name + "=" + value + expires + ";path=/" + domainPart;
         }
-        const domainPart = domain ? ";domain=" + domain : "";
-        document.cookie = name + "=" + value + expires + ";path=/" + domainPart;
-    }
 
-    function getCookie(name) {
-        const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-        return v ? v.pop() : "";
-    }
+        function getCookie(name) {
+            const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+            return v ? v.pop() : "";
+        }
 
-    /* --- limpiar restos previos de Google (si los hay) --- */
-    function cleanPreviousGoogle() {
-        // eliminar iframe del menú
-        const frames = document.querySelectorAll("iframe.goog-te-menu-frame, iframe[id^='__google_translate_element']");
-        frames.forEach(f => f.remove());
+        /* --- limpiar restos previos de Google (si los hay) --- */
+        function cleanPreviousGoogle() {
+            // eliminar iframe del menú
+            const frames = document.querySelectorAll("iframe.goog-te-menu-frame, iframe[id^='__google_translate_element']");
+            frames.forEach(f => f.remove());
 
-        // eliminar script antiguo
-        const scripts = Array.from(document.querySelectorAll("script[src*='translate_a'], script[src*='translate.google']"));
-        scripts.forEach(s => s.remove());
+            // eliminar script antiguo
+            const scripts = Array.from(document.querySelectorAll("script[src*='translate_a'], script[src*='translate.google']"));
+            scripts.forEach(s => s.remove());
 
-        // eliminar globales
-        try { delete window.google; } catch(e) { window.google = undefined; }
-        window.googleTranslateElementInit = undefined;
-        window.googleTranslateLoaded = false;
-    }
+            // eliminar globales
+            try { delete window.google; } catch (e) { window.google = undefined; }
+            window.googleTranslateElementInit = undefined;
+            window.googleTranslateLoaded = false;
+        }
 
-    /* --- carga la librería de Google Translate y la inicializa --- */
-    function loadAndInitTranslate() {
-        return new Promise((resolve, reject) => {
-            // si ya está
-            if (window.google && window.google.translate && window.googleTranslateLoaded) {
-                resolve();
-                return;
-            }
-
-            // crear callback global esperado por google
-            window.googleTranslateElementInit = function() {
-                try {
-                    new google.translate.TranslateElement({
-                        pageLanguage: defaultSrcLang,
-                        autoDisplay: false
-                    }, "google_translate_element");
-                    window.googleTranslateLoaded = true;
+        /* --- carga la librería de Google Translate y la inicializa --- */
+        function loadAndInitTranslate() {
+            return new Promise((resolve, reject) => {
+                // si ya está
+                if (window.google && window.google.translate && window.googleTranslateLoaded) {
                     resolve();
-                } catch (err) {
-                    reject(err);
+                    return;
                 }
-            };
 
-            const s = document.createElement("script");
-            s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-            s.async = true;
-            s.defer = true;
-            s.onerror = (e) => reject(e);
-            document.head.appendChild(s);
-        });
-    }
+                // crear callback global esperado por google
+                window.googleTranslateElementInit = function () {
+                    try {
+                        new google.translate.TranslateElement({
+                            pageLanguage: defaultSrcLang,
+                            autoDisplay: false
+                        }, "google_translate_element");
+                        window.googleTranslateLoaded = true;
+                        resolve();
+                    } catch (err) {
+                        reject(err);
+                    }
+                };
 
-    /* --- inicializar: si hay preferencia guardada, fijar cookie antes de cargar --- */
-    async function initTranslator() {
-        try {
-            cleanPreviousGoogle();
+                const s = document.createElement("script");
+                s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+                s.async = true;
+                s.defer = true;
+                s.onerror = (e) => reject(e);
+                document.head.appendChild(s);
+            });
+        }
 
-            // Si el usuario guardó idioma en localStorage, aplicar cookie googtrans
-            const pref = localStorage.getItem("preferred_lang"); // ej: "en" o "es"
-            if (pref && pref !== defaultSrcLang) {
-                // formato cookie: /SOURCE/TARGET  -> ej: /es/en
-                setCookie("googtrans", "/" + defaultSrcLang + "/" + pref, 365, cookieDomain);
-                setCookie("googtrans", "/" + defaultSrcLang + "/" + pref, 365); // set sin domain también para compatibilidad
-            } else {
-                // borrar cookie si es default
-                setCookie("googtrans", "/" + defaultSrcLang + "/" + defaultSrcLang, -1, cookieDomain);
-                setCookie("googtrans", "/" + defaultSrcLang + "/" + defaultSrcLang, -1);
-            }
+        /* --- inicializar: si hay preferencia guardada, fijar cookie antes de cargar --- */
+        async function initTranslator() {
+            try {
+                cleanPreviousGoogle();
 
-            await loadAndInitTranslate();
-
-            // Si hay preferencia, forzar refresco visual inmediato (algunas veces el widget aplica sin recarga)
-            const prefAfter = localStorage.getItem("preferred_lang");
-            if (prefAfter && prefAfter !== defaultSrcLang) {
-                // Intentamos disparar el cambio con el select si ya existe
-                const sel = document.querySelector("select.goog-te-combo");
-                if (sel) {
-                    sel.value = prefAfter;
-                    sel.dispatchEvent(new Event("change"));
+                // Si el usuario guardó idioma en localStorage, aplicar cookie googtrans
+                const pref = localStorage.getItem("preferred_lang"); // ej: "en" o "es"
+                if (pref && pref !== defaultSrcLang) {
+                    // formato cookie: /SOURCE/TARGET  -> ej: /es/en
+                    setCookie("googtrans", "/" + defaultSrcLang + "/" + pref, 365, cookieDomain);
+                    setCookie("googtrans", "/" + defaultSrcLang + "/" + pref, 365); // set sin domain también para compatibilidad
                 } else {
-                    // Si no hay select, recargar la página para que Google aplique la cookie (fallback)
-                    // pero solo si no estamos en proceso de navegación SPA
-                    // Nota: recarga solo si no venimos de una recarga inmediata (evitar loop)
-                    if (!sessionStorage.getItem("gt_reloaded")) {
-                        sessionStorage.setItem("gt_reloaded", "1");
-                        location.reload();
+                    // borrar cookie si es default
+                    setCookie("googtrans", "/" + defaultSrcLang + "/" + defaultSrcLang, -1, cookieDomain);
+                    setCookie("googtrans", "/" + defaultSrcLang + "/" + defaultSrcLang, -1);
+                }
+
+                await loadAndInitTranslate();
+
+                // Si hay preferencia, forzar refresco visual inmediato (algunas veces el widget aplica sin recarga)
+                const prefAfter = localStorage.getItem("preferred_lang");
+                if (prefAfter && prefAfter !== defaultSrcLang) {
+                    // Intentamos disparar el cambio con el select si ya existe
+                    const sel = document.querySelector("select.goog-te-combo");
+                    if (sel) {
+                        sel.value = prefAfter;
+                        sel.dispatchEvent(new Event("change"));
                     } else {
-                        sessionStorage.removeItem("gt_reloaded");
+                        // Si no hay select, recargar la página para que Google aplique la cookie (fallback)
+                        // pero solo si no estamos en proceso de navegación SPA
+                        // Nota: recarga solo si no venimos de una recarga inmediata (evitar loop)
+                        if (!sessionStorage.getItem("gt_reloaded")) {
+                            sessionStorage.setItem("gt_reloaded", "1");
+                            location.reload();
+                        } else {
+                            sessionStorage.removeItem("gt_reloaded");
+                        }
                     }
                 }
+            } catch (err) {
+                console.error("Translator init error:", err);
             }
-        } catch (err) {
-            console.error("Translator init error:", err);
         }
-    }
 
-    /* --- función pública para cambiar idioma --- */
-    function changeLang(lang) {
-        if (!lang) return;
-        localStorage.setItem("preferred_lang", lang);
+        /* --- función pública para cambiar idioma --- */
+        function changeLang(lang) {
+            if (!lang) return;
+            localStorage.setItem("preferred_lang", lang);
 
-        // ajustar cookie para dominio
-        setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365, cookieDomain);
-        setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365);
+            // ajustar cookie para dominio
+            setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365, cookieDomain);
+            setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365);
 
-        // limpiamos y recargamos el traductor (si funciona sin reload)
-        cleanPreviousGoogle();
+            // limpiamos y recargamos el traductor (si funciona sin reload)
+            cleanPreviousGoogle();
 
-        // Intentamos aplicar sin recargar (mejor UX)
-        loadAndInitTranslate().then(() => {
-            const sel = document.querySelector("select.goog-te-combo");
-            if (sel) {
-                sel.value = lang;
-                sel.dispatchEvent(new Event("change"));
-            } else {
-                // fallback: recargar una vez para que cookie tome efecto en producción
+            // Intentamos aplicar sin recargar (mejor UX)
+            loadAndInitTranslate().then(() => {
+                const sel = document.querySelector("select.goog-te-combo");
+                if (sel) {
+                    sel.value = lang;
+                    sel.dispatchEvent(new Event("change"));
+                } else {
+                    // fallback: recargar una vez para que cookie tome efecto en producción
+                    location.reload();
+                }
+            }).catch(() => {
+                // en caso de error forzamos recarga
                 location.reload();
-            }
-        }).catch(() => {
-            // en caso de error forzamos recarga
-            location.reload();
-        });
-    }
+            });
+        }
 
-    /* --- Exponer globalmente el cambio para tus botones del header --- */
-    window.changeLang = changeLang;
+        /* --- Exponer globalmente el cambio para tus botones del header --- */
+        window.changeLang = changeLang;
 
-    /* --- iniciar al cargar --- */
-    window.addEventListener("load", initTranslator);
+        /* --- iniciar al cargar --- */
+        window.addEventListener("load", initTranslator);
     </script>
 
 
 </body>
+
 </html>

@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Disfruta de los mejores platos vegetarianos en Loja. Ofrecemos opciones frescas y saludables como ceviche de champiñón, espagueti al funghi y más. Cocina casera con ingredientes frescos.">
-    <meta name="keywords" content="comida vegetariana Loja, restaurante vegetariano, menú vegetariano, platos vegetarianos, comida saludable Loja">
+    <meta name="description"
+        content="Disfruta de los mejores platos vegetarianos en Loja. Ofrecemos opciones frescas y saludables como ceviche de champiñón, espagueti al funghi y más. Cocina casera con ingredientes frescos.">
+    <meta name="keywords"
+        content="comida vegetariana Loja, restaurante vegetariano, menú vegetariano, platos vegetarianos, comida saludable Loja">
     <meta name="author" content="Los Sartenes">
-    <meta name="robots" content="index, follow"><meta property="og:url" content="https://lossartenes.com/vegetarianos.html">
-    <meta property="og:type" content="website"><title>Platos Vegetarianos en Loja | Comida Vegana y Vegetariana | Los Sartenes</title>
+    <meta name="robots" content="index, follow">
+    <meta property="og:url" content="https://lossartenes.com/vegetarianos.html">
+    <meta property="og:type" content="website">
+    <title>Platos Vegetarianos en Loja | Comida Vegana y Vegetariana | Los Sartenes</title>
     <meta property="og:title" content="Platos Vegetarianos en Loja-Los Sartenes">
     <meta property="og:description" content="Bienvenido a Los Sartenes, disfruta nuestro servicio">
     <meta property="og:image" content="https://www.lossartenes.com/images/Logo.jpg">
@@ -18,13 +23,13 @@
     <meta name="twitter:description" content="Bienvenido a Los Sartenes, disfruta nuestro servicio">
     <meta name="twitter:image" content="https://www.lossartenes.com/images/Logo.jpg">
 
-    
+
     <!-- Favicon -->
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon" href="/images/favicon.ico">
-    
-    <title>Vegetarianos | Los Sartenes</title>
+
+
     <!-- Google Translate Element - Hidden -->
     <div id="google_translate_element" style="display:none"></div>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -32,32 +37,39 @@
     <!-- CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
-    
+
     <!-- Scripts -->
     <script src="/js/components.js" defer></script>
     <script src="/js/script.js" defer></script>
-    
+
     <style>
         .font-playfair {
             font-family: 'Playfair Display', serif;
         }
+
         .dish-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .dish-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+
         .menu-subcategory {
             background-color: #1A531A;
         }
+
         .menu-subcategory a {
             color: white;
             padding-left: 2rem;
             transition: all 0.3s ease;
         }
+
         .menu-subcategory a:hover {
             background-color: rgba(255, 255, 255, 0.1);
             color: #FF8C42;
@@ -65,14 +77,16 @@
         }
     </style>
 </head>
+
 <body class="bg-white flex flex-col min-h-screen" data-initialized="true">
     <!-- Componente Header -->
     <div id="header-component">
         <!-- El contenido del header se cargará aquí mediante JavaScript -->
     </div>
-    
+
     <!-- Hero Section -->
-    <section class="relative min-h-[80vh] md:min-h-[90vh] flex items-center justify-center bg-cover bg-center bg-fixed" style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/images/Vegetarianos/hero.webp');">
+    <section class="relative min-h-[80vh] md:min-h-[90vh] flex items-center justify-center bg-cover bg-center bg-fixed"
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/images/Vegetarianos/hero.webp');">
         <div class="absolute inset-0 bg-black bg-opacity-50"></div>
         <div class="container mx-auto px-4 text-center relative z-10 py-24 md:py-32">
             <h1 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
@@ -83,21 +97,25 @@
                 Descubre nuestros platos vegetarianos preparados con ingredientes frescos y naturales
             </p>
             <div class="mt-8">
-                <a href="#nuestros-platos" class="inline-block bg-[#FF8C00] hover:bg-[#E67E00] text-white font-semibold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
+                <a href="#nuestros-platos"
+                    class="inline-block bg-[#FF8C00] hover:bg-[#E67E00] text-white font-semibold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
                     Ver Menú Completo
                 </a>
             </div>
         </div>
-        
+
         <!-- Flecha de desplazamiento -->
-        <a href="#nuestros-platos" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white hover:text-[#FF8C00] transition-colors">
+        <a href="#nuestros-platos"
+            class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white hover:text-[#FF8C00] transition-colors">
             <i class="fas fa-chevron-down text-2xl animate-bounce"></i>
         </a>
     </section>
 
     <!-- Sección de Introducción -->
     <section class="py-16 md:py-20 bg-[#f9f8f6] relative overflow-hidden">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwuMDIpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')]"></div>
+        <div
+            class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwuMDIpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')]">
+        </div>
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-3xl md:text-4xl font-playfair font-bold text-[#2E8B57] mb-6">
@@ -105,10 +123,14 @@
                 </h2>
                 <div class="w-24 h-1 bg-[#FF8C00] mx-auto mb-8"></div>
                 <p class="text-lg text-gray-700 mb-8 leading-relaxed">
-                    En Los Sartenes, creemos que la comida vegetariana puede ser igual de deliciosa y satisfactoria que cualquier otro tipo de cocina. Nuestros platos están elaborados con ingredientes frescos, locales y de la más alta calidad, cuidadosamente seleccionados para ofrecerte una experiencia culinaria excepcional.
+                    En Los Sartenes, creemos que la comida vegetariana puede ser igual de deliciosa y satisfactoria que
+                    cualquier otro tipo de cocina. Nuestros platos están elaborados con ingredientes frescos, locales y
+                    de la más alta calidad, cuidadosamente seleccionados para ofrecerte una experiencia culinaria
+                    excepcional.
                 </p>
                 <div class="rounded-xl overflow-hidden shadow-xl max-w-4xl mx-auto">
-                    <img src="/images/Vegetarianos/Ensalada.webp" alt="Ensalada fresca con vegetales de temporada" class="w-full h-auto">
+                    <img src="/images/Vegetarianos/Ensalada.webp" alt="Ensalada fresca con vegetales de temporada"
+                        class="w-full h-auto">
                 </div>
             </div>
         </div>
@@ -123,23 +145,27 @@
                 </h2>
                 <div class="w-24 h-1 bg-[#FF8C00] mx-auto mb-6"></div>
                 <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                    Descubre nuestra selección de platos vegetarianos, preparados con los ingredientes más frescos y sabrosos.
+                    Descubre nuestra selección de platos vegetarianos, preparados con los ingredientes más frescos y
+                    sabrosos.
                 </p>
             </div>
 
             <!-- Grid de Platos -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Ceviche de Champiñón -->
-                <div class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
                     <div class="relative overflow-hidden h-56">
-                        <img src="/images/Vegetarianos/CEVICHE DE CHAMPIÑÓN.webp" alt="Ceviche de Champiñón" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        <img src="/images/Vegetarianos/CEVICHE DE CHAMPIÑÓN.webp" alt="Ceviche de Champiñón"
+                            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                     </div>
                     <div class="p-6">
                         <h3 class="font-playfair text-xl font-bold text-[#2E8B57] mb-2">CEVICHE DE CHAMPIÑÓN</h3>
                         <p class="text-gray-600 mb-4">Champiñones frescos, marinados con cebolla, tomate y pimiento.</p>
                         <div class="flex justify-between items-center">
                             <span class="text-[#FF8C00] font-bold text-xl">$8.00</span>
-                            <button class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
+                            <button
+                                class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
                                 Ordenar Ahora
                             </button>
                         </div>
@@ -147,16 +173,20 @@
                 </div>
 
                 <!-- Espagueti al Funghi -->
-                <div class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
                     <div class="relative overflow-hidden h-56">
-                        <img src="/images/Vegetarianos/ESPAGUETI AL FUNGHI.webp" alt="Espagueti al Funghi" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        <img src="/images/Vegetarianos/ESPAGUETI AL FUNGHI.webp" alt="Espagueti al Funghi"
+                            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                     </div>
                     <div class="p-6">
                         <h3 class="font-playfair text-xl font-bold text-[#2E8B57] mb-2">ESPAGUETI AL FUNGHI</h3>
-                        <p class="text-gray-600 mb-4">Pasta fresca con champiñones en salsa blanca y queso parmesano.</p>
+                        <p class="text-gray-600 mb-4">Pasta fresca con champiñones en salsa blanca y queso parmesano.
+                        </p>
                         <div class="flex justify-between items-center">
                             <span class="text-[#FF8C00] font-bold text-xl">$7.75</span>
-                            <button class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
+                            <button
+                                class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
                                 Ordenar Ahora
                             </button>
                         </div>
@@ -164,16 +194,19 @@
                 </div>
 
                 <!-- Sartén de Portobellos -->
-                <div class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
                     <div class="relative overflow-hidden h-56">
-                        <img src="/images/Vegetarianos/SARTÉN DE PORTOBELLOS.webp" alt="Sartén de Portobellos" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        <img src="/images/Vegetarianos/SARTÉN DE PORTOBELLOS.webp" alt="Sartén de Portobellos"
+                            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                     </div>
                     <div class="p-6">
                         <h3 class="font-playfair text-xl font-bold text-[#2E8B57] mb-2">SARTÉN DE PORTOBELLOS</h3>
                         <p class="text-gray-600 mb-4">Champiñones portobellos, salteados con verduras.</p>
                         <div class="flex justify-between items-center">
                             <span class="text-[#FF8C00] font-bold text-xl">$8.25</span>
-                            <button class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
+                            <button
+                                class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
                                 Ordenar Ahora
                             </button>
                         </div>
@@ -181,16 +214,19 @@
                 </div>
 
                 <!-- Risotto al Funghi -->
-                <div class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
                     <div class="relative overflow-hidden h-56">
-                        <img src="/images/Vegetarianos/RISOTTO AL FUNGHI.webp" alt="Risotto al Funghi" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        <img src="/images/Vegetarianos/RISOTTO AL FUNGHI.webp" alt="Risotto al Funghi"
+                            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                     </div>
                     <div class="p-6">
                         <h3 class="font-playfair text-xl font-bold text-[#2E8B57] mb-2">RISOTTO AL FUNGHI</h3>
                         <p class="text-gray-600 mb-4">Arroz italiano con champiñones frescos y queso parmesano.</p>
                         <div class="flex justify-between items-center">
                             <span class="text-[#FF8C00] font-bold text-xl">$10.00</span>
-                            <button class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
+                            <button
+                                class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
                                 Ordenar Ahora
                             </button>
                         </div>
@@ -198,16 +234,22 @@
                 </div>
 
                 <!-- Sartén de Champiñones al Ajillo -->
-                <div class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
                     <div class="relative overflow-hidden h-56">
-                        <img src="/images/Vegetarianos/SARTÉN DE CHAMPIÑONES AL AJILLO.webp" alt="Sartén de Champiñones al Ajillo" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        <img src="/images/Vegetarianos/SARTÉN DE CHAMPIÑONES AL AJILLO.webp"
+                            alt="Sartén de Champiñones al Ajillo"
+                            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                     </div>
                     <div class="p-6">
-                        <h3 class="font-playfair text-xl font-bold text-[#2E8B57] mb-2">SARTÉN DE CHAMPIÑONES AL AJILLO</h3>
-                        <p class="text-gray-600 mb-4">Champiñones frescos en base de salsa ajillo acompañado con papas.</p>
+                        <h3 class="font-playfair text-xl font-bold text-[#2E8B57] mb-2">SARTÉN DE CHAMPIÑONES AL AJILLO
+                        </h3>
+                        <p class="text-gray-600 mb-4">Champiñones frescos en base de salsa ajillo acompañado con papas.
+                        </p>
                         <div class="flex justify-between items-center">
                             <span class="text-[#FF8C00] font-bold text-xl">$8.00</span>
-                            <button class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
+                            <button
+                                class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
                                 Ordenar Ahora
                             </button>
                         </div>
@@ -215,16 +257,20 @@
                 </div>
 
                 <!-- Espagueti al Pesto -->
-                <div class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                <div
+                    class="dish-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
                     <div class="relative overflow-hidden h-56">
-                        <img src="/images/Vegetarianos/ESPAGUETI AL PESTO.webp" alt="Espagueti al Pesto" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                        <img src="/images/Vegetarianos/ESPAGUETI AL PESTO.webp" alt="Espagueti al Pesto"
+                            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                     </div>
                     <div class="p-6">
                         <h3 class="font-playfair text-xl font-bold text-[#2E8B57] mb-2">ESPAGUETI AL PESTO</h3>
-                        <p class="text-gray-600 mb-4">Espagueti cocido al dente con nueces y albahaca, flameado al vino blanco con queso parmesano y orégano.</p>
+                        <p class="text-gray-600 mb-4">Espagueti cocido al dente con nueces y albahaca, flameado al vino
+                            blanco con queso parmesano y orégano.</p>
                         <div class="flex justify-between items-center">
                             <span class="text-[#FF8C00] font-bold text-xl">$8.00</span>
-                            <button class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
+                            <button
+                                class="bg-[#2E8B57] hover:bg-[#1E6B47] text-white font-semibold py-2 px-4 rounded-full text-sm transition-all duration-300">
                                 Ordenar Ahora
                             </button>
                         </div>
@@ -236,7 +282,9 @@
 
     <!-- Sección de Llamado a la Acción -->
     <section class="py-16 md:py-20 bg-[#2E8B57] bg-opacity-95 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwuMDUpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')]"></div>
+        <div
+            class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwuMDUpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')]">
+        </div>
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-3xl md:text-4xl font-playfair font-bold text-white mb-6">
@@ -244,14 +292,17 @@
                 </h2>
                 <div class="w-24 h-1 bg-[#FF8C00] mx-auto mb-8"></div>
                 <p class="text-lg text-gray-100 mb-8 max-w-2xl mx-auto leading-relaxed">
-                    Visítanos y descubre por qué somos el lugar favorito para los amantes de la comida vegetariana en Loja. 
+                    Visítanos y descubre por qué somos el lugar favorito para los amantes de la comida vegetariana en
+                    Loja.
                     Nuestro equipo está listo para ofrecerte una experiencia culinaria inolvidable.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="/contacto.html" class="inline-block bg-[#FF8C00] hover:bg-[#E67E00] text-white font-semibold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
+                    <a href="/contacto.html"
+                        class="inline-block bg-[#FF8C00] hover:bg-[#E67E00] text-white font-semibold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
                         Reserva una Mesa
                     </a>
-                    <a href="tel:+593987654321" class="inline-flex items-center justify-center bg-white hover:bg-gray-100 text-[#2E8B57] font-semibold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
+                    <a href="tel:+593987654321"
+                        class="inline-flex items-center justify-center bg-white hover:bg-gray-100 text-[#2E8B57] font-semibold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
                         <i class="fas fa-phone-alt mr-2"></i> Llamar Ahora
                     </a>
                 </div>
@@ -260,12 +311,12 @@
     </section>
 
     </main>
-    
+
     <!-- Componente Footer -->
     <div id="footer-component">
         <!-- El contenido del footer se cargará aquí mediante JavaScript -->
     </div>
-    
+
 
     <!-- Script para animaciones -->
     <script>
@@ -275,7 +326,7 @@
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
+
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
@@ -308,160 +359,161 @@
         });
 
         // Agregar clase cuando el DOM esté completamente cargado
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             document.body.classList.add('loaded');
         });
     </script>
     <!-- Google Translate Implementation -->
     <script>
-    /* --- CONFIG --- */
-    const cookieDomain = "lossartenes.com";
-    const defaultSrcLang = "es";
+        /* --- CONFIG --- */
+        const cookieDomain = "lossartenes.com";
+        const defaultSrcLang = "es";
 
-    /* --- Cookie utilities --- */
-    function setCookie(name, value, days, domain) {
-        let expires = "";
-        if (days) {
-            const d = new Date();
-            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = ";expires=" + d.toUTCString();
+        /* --- Cookie utilities --- */
+        function setCookie(name, value, days, domain) {
+            let expires = "";
+            if (days) {
+                const d = new Date();
+                d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = ";expires=" + d.toUTCString();
+            }
+            const domainPart = domain ? ";domain=" + domain : "";
+            document.cookie = name + "=" + value + expires + ";path=/" + domainPart;
         }
-        const domainPart = domain ? ";domain=" + domain : "";
-        document.cookie = name + "=" + value + expires + ";path=/" + domainPart;
-    }
 
-    function getCookie(name) {
-        const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-        return v ? v.pop() : "";
-    }
+        function getCookie(name) {
+            const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+            return v ? v.pop() : "";
+        }
 
-    /* --- limpiar restos previos de Google (si los hay) --- */
-    function cleanPreviousGoogle() {
-        // eliminar iframe del menú
-        const frames = document.querySelectorAll("iframe.goog-te-menu-frame, iframe[id^='__google_translate_element']");
-        frames.forEach(f => f.remove());
+        /* --- limpiar restos previos de Google (si los hay) --- */
+        function cleanPreviousGoogle() {
+            // eliminar iframe del menú
+            const frames = document.querySelectorAll("iframe.goog-te-menu-frame, iframe[id^='__google_translate_element']");
+            frames.forEach(f => f.remove());
 
-        // eliminar script antiguo
-        const scripts = Array.from(document.querySelectorAll("script[src*='translate_a'], script[src*='translate.google']"));
-        scripts.forEach(s => s.remove());
+            // eliminar script antiguo
+            const scripts = Array.from(document.querySelectorAll("script[src*='translate_a'], script[src*='translate.google']"));
+            scripts.forEach(s => s.remove());
 
-        // eliminar globales
-        try { delete window.google; } catch(e) { window.google = undefined; }
-        window.googleTranslateElementInit = undefined;
-        window.googleTranslateLoaded = false;
-    }
+            // eliminar globales
+            try { delete window.google; } catch (e) { window.google = undefined; }
+            window.googleTranslateElementInit = undefined;
+            window.googleTranslateLoaded = false;
+        }
 
-    /* --- carga la librería de Google Translate y la inicializa --- */
-    function loadAndInitTranslate() {
-        return new Promise((resolve, reject) => {
-            // si ya está
-            if (window.google && window.google.translate && window.googleTranslateLoaded) {
-                resolve();
-                return;
-            }
-
-            // crear callback global esperado por google
-            window.googleTranslateElementInit = function() {
-                try {
-                    new google.translate.TranslateElement({
-                        pageLanguage: defaultSrcLang,
-                        autoDisplay: false
-                    }, "google_translate_element");
-                    window.googleTranslateLoaded = true;
+        /* --- carga la librería de Google Translate y la inicializa --- */
+        function loadAndInitTranslate() {
+            return new Promise((resolve, reject) => {
+                // si ya está
+                if (window.google && window.google.translate && window.googleTranslateLoaded) {
                     resolve();
-                } catch (err) {
-                    reject(err);
+                    return;
                 }
-            };
 
-            const s = document.createElement("script");
-            s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-            s.async = true;
-            s.defer = true;
-            s.onerror = (e) => reject(e);
-            document.head.appendChild(s);
-        });
-    }
+                // crear callback global esperado por google
+                window.googleTranslateElementInit = function () {
+                    try {
+                        new google.translate.TranslateElement({
+                            pageLanguage: defaultSrcLang,
+                            autoDisplay: false
+                        }, "google_translate_element");
+                        window.googleTranslateLoaded = true;
+                        resolve();
+                    } catch (err) {
+                        reject(err);
+                    }
+                };
 
-    /* --- inicializar: si hay preferencia guardada, fijar cookie antes de cargar --- */
-    async function initTranslator() {
-        try {
-            cleanPreviousGoogle();
+                const s = document.createElement("script");
+                s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+                s.async = true;
+                s.defer = true;
+                s.onerror = (e) => reject(e);
+                document.head.appendChild(s);
+            });
+        }
 
-            // Si el usuario guardó idioma en localStorage, aplicar cookie googtrans
-            const pref = localStorage.getItem("preferred_lang"); // ej: "en" o "es"
-            if (pref && pref !== defaultSrcLang) {
-                // formato cookie: /SOURCE/TARGET  -> ej: /es/en
-                setCookie("googtrans", "/" + defaultSrcLang + "/" + pref, 365, cookieDomain);
-                setCookie("googtrans", "/" + defaultSrcLang + "/" + pref, 365); // set sin domain también para compatibilidad
-            } else {
-                // borrar cookie si es default
-                setCookie("googtrans", "/" + defaultSrcLang + "/" + defaultSrcLang, -1, cookieDomain);
-                setCookie("googtrans", "/" + defaultSrcLang + "/" + defaultSrcLang, -1);
-            }
+        /* --- inicializar: si hay preferencia guardada, fijar cookie antes de cargar --- */
+        async function initTranslator() {
+            try {
+                cleanPreviousGoogle();
 
-            await loadAndInitTranslate();
-
-            // Si hay preferencia, forzar refresco visual inmediato (algunas veces el widget aplica sin recarga)
-            const prefAfter = localStorage.getItem("preferred_lang");
-            if (prefAfter && prefAfter !== defaultSrcLang) {
-                // Intentamos disparar el cambio con el select si ya existe
-                const sel = document.querySelector("select.goog-te-combo");
-                if (sel) {
-                    sel.value = prefAfter;
-                    sel.dispatchEvent(new Event("change"));
+                // Si el usuario guardó idioma en localStorage, aplicar cookie googtrans
+                const pref = localStorage.getItem("preferred_lang"); // ej: "en" o "es"
+                if (pref && pref !== defaultSrcLang) {
+                    // formato cookie: /SOURCE/TARGET  -> ej: /es/en
+                    setCookie("googtrans", "/" + defaultSrcLang + "/" + pref, 365, cookieDomain);
+                    setCookie("googtrans", "/" + defaultSrcLang + "/" + pref, 365); // set sin domain también para compatibilidad
                 } else {
-                    // Si no hay select, recargar la página para que Google aplique la cookie (fallback)
-                    // pero solo si no estamos en proceso de navegación SPA
-                    // Nota: recarga solo si no venimos de una recarga inmediata (evitar loop)
-                    if (!sessionStorage.getItem("gt_reloaded")) {
-                        sessionStorage.setItem("gt_reloaded", "1");
-                        location.reload();
+                    // borrar cookie si es default
+                    setCookie("googtrans", "/" + defaultSrcLang + "/" + defaultSrcLang, -1, cookieDomain);
+                    setCookie("googtrans", "/" + defaultSrcLang + "/" + defaultSrcLang, -1);
+                }
+
+                await loadAndInitTranslate();
+
+                // Si hay preferencia, forzar refresco visual inmediato (algunas veces el widget aplica sin recarga)
+                const prefAfter = localStorage.getItem("preferred_lang");
+                if (prefAfter && prefAfter !== defaultSrcLang) {
+                    // Intentamos disparar el cambio con el select si ya existe
+                    const sel = document.querySelector("select.goog-te-combo");
+                    if (sel) {
+                        sel.value = prefAfter;
+                        sel.dispatchEvent(new Event("change"));
                     } else {
-                        sessionStorage.removeItem("gt_reloaded");
+                        // Si no hay select, recargar la página para que Google aplique la cookie (fallback)
+                        // pero solo si no estamos en proceso de navegación SPA
+                        // Nota: recarga solo si no venimos de una recarga inmediata (evitar loop)
+                        if (!sessionStorage.getItem("gt_reloaded")) {
+                            sessionStorage.setItem("gt_reloaded", "1");
+                            location.reload();
+                        } else {
+                            sessionStorage.removeItem("gt_reloaded");
+                        }
                     }
                 }
+            } catch (err) {
+                console.error("Translator init error:", err);
             }
-        } catch (err) {
-            console.error("Translator init error:", err);
         }
-    }
 
-    /* --- función pública para cambiar idioma --- */
-    function changeLang(lang) {
-        if (!lang) return;
-        localStorage.setItem("preferred_lang", lang);
+        /* --- función pública para cambiar idioma --- */
+        function changeLang(lang) {
+            if (!lang) return;
+            localStorage.setItem("preferred_lang", lang);
 
-        // ajustar cookie para dominio
-        setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365, cookieDomain);
-        setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365);
+            // ajustar cookie para dominio
+            setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365, cookieDomain);
+            setCookie("googtrans", "/" + defaultSrcLang + "/" + lang, 365);
 
-        // limpiamos y recargamos el traductor (si funciona sin reload)
-        cleanPreviousGoogle();
+            // limpiamos y recargamos el traductor (si funciona sin reload)
+            cleanPreviousGoogle();
 
-        // Intentamos aplicar sin recargar (mejor UX)
-        loadAndInitTranslate().then(() => {
-            const sel = document.querySelector("select.goog-te-combo");
-            if (sel) {
-                sel.value = lang;
-                sel.dispatchEvent(new Event("change"));
-            } else {
-                // fallback: recargar una vez para que cookie tome efecto en producción
+            // Intentamos aplicar sin recargar (mejor UX)
+            loadAndInitTranslate().then(() => {
+                const sel = document.querySelector("select.goog-te-combo");
+                if (sel) {
+                    sel.value = lang;
+                    sel.dispatchEvent(new Event("change"));
+                } else {
+                    // fallback: recargar una vez para que cookie tome efecto en producción
+                    location.reload();
+                }
+            }).catch(() => {
+                // en caso de error forzamos recarga
                 location.reload();
-            }
-        }).catch(() => {
-            // en caso de error forzamos recarga
-            location.reload();
-        });
-    }
+            });
+        }
 
-    /* --- Exponer globalmente el cambio para tus botones del header --- */
-    window.changeLang = changeLang;
+        /* --- Exponer globalmente el cambio para tus botones del header --- */
+        window.changeLang = changeLang;
 
-    /* --- iniciar al cargar --- */
-    window.addEventListener("load", initTranslator);
+        /* --- iniciar al cargar --- */
+        window.addEventListener("load", initTranslator);
     </script>
 
 
 </body>
+
 </html>
