@@ -5,11 +5,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                     http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!-- Páginas Principales -->
   <url>
     <loc>https://lossartenes.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
     <image:image>
       <image:loc>https://lossartenes.com/images/Logo.jpg</image:loc>
       <image:title>Logo de Los Sartenes</image:title>
@@ -28,7 +29,7 @@
     <loc>https://lossartenes.com/sobre-nosotros.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
     <image:image>
       <image:loc>https://lossartenes.com/images/Inicio/Restaurante 3.webp</image:loc>
       <image:title>Nuestro equipo en Los Sartenes</image:title>
@@ -38,7 +39,7 @@
     <loc>https://lossartenes.com/contacto.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
     <image:image>
       <image:loc>https://lossartenes.com/images/Logo.jpg</image:loc>
       <image:title>Contacta a Los Sartenes</image:title>
@@ -48,49 +49,50 @@
     <loc>https://lossartenes.com/galeria.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
   </url>
   <url>
     <loc>https://lossartenes.com/menu_infantil.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
   </url>
   <url>
     <loc>https://lossartenes.com/bebidas_postres_picaditos.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
   </url>
   <url>
     <loc>https://lossartenes.com/festival_de_mariscos.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
   </url>
   <url>
     <loc>https://lossartenes.com/vegetarianos.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
   </url>
+  <!-- Menú Secciones -->
   <url>
-    <loc>https://lossartenes.com.app/menu/bebidas.html</loc>
+    <loc>https://lossartenes.com/menu/bebidas.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
   </url>
   <url>
-    <loc>https://lossartenes.com.app/menu/carnes.html</loc>
+    <loc>https://lossartenes.com/menu/carnes.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
   </url>
   <url>
     <loc>https://lossartenes.com/menu/parrilladas.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
     <image:image>
       <image:loc>https://lossartenes.com/images/Parrilladas/Parrilladas los sartenes.webp</image:loc>
       <image:title>Parrillada Los Sartenes</image:title>
@@ -104,7 +106,7 @@
     <loc>https://lossartenes.com/menu/pastas.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
     <image:image>
       <image:loc>https://lossartenes.com/images/Pastas/Espagueti Carbonara.webp</image:loc>
       <image:title>Espagueti Carbonara</image:title>
@@ -118,7 +120,7 @@
     <loc>https://lossartenes.com/menu/pescados-mariscos.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
     <image:image>
       <image:loc>https://lossartenes.com/images/Festival de Mariscos/Orgia de mariscos.webp</image:loc>
       <image:title>Orgía de mariscos</image:title>
@@ -132,12 +134,67 @@
     <loc>https://lossartenes.com/menu/postres.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
   </url>
   <url>
     <loc>https://lossartenes.com/menu/vegetariano.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2026-01-10</lastmod>
   </url>
+
+  <!-- Platos de la Carta (54 páginas) -->
+  <url><loc>https://lossartenes.com/menu/platos/alitas_bbq.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/bistec_a_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/bistec_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/camaron_a_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/camaron_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/camarones_ajillo.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/camarones_al_ajillo.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/camarones_fredd.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/cecina_a_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/cecina_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/ceviche_peruano.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/chuleta_champinones.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/chuleta_de_cerdo_en_salsa_de_pina.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/chuleta_en_salsa_de_champinones.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/chuleta_pina.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/costillas_bbq.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/crema_camaron.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/crema_de_camaron.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/crema_de_verduras.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/crema_verduras.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/ensalada_campera.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/ensalada_cesar.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/ensalada_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/espagueti_carbonara.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/espagueti_con_mariscos.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/espagueti_di_pollo_con_champinones.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/espagueti_mariscos.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/espagueti_pollo_champinones.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/fettuccini_a_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/fettuccini_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/filet_mignon.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/frutos_mar.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/gordon_blue.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/langostinos_grill.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/locro_de_papa_clasico.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/locro_papa.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/lomo_pimienta.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/picadillo.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/pollo_andaluz.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/pollo_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/pollo_portobellos.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/risotto_marinero.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/salmon.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/sarten_de_alitas.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/sarten_de_costillas_bbq.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/sarten_de_langostinos_al_grill.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/sarten_de_lomo_a_la_pimienta.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/sarten_de_pollo_en_salsa_de_portobellos.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/sarten_frutos_del_mar.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/sopa_de_pollo.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/sopa_pollo.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/tilapia_a_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lossartenes.com/menu/platos/tilapia_los_sartenes.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>
