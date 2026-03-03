@@ -26,19 +26,19 @@ ________________________________________
 3. Palabras Clave e Intención de Búsqueda por Página
 Cada sección de la web ha sido diseñada para capturar una necesidad específica del cliente:
 
-Página (Enlace)	Palabras Clave	Intención del Cliente		Estado Sugerido en Google	
+Página (Enlace)	Palabras Clave	Intención del Cliente		Estado Sugerido / Real en Google	
 Home (Inicio)
-Almuerzos de la 24 Loja, Restaurante 24 de Mayo.	Busca un lugar confiable, rico y económico para almorzar hoy.	Objetivo: Top 3	
-Sobre Nosotros
-Historia Los Sartenes, Tradición Lojana Loja.	Busca seguridad en la higiene, raíces y autenticidad del local.	Objetivo: 1ra página	
-Menú del Día
-Menú del día Loja, Almuerzo económico Loja.	Antojo de comida casera variada y completa (Sopa+Seco+Postre).	Objetivo: 1ra página	
-Galería / Ambiente
-Ambiente acogedor Loja, Restaurante con música jazz.	Desea un espacio agradable para reuniones de trabajo o amigos.	Objetivo: 1ra página	
+Almuerzos de la 24 Loja, Restaurante 24 de Mayo.	Busca un lugar confiable, rico y económico para almorzar hoy.	“Almuerzos de la 24 Loja” primera página 1er puesto	
 Festival de Mariscos
-Mariscos en Loja, Cazuela de pescado Loja.	Busca variedad y frescura marina en el centro de la ciudad.	Objetivo: Top 5	
+Mariscos en Loja, Cazuela de pescado Loja.	Busca variedad y frescura marina en el centro de la ciudad.	“Mariscos en Loja” segunda página 3er puesto	
 Vegetarianos
-Comida vegetariana Loja, Almuerzo saludable Loja.	Público con dietas específicas que busca alternativas de calidad.	Objetivo: 1ra página	
+Comida vegetariana Loja, Almuerzo saludable Loja.	Público con dietas específicas que busca alternativas de calidad.	“Comida vegetariana Loja” primera página 6to puesto	
+Parrilladas
+Parrilladas Loja, Asado a la brasa Loja.	Desea una experiencia de carnes asadas y platos contundentes.	“Parrilladas Loja” primera página 3er puesto	
+Menú Infantil
+Menú infantil Loja, Restaurante familiar Loja.	Busca opciones seguras y deliciosas para los más pequeños.	“Menú infantil Loja” primera página 2do puesto	
+Bebidas, Postres y Picaditos
+Picaditos Loja, Postres tradicionales Loja.	Desea acompañamientos, snacks o un cierre dulce para su comida.	“Picaditos Loja” segunda página 1er puesto	
 Contacto / Reservas
 Reservar restaurante Loja, Los Sartenes teléfono.	Acción inmediata de visita, reserva de mesa o pedido WhatsApp.	Directo 1er puesto	
 
@@ -63,6 +63,15 @@ o	Post: "¡Lo mejor del mar en el centro de Loja! 🌊 Prueba nuestra famosa Caz
 
 •	Página: Especiales / Carta
 o	Post: "¿Antojo de algo especial? Nuestro Salmón y Lomo a la Pimienta te esperan. Calidad gourmet a precios insuperables. 🍽️ 🔗 Carta completa: https://www.lossartenes.com/index.html#nuestra-carta"
+
+•	Página: Vegetarianos
+o	Post: "Porque comer saludable también es una delicia. 🌿 Descubre nuestras opciones de Comida vegetariana en Loja, preparadas con ingredientes frescos y todo el toque de Los Sartenes. 🔗 Menú saludable: https://www.lossartenes.com/vegetarianos.html"
+
+•	Página: Menú Infantil
+o	Post: "¡Diversión y sabor para los más pequeños! 👧👦 Nuestro Menú Infantil en Loja está diseñado para que los niños disfruten tanto como los grandes. ¡El mejor restaurante familiar te espera! 🔗 Menú niños: https://www.lossartenes.com/menu_infantil.html"
+
+•	Página: Bebidas, Postres y Picaditos
+o	Post: "El cierre perfecto para tu almuerzo. 🍮 Jugos frescos, postres tradicionales y esos picaditos que tanto te gustan. ¡Date un gusto hoy! 🔗 Ver delicias: https://www.lossartenes.com/bebidas_postres_picaditos.html"
 
 ________________________________________
 5. Escalabilidad y Futuro del Portal
